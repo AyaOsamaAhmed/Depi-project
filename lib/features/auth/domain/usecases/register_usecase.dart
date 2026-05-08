@@ -2,17 +2,27 @@ class RegisterUseCase {
   final AuthRepository repository;
   RegisterUseCase(this.repository);
 
-  Future<Either<Failure, User>> call({
+  Future<Either<Failure, AuthEntity>> call({
     required String email,
     required String password,
-    required String name,
-    required String userType,
+    required String firstName,
+    required String lastName,
+    required int userType,
+    required int gender,
+    required String dateOfBirth,
+    required String phoneNumber,
+    required int countryId,
   }) {
-    return repository.registerWithEmail(
+    return repository.register(
       email: email,
       password: password,
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       userType: userType,
+      gender: gender,
+      dateOfBirth: dateOfBirth,
+      phoneNumber: phoneNumber,
+      countryId: countryId,
     );
   }
 }

@@ -1,14 +1,26 @@
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, User>> loginWithEmail(String email, String password);
-  Future<Either<Failure, User>> registerWithEmail({
+  Future<Either<Failure, AuthEntity>> login({
     required String email,
     required String password,
-    required String name,
-    required String userType,
   });
-  Future<Either<Failure, void>> logout(String sessionId);
-  Future<Either<Failure, void>> verifyEmail(String token);
-  Future<Either<Failure, void>> requestPasswordReset(String email);
+
+  Future<Either<Failure, AuthEntity>> register({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required int userType,
+    required int gender,
+    required String dateOfBirth,
+    required String phoneNumber,
+    required int countryId,
+  });
+
+  Future<Either<Failure, void>> logout();
+
+  Future<Either<Failure, AuthEntity>> refreshToken(String refreshToken);
+
+  Future<String?> getSavedToken();
 }

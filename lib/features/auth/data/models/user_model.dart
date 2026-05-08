@@ -1,25 +1,31 @@
-class UserModel extends User {
+class UserModel extends UserEntity {
   const UserModel({
     required super.id,
-    required super.name,
     required super.email,
+    required super.firstName,
+    required super.lastName,
+    required super.fullName,
     required super.userType,
+    required super.status,
+    required super.gender,
+    required super.isIdentityVerified,
     required super.isEmailVerified,
+    required super.isPhoneVerified,
+    required super.roles,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json['id'],
-        name: json['name'],
         email: json['email'],
-        userType: json['user_type'],
-        isEmailVerified: json['is_email_verified'] ?? false,
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        fullName: json['fullName'],
+        userType: json['userType'],
+        status: json['status'],
+        gender: json['gender'],
+        isIdentityVerified: json['isIdentityVerified'] ?? false,
+        isEmailVerified: json['isEmailVerified'] ?? false,
+        isPhoneVerified: json['isPhoneVerified'] ?? false,
+        roles: List<String>.from(json['roles'] ?? []),
       );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'email': email,
-        'user_type': userType,
-        'is_email_verified': isEmailVerified,
-      };
 }
