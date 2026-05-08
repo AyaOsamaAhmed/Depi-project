@@ -50,5 +50,3 @@ When using the AI coding assistant (Antigravity), ensure it follows the `.rules`
 
 ---
 
-## 📖 Further Reading
-For developer-specific rules, see: [Developer Rules](./rulre_for_devs.md)
