@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dipe_freelance/core/localization/l10n/app_localizations.dart';
-
 import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/router/app_router.dart';
 import 'package:dipe_freelance/core/theme/app_theme.dart';
