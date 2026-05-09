@@ -1,12 +1,22 @@
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:dipe_freelance/features/auth/presentation/views/login_screen.dart';
+import 'package:dipe_freelance/features/auth/presentation/views/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.initial,
+    initialLocation: AppRoutes.login,
     routes: [
+      GoRoute(
+        path: AppRoutes.login,
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.signup,
+        builder: (context, state) => const SignupScreen(),
+      ),
       GoRoute(
         path: AppRoutes.initial,
         builder: (context, state) => Scaffold(
@@ -47,3 +57,4 @@ class AppRouter {
     ],
   );
 }
+

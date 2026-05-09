@@ -2,5 +2,25 @@
   "helloWorld": "Hello World",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
-  }
+  },
+  "logIn": "Log In",
+  "signUp": "Sign Up",
+  "email": "E-mail",
+  "enterEmail": "Enter Email",
+  "password": "Password",
+  "enterPassword": "Enter Password",
+  "forgetPassword": "Forget Password?",
+  "dontHaveAccount": "Don't Have An Account?",
+  "alreadyHaveAccount": "Already Have An Account?",
+  "firstName": "First Name",
+  "enterFirstName": "Enter First Name",
+  "lastName": "Last Name",
+  "enterLastName": "Enter Last Name",
+  "loginSuccess": "Login Success",
+  "signupSuccess": "Signup Success",
+  "enterBothEmailAndPassword": "Please enter both email and password.",
+  "fillAllFields": "Please fill all the fields.",
+  "invalidEmail": "Please enter a valid email address.",
+  "passwordTooShort": "Password must be at least 6 characters.",
+  "invalidCredentials": "Incorrect email or password."
 }
