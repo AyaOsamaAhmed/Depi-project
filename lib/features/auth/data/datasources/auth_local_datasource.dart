@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../models/auth_model.dart';
+
 abstract class AuthLocalDataSource {
   Future<void> saveAuthData(AuthModel auth);
   Future<String?> getAccessToken();

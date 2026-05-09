@@ -1,3 +1,5 @@
+import 'package:dipe_freelance/features/auth/domain/entities/user_entity.dart';
+
 class AuthEntity {
   final String accessToken;
   final String refreshToken;

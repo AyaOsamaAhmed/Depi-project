@@ -1,5 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../../domain/entities/auth_entity.dart';
+import '../../domain/failures/failure.dart' hide Failure, ServerFailure;
+import '../../domain/repositories/auth_repository.dart';
+import '../datasources/auth_local_datasource.dart';
+import '../datasources/auth_remote_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
@@ -11,21 +18,23 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   // ─── Helper ───────────────────────────────────────────
-  Failure _handleDioError(DioException e) {
+  Object _handleDioError(DioException e) {
     final statusCode = e.response?.statusCode;
     final message = e.response?.data?['error'] as String?;
 
     switch (statusCode) {
       case 400:
-        return ServerFailure(message ?? 'طلب غير صحيح');
+        return ServerFailure(message ?? 'طلب غير صحيح') as Failure;
       case 401:
-        return AuthFailure(message ?? 'غير مصرح، سجل دخول مرة تانية');
+        return AuthFailure(message ?? 'غير مصرح، سجل دخول مرة تانية')
+            as Failure;
       case 404:
-        return ServerFailure(message ?? 'المورد مش موجود');
+        return ServerFailure(message ?? 'المورد مش موجود') as Failure;
       case 500:
-        return ServerFailure(message ?? 'خطأ في السيرفر، حاول بعدين');
+        return ServerFailure(message ?? 'خطأ في السيرفر، حاول بعدين')
+            as Failure;
       default:
-        return NetworkFailure('تأكد من الاتصال بالإنترنت');
+        return NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure;
     }
   }
 
@@ -40,9 +49,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.saveAuthData(result);
       return Right(result);
     } on DioException catch (e) {
-      return Left(_handleDioError(e));
+      return Left(_handleDioError(e) as Failure);
     } catch (e) {
-      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت'));
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
     }
   }
 
@@ -74,9 +83,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.saveAuthData(result);
       return Right(result);
     } on DioException catch (e) {
-      return Left(_handleDioError(e));
+      return Left(_handleDioError(e) as Failure);
     } catch (e) {
-      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت'));
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
     }
   }
 
@@ -88,12 +97,11 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.clearAuthData();
       return const Right(null);
     } on DioException catch (e) {
-    
       await localDataSource.clearAuthData();
-      return Left(_handleDioError(e));
+      return Left(_handleDioError(e) as Failure);
     } catch (e) {
       await localDataSource.clearAuthData();
-      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت'));
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
     }
   }
 
@@ -105,9 +113,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.saveAuthData(result);
       return Right(result);
     } on DioException catch (e) {
-      return Left(_handleDioError(e));
+      return Left(_handleDioError(e) as Failure);
     } catch (e) {
-      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت'));
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
     }
   }
 

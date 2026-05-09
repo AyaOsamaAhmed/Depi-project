@@ -1,3 +1,10 @@
+import 'package:dipe_freelance/features/auth/data/models/user_model.dart';
+
+import '../../domain/entities/auth_entity.dart';
+import '../../domain/entities/user_entity.dart';
+
+
+
 class AuthModel extends AuthEntity {
   const AuthModel({
     required super.accessToken,
@@ -10,6 +17,6 @@ class AuthModel extends AuthEntity {
         accessToken: json['accessToken'],
         refreshToken: json['refreshToken'],
         expiresAt: json['expiresAt'],
-        user: UserModel.fromJson(json['user']),
+        user: UserModel.fromJson(json['user']) as UserEntity,
       );
 }

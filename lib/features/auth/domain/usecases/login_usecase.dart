@@ -1,3 +1,9 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../entities/auth_entity.dart';
+import '../repositories/auth_repository.dart' show AuthRepository;
+
 class LoginUseCase {
   final AuthRepository repository;
   LoginUseCase(this.repository);
