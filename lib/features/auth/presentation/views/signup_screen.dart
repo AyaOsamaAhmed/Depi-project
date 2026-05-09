@@ -1,3 +1,4 @@
+import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/core/utils/validators.dart';
@@ -37,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupCubit(),
+      create: (context) => getIt<SignupCubit>(),
       child: Scaffold(
         backgroundColor: context.colorScheme.primary, // Dark blue background
         body: SafeArea(
@@ -148,11 +149,16 @@ class _SignupScreenState extends State<SignupScreen> {
                               onFieldSubmitted: (_) {
                                 if (_formKey.currentState!.validate()) {
                                   context.read<SignupCubit>().signup(
-                                    _firstNameController.text,
-                                    _lastNameController.text,
-                                    _emailController.text,
-                                    _passwordController.text,
-                                  );
+                                        firstName: _firstNameController.text,
+                                        lastName: _lastNameController.text,
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        userType: 1, // Default Freelancer
+                                        gender: 1, // Default Male
+                                        dateOfBirth: "2000-01-01",
+                                        phoneNumber: "0123456789",
+                                        countryId: 1,
+                                      );
                                 }
                               },
                             ),
@@ -188,11 +194,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       context.read<SignupCubit>().signup(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                      );
+                                            firstName: _firstNameController.text,
+                                            lastName: _lastNameController.text,
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                            userType: 1, // Default Freelancer
+                                            gender: 1, // Default Male
+                                            dateOfBirth: "2000-01-01",
+                                            phoneNumber: "0123456789",
+                                            countryId: 1,
+                                          );
                                     }
                                   },
                                 );

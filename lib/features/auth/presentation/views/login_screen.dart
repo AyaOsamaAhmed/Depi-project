@@ -1,3 +1,4 @@
+import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/core/utils/validators.dart';
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
+      create: (context) => getIt<LoginCubit>(),
       child: Scaffold(
         backgroundColor: context.colorScheme.primary, // Dark blue background
         body: SafeArea(

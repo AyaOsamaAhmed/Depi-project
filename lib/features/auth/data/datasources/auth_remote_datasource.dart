@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-
+import 'package:injectable/injectable.dart';
 import '../models/auth_model.dart';
 
 abstract class AuthRemoteDataSource {
@@ -19,6 +19,7 @@ abstract class AuthRemoteDataSource {
   Future<AuthModel> refreshToken(String refreshToken);
 }
 
+@LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Dio dio;
   static const baseUrl = 'http://depiplatform.runasp.net/api';
@@ -31,6 +32,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       '$baseUrl/auth/login',
       data: {'email': email, 'password': password},
     );
+    print(response.data);
     return AuthModel.fromJson(response.data);
   }
 
@@ -60,6 +62,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'countryId': countryId,
       },
     );
+    print(response.data);
     return AuthModel.fromJson(response.data);
   }
 
@@ -74,6 +77,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       '$baseUrl/auth/refresh',
       data: {'refreshToken': refreshToken},
     );
+    print(response.data);
     return AuthModel.fromJson(response.data);
   }
 }

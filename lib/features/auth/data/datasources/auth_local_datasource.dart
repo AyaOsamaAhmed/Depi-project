@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 
 import '../models/auth_model.dart';
 
@@ -9,6 +10,7 @@ abstract class AuthLocalDataSource {
   Future<void> clearAuthData();
 }
 
+@LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final FlutterSecureStorage _storage;
 
@@ -30,7 +32,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     await _storage.write(key: _expiresAtKey, value: auth.expiresAt);
     await _storage.write(key: _userIdKey, value: auth.user.id);
     await _storage.write(key: _userEmailKey, value: auth.user.email);
-    await _storage.write(key: _userTypeKey, value: auth.user.userType.toString());
+    await _storage.write(
+      key: _userTypeKey,
+      value: auth.user.userType.toString(),
+    );
     await _storage.write(key: _userFullNameKey, value: auth.user.fullName);
   }
 
