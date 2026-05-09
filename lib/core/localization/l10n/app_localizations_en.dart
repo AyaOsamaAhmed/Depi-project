@@ -67,7 +67,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalidEmail => 'Please enter a valid email address.';
 
   @override
-  String get passwordTooShort => 'Password must be at least 6 characters.';
+  String get passwordTooShort => 'Password must be at least 8 characters.';
+
+  @override
+  String get passwordWeak =>
+      'Password must contain uppercase, lowercase, number, and special character.';
+
+  @override
+  String get emailRequired => 'Email is required.';
+
+  @override
+  String get passwordRequired => 'Password is required.';
+
+  @override
+  String get isRequired => 'is required.';
 
   @override
   String get invalidCredentials => 'Incorrect email or password.';

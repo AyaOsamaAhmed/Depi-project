@@ -7,6 +7,10 @@ class AuthTextField extends StatefulWidget {
   final String hint;
   final bool isPassword;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
 
   const AuthTextField({
     super.key,
@@ -14,6 +18,10 @@ class AuthTextField extends StatefulWidget {
     required this.hint,
     this.isPassword = false,
     this.controller,
+    this.validator,
+    this.keyboardType,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -42,9 +50,13 @@ class _AuthTextFieldState extends State<AuthTextField> {
           ),
         ),
         SizedBox(height: 8.h),
-        TextField(
+        TextFormField(
           controller: widget.controller,
           obscureText: _obscureText,
+          validator: widget.validator,
+          keyboardType: widget.keyboardType,
+          textInputAction: widget.textInputAction,
+          onFieldSubmitted: widget.onFieldSubmitted,
           style: context.textTheme.bodyMedium?.copyWith(
             color: context.colorScheme.onSurface,
           ),
@@ -61,6 +73,17 @@ class _AuthTextFieldState extends State<AuthTextField> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.r),
               borderSide: BorderSide(color: context.colorScheme.primary),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.r),
+              borderSide: BorderSide(color: context.colorScheme.error),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.r),
+              borderSide: BorderSide(color: context.colorScheme.error),
+            ),
+            errorStyle: context.textTheme.bodySmall?.copyWith(
+              color: context.colorScheme.error,
             ),
             suffixIcon: widget.isPassword
                 ? IconButton(

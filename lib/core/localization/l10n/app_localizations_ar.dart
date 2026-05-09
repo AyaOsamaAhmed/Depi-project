@@ -68,7 +68,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordTooShort =>
-      'كلمة المرور يجب أن تتكون من 6 أحرف على الأقل.';
+      'كلمة المرور يجب أن تتكون من 8 أحرف على الأقل.';
+
+  @override
+  String get passwordWeak =>
+      'يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام ورموز خاصة.';
+
+  @override
+  String get emailRequired => 'البريد الإلكتروني مطلوب.';
+
+  @override
+  String get passwordRequired => 'كلمة المرور مطلوبة.';
+
+  @override
+  String get isRequired => 'مطلوب.';
 
   @override
   String get invalidCredentials =>
