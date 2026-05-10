@@ -46,35 +46,33 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             children: [
               // Top Section
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: context.colorScheme.onPrimary,
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
+                  Center(
+                    child: Text(
+                      context.local.signUp,
+                      style: context.textTheme.displayMedium?.copyWith(
                         color: context.colorScheme.onPrimary,
                       ),
                     ),
-                    Center(
-                      child: Text(
-                        context.local.signUp,
-                        style: context.textTheme.displayMedium?.copyWith(
-                          color: context.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 40.h),
+                ],
               ),
 
               // Bottom Section with Form
               Expanded(
-                flex: 4, // Increased to give more space and remove scroll
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -149,16 +147,16 @@ class _SignupScreenState extends State<SignupScreen> {
                               onFieldSubmitted: (_) {
                                 if (_formKey.currentState!.validate()) {
                                   context.read<SignupCubit>().signup(
-                                        firstName: _firstNameController.text,
-                                        lastName: _lastNameController.text,
-                                        email: _emailController.text,
-                                        password: _passwordController.text,
-                                        userType: 1, // Default Freelancer
-                                        gender: 1, // Default Male
-                                        dateOfBirth: "2000-01-01",
-                                        phoneNumber: "0123456789",
-                                        countryId: 1,
-                                      );
+                                    firstName: _firstNameController.text,
+                                    lastName: _lastNameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    userType: 1, // Default Freelancer
+                                    gender: 1, // Default Male
+                                    dateOfBirth: "2000-01-01",
+                                    phoneNumber: "0123456789",
+                                    countryId: 1,
+                                  );
                                 }
                               },
                             ),
@@ -194,16 +192,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       context.read<SignupCubit>().signup(
-                                            firstName: _firstNameController.text,
-                                            lastName: _lastNameController.text,
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                            userType: 1, // Default Freelancer
-                                            gender: 1, // Default Male
-                                            dateOfBirth: "2000-01-01",
-                                            phoneNumber: "0123456789",
-                                            countryId: 1,
-                                          );
+                                        firstName: _firstNameController.text,
+                                        lastName: _lastNameController.text,
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        userType: 1, // Default Freelancer
+                                        gender: 1, // Default Male
+                                        dateOfBirth: "2000-01-01",
+                                        phoneNumber: "0123456789",
+                                        countryId: 1,
+                                      );
                                     }
                                   },
                                 );
