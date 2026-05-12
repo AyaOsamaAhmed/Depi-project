@@ -103,6 +103,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello World'**
   String get helloWorld;
+
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to NEXT HIRE'**
+  String get onboardingWelcomeTitle;
+
+  /// No description provided for @onboardingWelcomeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Start building your freelance future today.'**
+  String get onboardingWelcomeDesc;
+
+  /// No description provided for @onboardingStartBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get onboardingStartBtn;
+
+  /// No description provided for @onboardingSkipBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkipBtn;
+
+  /// No description provided for @onboardingFutureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Freelance Future Starts Here'**
+  String get onboardingFutureTitle;
+
+  /// No description provided for @onboardingFutureDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your profile, improve your score, and connect with the right projects faster than ever.'**
+  String get onboardingFutureDesc;
+
+  /// No description provided for @onboardingNextBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNextBtn;
 }
 
 class _AppLocalizationsDelegate

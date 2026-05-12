@@ -45,7 +45,7 @@ dependencies:
     sdk: flutter
   dio: ^5.9.2
   dartz: ^0.10.1
-  flutter_svg: ^2.0.10+1
+  flutter_svg: 2.3.0
 
 dev_dependencies:
   flutter_test:

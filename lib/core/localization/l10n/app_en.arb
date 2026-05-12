@@ -2,5 +2,12 @@
   "helloWorld": "Hello World",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
-  }
+  },
+  "onboardingWelcomeTitle": "Welcome to NEXT HIRE",
+  "onboardingWelcomeDesc": "Start building your freelance future today.",
+  "onboardingStartBtn": "Start",
+  "onboardingSkipBtn": "Skip",
+  "onboardingFutureTitle": "Your Freelance Future Starts Here",
+  "onboardingFutureDesc": "Build your profile, improve your score, and connect with the right projects faster than ever.",
+  "onboardingNextBtn": "Next"
 }

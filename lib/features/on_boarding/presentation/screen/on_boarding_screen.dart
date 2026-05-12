@@ -1,4 +1,7 @@
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -9,147 +12,327 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController controller = PageController();
-
   int currentIndex = 0;
 
-  final List<Map<String, String>> pages = [
-    {
-      'image': 'assets/images/onboarding1.png',
-      'title': 'Welcome to NEXT HIRE',
-      'description': 'Start building your freelance future today.',
-      'button': 'Start',
-    },
-    {
-      'image': 'assets/images/onboarding2.png',
-      'title': 'Your Freelance Future Starts Here',
-      'description':
-          'Build your profile, improve your score, and connect with the right projects faster than ever.',
-      'button': 'Next',
-    },
-  ];
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // MAIN CONTENT
-          Expanded(
-            child: PageView.builder(
-              controller: controller,
-              onPageChanged: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              itemCount: pages.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // SCREENSHOT
-                      Image.asset(
-                        height: 300,
-                        width: 300,
-                        pages[index]['image']!,
-                        fit: BoxFit.contain,
-                      ),
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            final screenWidth = MediaQuery.sizeOf(context).width;
+            final newIndex = (notification.metrics.pixels / screenWidth)
+                .round();
+            if (newIndex != currentIndex && newIndex >= 0 && newIndex < 2) {
+              setState(() {
+                currentIndex = newIndex;
+              });
+            }
+          }
+          return false;
+        },
+        child: PageView.builder(
+          controller: controller,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return _buildScreenOne(context);
+            } else {
+              return _buildScreenTwo(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
 
-                      const SizedBox(height: 40),
-
-                      /// TEXT GROUP
-                      Column(
-                        children: [
-                          Text(
-                            pages[index]['title']!,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            pages[index]['description']!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 16, color: Colors.black),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      /// NEXT BUTTON
-                      SizedBox(
-                        width: double.infinity,
-                        height: 58,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF0D2B52),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (currentIndex == 0) {
-                              // move to second page
-                              controller.animateToPage(
-                                1,
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.ease,
-                              );
-                            } else {
-                              // go to home
-                              // context.go('/home');
-                            }
-                          },
-                          child: Text(
-                            pages[index]['button']!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 18),
-
-                      /// SKIP BUTTON
-                      if (index == 0)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 58,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Color(0xFF0D2B52)),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: const Text(
-                              'Skip',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Color(0xFF0D2B52),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                      const SizedBox(height: 40),
-                    ],
+  // Screen 1: Welcome to NEXT HIRE
+  Widget _buildScreenOne(BuildContext context) {
+    return Column(
+      children: [
+        // TOP IMAGE AREA
+        Expanded(
+          flex: 5,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: SvgPicture.asset(
+                    'assets/images/onboarding_back_1.svg',
+                    height: 327.h,
+                    width: 1.sw,
+                    fit: BoxFit.fill,
                   ),
-                );
-              },
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'assets/images/onboarding_1.png',
+                  width: 1.sw,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // BOTTOM TEXT & BUTTONS AREA
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildIndicator(0, context),
+                SizedBox(height: 32.h),
+                _buildWelcomeTitle(context),
+                SizedBox(height: 48.h),
+                _buildPrimaryButton(
+                  context,
+                  text: context.local.onboardingStartBtn,
+                  onPressed: () {
+                    controller.animateTo(
+                      MediaQuery.sizeOf(context).width,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInToLinear,
+                    );
+                  },
+                ),
+                SizedBox(height: 16.h),
+                _buildOutlinedButton(
+                  context,
+                  text: context.local.onboardingSkipBtn,
+                  onPressed: () {
+                    // context.go(AppRoutes.login);
+                  },
+                ),
+              ],
             ),
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  // Screen 2: Your Freelance Future Starts Here
+  Widget _buildScreenTwo(BuildContext context) {
+    return Column(
+      children: [
+        // TOP TEXT & BUTTON AREA
+        Expanded(
+          flex: 5,
+          child: SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildIndicator(1, context),
+                  SizedBox(height: 32.h),
+                  Text(
+                    context.local.onboardingFutureTitle,
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,
+                      color: context.colorScheme.onSurface,
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    context.local.onboardingFutureDesc,
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontSize: 14.sp,
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.7,
+                      ),
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 48.h),
+                  _buildPrimaryButton(
+                    context,
+                    text: context.local.onboardingNextBtn,
+                    onPressed: () {
+                      // context.go(AppRoutes.login);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        // BOTTOM IMAGE AREA
+        Expanded(
+          flex: 5,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: SvgPicture.asset(
+                    'assets/images/onboarding_back_2.svg',
+                    height: 327.h,
+                    width: 1.sw,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/images/onboarding_2.png',
+                  // height: 800.h,
+                  alignment: AlignmentGeometry.bottomCenter,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWelcomeTitle(BuildContext context) {
+    final title = context.local.onboardingWelcomeTitle;
+    if (title.contains('NEXT HIRE')) {
+      final parts = title.split('NEXT HIRE');
+      return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: context.textTheme.headlineSmall?.copyWith(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.w500,
+            color: context.colorScheme.onSurface,
+          ),
+          children: [
+            TextSpan(text: parts[0]),
+            TextSpan(
+              text: 'NEXT ',
+              style: TextStyle(
+                color: context.colorScheme.primary,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            TextSpan(
+              text: 'HIRE',
+              style: TextStyle(
+                color: context.colorScheme.secondary,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            if (parts.length > 1) TextSpan(text: parts[1]),
+          ],
+        ),
+      );
+    }
+    return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: context.textTheme.headlineSmall?.copyWith(
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w700,
+        color: context.colorScheme.onSurface,
+      ),
+    );
+  }
+
+  Widget _buildIndicator(int activeIndex, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(2, (index) {
+        final isActive = index == activeIndex;
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
+          width: 8.w,
+          height: isActive ? 20.h : 8.h,
+          decoration: BoxDecoration(
+            color: isActive
+                ? context.colorScheme.primary
+                : const Color(0xFFD1D5DB), // gray300
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildPrimaryButton(
+    BuildContext context, {
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 56.h,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: context.colorScheme.primary,
+          foregroundColor: context.colorScheme.onPrimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.r),
+          ),
+          elevation: 0,
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: context.textTheme.labelLarge?.copyWith(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: context.colorScheme.onPrimary,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOutlinedButton(
+    BuildContext context, {
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 56.h,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(color: context.colorScheme.primary, width: 1.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.r),
+          ),
+          foregroundColor: context.colorScheme.primary,
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: context.textTheme.labelLarge?.copyWith(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: context.colorScheme.primary,
+          ),
+        ),
       ),
     );
   }
