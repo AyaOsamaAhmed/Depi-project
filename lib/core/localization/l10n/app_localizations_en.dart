@@ -12,7 +12,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World';
 
   @override
-<<<<<<< HEAD
   String get onboardingWelcomeTitle => 'Welcome to NEXT HIRE';
 
   @override
@@ -34,8 +33,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingNextBtn => 'Next';
-=======
-  String get logIn => 'Log In';
+
+  @override
+  String get logIn => 'Sign In';
 
   @override
   String get signUp => 'Sign Up';
@@ -107,5 +107,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidCredentials => 'Incorrect email or password.';
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 }

@@ -1,14 +1,12 @@
 {
   "helloWorld": "مرحباً بالعالم",
-<<<<<<< HEAD
   "onboardingWelcomeTitle": "مرحباً بك في نيكست هاير",
   "onboardingWelcomeDesc": "ابدأ بناء مستقبلك في العمل الحر اليوم.",
   "onboardingStartBtn": "ابدأ",
   "onboardingSkipBtn": "تخطى",
   "onboardingFutureTitle": "مستقبلك في العمل الحر يبدأ هنا",
   "onboardingFutureDesc": "ابنِ ملفك الشخصي، حسّن تقييمك، وتواصل مع المشاريع المناسبة أسرع من أي وقت مضى.",
-  "onboardingNextBtn": "التالي"
-=======
+  "onboardingNextBtn": "التالي",
   "logIn": "تسجيل الدخول",
   "signUp": "إنشاء حساب",
   "email": "البريد الإلكتروني",
@@ -33,5 +31,4 @@
   "passwordRequired": "كلمة المرور مطلوبة.",
   "isRequired": "مطلوب.",
   "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 }

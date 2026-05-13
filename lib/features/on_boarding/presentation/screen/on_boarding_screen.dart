@@ -1,7 +1,11 @@
+import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:dipe_freelance/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -18,6 +22,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  void _onDone(BuildContext context) async {
+    await getIt<AuthLocalDataSource>().saveOnBoardingSeen();
+    if (context.mounted) {
+      context.go(AppRoutes.login);
+    }
   }
 
   @override
@@ -116,9 +127,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 _buildOutlinedButton(
                   context,
                   text: context.local.onboardingSkipBtn,
-                  onPressed: () {
-                    // context.go(AppRoutes.login);
-                  },
+                  onPressed: () => _onDone(context),
                 ),
               ],
             ),
@@ -169,9 +178,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   _buildPrimaryButton(
                     context,
                     text: context.local.onboardingNextBtn,
-                    onPressed: () {
-                      // context.go(AppRoutes.login);
-                    },
+                    onPressed: () => _onDone(context),
                   ),
                 ],
               ),

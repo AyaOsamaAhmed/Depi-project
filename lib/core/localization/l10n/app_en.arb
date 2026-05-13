@@ -3,16 +3,14 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
-<<<<<<< HEAD
   "onboardingWelcomeTitle": "Welcome to NEXT HIRE",
   "onboardingWelcomeDesc": "Start building your freelance future today.",
   "onboardingStartBtn": "Start",
   "onboardingSkipBtn": "Skip",
   "onboardingFutureTitle": "Your Freelance Future Starts Here",
   "onboardingFutureDesc": "Build your profile, improve your score, and connect with the right projects faster than ever.",
-  "onboardingNextBtn": "Next"
-=======
-  "logIn": "Log In",
+  "onboardingNextBtn": "Next",
+  "logIn": "Sign In",
   "signUp": "Sign Up",
   "email": "E-mail",
   "enterEmail": "Enter Email",
@@ -36,5 +34,4 @@
   "passwordRequired": "Password is required.",
   "isRequired": "is required.",
   "invalidCredentials": "Incorrect email or password."
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 }

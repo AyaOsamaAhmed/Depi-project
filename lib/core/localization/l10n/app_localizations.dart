@@ -104,7 +104,6 @@ abstract class AppLocalizations {
   /// **'Hello World'**
   String get helloWorld;
 
-<<<<<<< HEAD
   /// No description provided for @onboardingWelcomeTitle.
   ///
   /// In en, this message translates to:
@@ -146,11 +145,11 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get onboardingNextBtn;
-=======
+
   /// No description provided for @logIn.
   ///
   /// In en, this message translates to:
-  /// **'Log In'**
+  /// **'Sign In'**
   String get logIn;
 
   /// No description provided for @signUp.
@@ -290,7 +289,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incorrect email or password.'**
   String get invalidCredentials;
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 }
 
 class _AppLocalizationsDelegate

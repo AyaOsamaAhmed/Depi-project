@@ -12,7 +12,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helloWorld => 'مرحباً بالعالم';
 
   @override
-<<<<<<< HEAD
   String get onboardingWelcomeTitle => 'مرحباً بك في نيكست هاير';
 
   @override
@@ -33,7 +32,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onboardingNextBtn => 'التالي';
-=======
+
+  @override
   String get logIn => 'تسجيل الدخول';
 
   @override
@@ -108,5 +108,4 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get invalidCredentials =>
       'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 }

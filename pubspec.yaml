@@ -45,11 +45,8 @@ dependencies:
     sdk: flutter
   dio: ^5.9.2
   dartz: ^0.10.1
-<<<<<<< HEAD
   flutter_svg: 2.3.0
-=======
   flutter_secure_storage: ^10.1.0
->>>>>>> 5b6bbdf330977f2c17b79e49818260c497eec855
 
 dev_dependencies:
   flutter_test:
