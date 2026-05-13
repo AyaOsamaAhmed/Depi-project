@@ -1,17 +1,26 @@
 # dipe_freelance
 
-A new Flutter project.
+A premium Flutter project built with Clean Architecture.
 
-## Getting Started
+## 📚 Documentation & Wiki
 
-This project is a starting point for a Flutter application.
+For detailed information about the project, architecture, and development guidelines, please visit our **[Project Wiki](./docs/WIKI.md)**.
 
-A few resources to get you started if this is your first Flutter project:
+### Key Documentation:
+- 🚀 **[Getting Started](./docs/GETTING_STARTED.md)**: Setup and installation.
+- 🏗️ **[Architecture](./docs/ARCHITECTURE.md)**: Understanding Clean Architecture.
+- 🎨 **[Design System](./docs/DESIGN_SYSTEM.md)**: Theming and UI rules.
+- 🛠️ **[Contributing](./docs/CONTRIBUTING.md)**: Git workflow and standards.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Tech Stack
+- **Framework:** Flutter (3.41.7)
+- **Architecture:** Clean Architecture (Feature-based)
+- **State Management:** Flutter Bloc (Cubit)
+- **Navigation:** GoRouter
+- **Dependency Injection:** GetIt
+- **Networking:** Dio
+- **Responsiveness:** Flutter ScreenUtil
+- **Localization:** Flutter Gen-L10n
+

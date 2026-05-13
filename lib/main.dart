@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dipe_freelance/core/localization/l10n/app_localizations.dart';
-
 import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/router/app_router.dart';
 import 'package:dipe_freelance/core/theme/app_theme.dart';
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(390, 844), // Standard setup, change if Figma design differs
+      designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('en'), // Configure based on preference
+          locale: const Locale('en'),
         );
       },
     );
