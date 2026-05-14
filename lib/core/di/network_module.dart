@@ -27,7 +27,6 @@ abstract class NetworkModule {
         error: true,
       ),
     );
-
     return dio;
   }
 }
