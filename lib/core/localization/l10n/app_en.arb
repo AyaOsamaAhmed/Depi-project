@@ -33,5 +33,7 @@
   "emailRequired": "Email is required.",
   "passwordRequired": "Password is required.",
   "isRequired": "is required.",
-  "invalidCredentials": "Incorrect email or password."
+  "invalidCredentials": "Incorrect email or password.",
+  "freelancer": "Freelancer",
+  "client": "Client"
 }

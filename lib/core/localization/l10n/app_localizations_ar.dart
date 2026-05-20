@@ -108,4 +108,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get invalidCredentials =>
       'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+
+  @override
+  String get freelancer => 'مستقل';
+
+  @override
+  String get client => 'عميل';
 }

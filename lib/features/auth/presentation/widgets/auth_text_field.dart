@@ -65,21 +65,24 @@ class _AuthTextFieldState extends State<AuthTextField> {
             hintStyle: context.textTheme.bodyMedium?.copyWith(
               color: context.theme.disabledColor,
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+              vertical: 16.h,
+            ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(color: context.theme.dividerColor),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(color: context.colorScheme.primary),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(color: context.colorScheme.error),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(color: context.colorScheme.error),
             ),
             errorStyle: context.textTheme.bodySmall?.copyWith(

@@ -107,4 +107,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidCredentials => 'Incorrect email or password.';
+
+  @override
+  String get freelancer => 'Freelancer';
+
+  @override
+  String get client => 'Client';
 }

@@ -289,6 +289,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incorrect email or password.'**
   String get invalidCredentials;
+
+  /// No description provided for @freelancer.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelancer'**
+  String get freelancer;
+
+  /// No description provided for @client.
+  ///
+  /// In en, this message translates to:
+  /// **'Client'**
+  String get client;
 }
 
 class _AppLocalizationsDelegate
