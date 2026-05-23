@@ -23,10 +23,7 @@ class FreelanceDashboardView extends StatelessWidget {
           backgroundColor: context.colorScheme.surface,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              color: context.colorScheme.onSurface,
-            ),
+            icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
             onPressed: () => Navigator.of(context).pop(),
           ),
           centerTitle: true,
@@ -323,7 +320,7 @@ class _FreelanceDashboardFooter extends StatelessWidget {
               },
               builder: (context, state) {
                 return Expanded(
-                  child: SharedButton(
+                  child: SharedBlueButton(
                     text: context.local.hireFreelancer,
                     onPressed: () {},
                   ),

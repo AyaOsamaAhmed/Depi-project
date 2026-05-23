@@ -355,6 +355,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hire Freelancer'**
   String get hireFreelancer;
+
+  /// No description provided for @projectLiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Project is now live!'**
+  String get projectLiveTitle;
+
+  /// No description provided for @projectLiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what you need and we will help you find the best freelancers'**
+  String get projectLiveSubtitle;
+
+  /// No description provided for @whatsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'what\'s Next?'**
+  String get whatsNext;
+
+  /// No description provided for @createContractMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Create contract and milestone'**
+  String get createContractMilestone;
+
+  /// No description provided for @workTogetherTrackProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Work together and track progress'**
+  String get workTogetherTrackProgress;
+
+  /// No description provided for @viewProject.
+  ///
+  /// In en, this message translates to:
+  /// **'View Project'**
+  String get viewProject;
+
+  /// No description provided for @goToDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to dashboard'**
+  String get goToDashboard;
 }
 
 class _AppLocalizationsDelegate

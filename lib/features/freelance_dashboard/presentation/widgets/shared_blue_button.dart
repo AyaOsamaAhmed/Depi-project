@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SharedButton extends StatelessWidget {
+class SharedBlueButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
+  final double? fontSize;
 
-  const SharedButton({
+  const SharedBlueButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.fontSize,
   });
 
   @override
@@ -41,7 +43,7 @@ class SharedButton extends StatelessWidget {
                 text,
                 style: context.textTheme.labelLarge?.copyWith(
                   color: context.colorScheme.onPrimary,
-                  fontSize: 14.sp,
+                  fontSize: fontSize ?? 14.sp,
                 ),
               ),
       ),

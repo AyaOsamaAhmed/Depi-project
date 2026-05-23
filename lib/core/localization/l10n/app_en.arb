@@ -44,5 +44,12 @@
   "skills": "Skills",
   "profile": "Profile",
   "message": "Message",
-  "hireFreelancer": "Hire Freelancer"
+  "hireFreelancer": "Hire Freelancer",
+  "projectLiveTitle": "Your Project is now live!",
+  "projectLiveSubtitle": "Tell us what you need and we will help you find the best freelancers",
+  "whatsNext": "what's Next?",
+  "createContractMilestone": "Create contract and milestone",
+  "workTogetherTrackProgress": "Work together and track progress",
+  "viewProject": "View Project",
+  "goToDashboard": "Go to dashboard"
 }

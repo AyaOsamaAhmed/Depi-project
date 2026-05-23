@@ -41,5 +41,12 @@
   "skills": "المهارات",
   "profile": "معرض الأعمال",
   "message": "رسالة",
-  "hireFreelancer": "توظيف المستقل"
+  "hireFreelancer": "توظيف المستقل",
+  "projectLiveTitle": "مشروعك الآن متاح!",
+  "projectLiveSubtitle": "أخبرنا بما تحتاجه وسنساعدك في العثور على أفضل المستقلين",
+  "whatsNext": "ماذا بعد؟",
+  "createContractMilestone": "إنشاء عقد ومراحل العمل",
+  "workTogetherTrackProgress": "اعملوا معاً وتابعوا التقدم",
+  "viewProject": "عرض المشروع",
+  "goToDashboard": "الذهاب إلى لوحة التحكم"
 }

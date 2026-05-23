@@ -140,4 +140,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hireFreelancer => 'Hire Freelancer';
+
+  @override
+  String get projectLiveTitle => 'Your Project is now live!';
+
+  @override
+  String get projectLiveSubtitle =>
+      'Tell us what you need and we will help you find the best freelancers';
+
+  @override
+  String get whatsNext => 'what\'s Next?';
+
+  @override
+  String get createContractMilestone => 'Create contract and milestone';
+
+  @override
+  String get workTogetherTrackProgress => 'Work together and track progress';
+
+  @override
+  String get viewProject => 'View Project';
+
+  @override
+  String get goToDashboard => 'Go to dashboard';
 }
