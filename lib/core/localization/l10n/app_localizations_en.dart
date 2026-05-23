@@ -113,4 +113,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get client => 'Client';
+
+  @override
+  String get freelancerProfile => 'Freelancer Profile';
+
+  @override
+  String get rating => 'Rating';
+
+  @override
+  String get projects => 'Projects';
+
+  @override
+  String get earned => 'Earned';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get skills => 'Skills';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get hireFreelancer => 'Hire Freelancer';
 }

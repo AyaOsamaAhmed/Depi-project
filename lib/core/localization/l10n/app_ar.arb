@@ -32,5 +32,14 @@
   "isRequired": "مطلوب.",
   "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "freelancer": "مستقل",
-  "client": "عميل"
+  "client": "عميل",
+  "freelancerProfile": "الملف الشخصي للمستقل",
+  "rating": "التقييم",
+  "projects": "المشاريع",
+  "earned": "الأرباح",
+  "about": "عن المستقل",
+  "skills": "المهارات",
+  "profile": "معرض الأعمال",
+  "message": "رسالة",
+  "hireFreelancer": "توظيف المستقل"
 }

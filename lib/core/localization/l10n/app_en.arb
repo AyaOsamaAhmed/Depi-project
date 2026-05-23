@@ -35,5 +35,14 @@
   "isRequired": "is required.",
   "invalidCredentials": "Incorrect email or password.",
   "freelancer": "Freelancer",
-  "client": "Client"
+  "client": "Client",
+  "freelancerProfile": "Freelancer Profile",
+  "rating": "Rating",
+  "projects": "Projects",
+  "earned": "Earned",
+  "about": "About",
+  "skills": "Skills",
+  "profile": "Profile",
+  "message": "Message",
+  "hireFreelancer": "Hire Freelancer"
 }

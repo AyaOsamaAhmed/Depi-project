@@ -301,6 +301,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Client'**
   String get client;
+
+  /// No description provided for @freelancerProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelancer Profile'**
+  String get freelancerProfile;
+
+  /// No description provided for @rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get rating;
+
+  /// No description provided for @projects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get projects;
+
+  /// No description provided for @earned.
+  ///
+  /// In en, this message translates to:
+  /// **'Earned'**
+  String get earned;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @skills.
+  ///
+  /// In en, this message translates to:
+  /// **'Skills'**
+  String get skills;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @message.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get message;
+
+  /// No description provided for @hireFreelancer.
+  ///
+  /// In en, this message translates to:
+  /// **'Hire Freelancer'**
+  String get hireFreelancer;
 }
 
 class _AppLocalizationsDelegate

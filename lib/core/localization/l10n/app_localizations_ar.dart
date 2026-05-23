@@ -114,4 +114,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get client => 'عميل';
+
+  @override
+  String get freelancerProfile => 'الملف الشخصي للمستقل';
+
+  @override
+  String get rating => 'التقييم';
+
+  @override
+  String get projects => 'المشاريع';
+
+  @override
+  String get earned => 'الأرباح';
+
+  @override
+  String get about => 'عن المستقل';
+
+  @override
+  String get skills => 'المهارات';
+
+  @override
+  String get profile => 'معرض الأعمال';
+
+  @override
+  String get message => 'رسالة';
+
+  @override
+  String get hireFreelancer => 'توظيف المستقل';
 }
