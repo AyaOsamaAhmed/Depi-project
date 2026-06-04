@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AuthButton extends StatelessWidget {
+class SharedWhiteButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
 
-  const AuthButton({
+  const SharedWhiteButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -22,11 +22,12 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: context.colorScheme.primary,
+          backgroundColor: context.colorScheme.surface,
           foregroundColor: context.colorScheme.onPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.r),
           ),
+          side: BorderSide(color: context.colorScheme.primary),
         ),
         child: isLoading
             ? SizedBox(
@@ -40,8 +41,8 @@ class AuthButton extends StatelessWidget {
             : Text(
                 text,
                 style: context.textTheme.labelLarge?.copyWith(
-                  color: context.colorScheme.onPrimary,
-                  fontWeight: FontWeight.w600,
+                  color: context.colorScheme.onSurface,
+                  fontSize: 18.sp,
                 ),
               ),
       ),

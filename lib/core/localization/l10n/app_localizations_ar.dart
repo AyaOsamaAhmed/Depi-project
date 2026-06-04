@@ -108,4 +108,59 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get invalidCredentials =>
       'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+
+  @override
+  String get freelancer => 'مستقل';
+
+  @override
+  String get client => 'عميل';
+
+  @override
+  String get freelancerProfile => 'الملف الشخصي للمستقل';
+
+  @override
+  String get rating => 'التقييم';
+
+  @override
+  String get projects => 'المشاريع';
+
+  @override
+  String get earned => 'الأرباح';
+
+  @override
+  String get about => 'عن المستقل';
+
+  @override
+  String get skills => 'المهارات';
+
+  @override
+  String get profile => 'معرض الأعمال';
+
+  @override
+  String get message => 'رسالة';
+
+  @override
+  String get hireFreelancer => 'توظيف المستقل';
+
+  @override
+  String get projectLiveTitle => 'مشروعك الآن متاح!';
+
+  @override
+  String get projectLiveSubtitle =>
+      'أخبرنا بما تحتاجه وسنساعدك في العثور على أفضل المستقلين';
+
+  @override
+  String get whatsNext => 'ماذا بعد؟';
+
+  @override
+  String get createContractMilestone => 'إنشاء عقد ومراحل العمل';
+
+  @override
+  String get workTogetherTrackProgress => 'اعملوا معاً وتابعوا التقدم';
+
+  @override
+  String get viewProject => 'عرض المشروع';
+
+  @override
+  String get goToDashboard => 'الذهاب إلى لوحة التحكم';
 }
