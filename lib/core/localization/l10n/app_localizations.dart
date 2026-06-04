@@ -289,6 +289,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incorrect email or password.'**
   String get invalidCredentials;
+
+  /// No description provided for @freelancer.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelancer'**
+  String get freelancer;
+
+  /// No description provided for @client.
+  ///
+  /// In en, this message translates to:
+  /// **'Client'**
+  String get client;
+
+  /// No description provided for @freelancerProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelancer Profile'**
+  String get freelancerProfile;
+
+  /// No description provided for @rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get rating;
+
+  /// No description provided for @projects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get projects;
+
+  /// No description provided for @earned.
+  ///
+  /// In en, this message translates to:
+  /// **'Earned'**
+  String get earned;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @skills.
+  ///
+  /// In en, this message translates to:
+  /// **'Skills'**
+  String get skills;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @message.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get message;
+
+  /// No description provided for @hireFreelancer.
+  ///
+  /// In en, this message translates to:
+  /// **'Hire Freelancer'**
+  String get hireFreelancer;
+
+  /// No description provided for @projectLiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Project is now live!'**
+  String get projectLiveTitle;
+
+  /// No description provided for @projectLiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what you need and we will help you find the best freelancers'**
+  String get projectLiveSubtitle;
+
+  /// No description provided for @whatsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'what\'s Next?'**
+  String get whatsNext;
+
+  /// No description provided for @createContractMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Create contract and milestone'**
+  String get createContractMilestone;
+
+  /// No description provided for @workTogetherTrackProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Work together and track progress'**
+  String get workTogetherTrackProgress;
+
+  /// No description provided for @viewProject.
+  ///
+  /// In en, this message translates to:
+  /// **'View Project'**
+  String get viewProject;
+
+  /// No description provided for @goToDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to dashboard'**
+  String get goToDashboard;
 }
 
 class _AppLocalizationsDelegate

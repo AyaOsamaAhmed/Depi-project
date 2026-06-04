@@ -27,6 +27,10 @@ import '../../features/auth/presentation/states/login/login_cubit.dart'
     as _i911;
 import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
+import '../../features/freelance_dashboard/presentation/states/freelance_dashboard_cubit.dart'
+    as _i709;
+import '../../features/user_dashboard/presentation/states/user_dashboard_cubit.dart'
+    as _i49;
 import '../network/api_consumer.dart' as _i931;
 import '../network/dio_consumer.dart' as _i802;
 import 'network_module.dart' as _i567;
@@ -41,6 +45,10 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
     final storageModule = _$StorageModule();
+    gh.factory<_i709.FreelanceDashboardCubit>(
+      () => _i709.FreelanceDashboardCubit(),
+    );
+    gh.factory<_i49.UserDashboardCubit>(() => _i49.UserDashboardCubit());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => storageModule.storage);
     gh.lazySingleton<_i992.AuthLocalDataSource>(
