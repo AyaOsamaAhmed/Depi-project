@@ -8,6 +8,8 @@ abstract class AuthLocalDataSource {
   Future<String?> getAccessToken();
   Future<String?> getRefreshToken();
   Future<void> clearAuthData();
+  Future<void> saveOnBoardingSeen();
+  Future<bool> isOnBoardingSeen();
 }
 
 @LazySingleton(as: AuthLocalDataSource)
@@ -22,6 +24,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   static const _userEmailKey = 'user_email';
   static const _userTypeKey = 'user_type';
   static const _userFullNameKey = 'user_full_name';
+  static const _onboardingSeenKey = 'onboarding_seen';
 
   AuthLocalDataSourceImpl(this._storage);
 
@@ -52,5 +55,16 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> clearAuthData() async {
     await _storage.deleteAll();
+  }
+
+  @override
+  Future<void> saveOnBoardingSeen() async {
+    await _storage.write(key: _onboardingSeenKey, value: 'true');
+  }
+
+  @override
+  Future<bool> isOnBoardingSeen() async {
+    final value = await _storage.read(key: _onboardingSeenKey);
+    return value == 'true';
   }
 }

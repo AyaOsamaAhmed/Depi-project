@@ -5,7 +5,7 @@ class AppColors {
 
   // --- Raw Tokens ---
   // Primary - Blue Scale
-  static const Color primary50 = Color(0xFF8DB8ED);
+  static const Color primary50 = Color(0xFF001706);
   static const Color primary100 = Color(0xFF80A9DC);
   static const Color primary200 = Color(0xFF739BCC);
   static const Color primary300 = Color(0xFF668CBB);

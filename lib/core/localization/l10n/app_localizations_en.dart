@@ -12,7 +12,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World';
 
   @override
-  String get logIn => 'Log In';
+  String get onboardingWelcomeTitle => 'Welcome to NEXT HIRE';
+
+  @override
+  String get onboardingWelcomeDesc =>
+      'Start building your freelance future today.';
+
+  @override
+  String get onboardingStartBtn => 'Start';
+
+  @override
+  String get onboardingSkipBtn => 'Skip';
+
+  @override
+  String get onboardingFutureTitle => 'Your Freelance Future Starts Here';
+
+  @override
+  String get onboardingFutureDesc =>
+      'Build your profile, improve your score, and connect with the right projects faster than ever.';
+
+  @override
+  String get onboardingNextBtn => 'Next';
+
+  @override
+  String get logIn => 'Sign In';
 
   @override
   String get signUp => 'Sign Up';
@@ -84,4 +107,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidCredentials => 'Incorrect email or password.';
+
+  @override
+  String get freelancer => 'Freelancer';
+
+  @override
+  String get client => 'Client';
+
+  @override
+  String get freelancerProfile => 'Freelancer Profile';
+
+  @override
+  String get rating => 'Rating';
+
+  @override
+  String get projects => 'Projects';
+
+  @override
+  String get earned => 'Earned';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get skills => 'Skills';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get hireFreelancer => 'Hire Freelancer';
+
+  @override
+  String get projectLiveTitle => 'Your Project is now live!';
+
+  @override
+  String get projectLiveSubtitle =>
+      'Tell us what you need and we will help you find the best freelancers';
+
+  @override
+  String get whatsNext => 'what\'s Next?';
+
+  @override
+  String get createContractMilestone => 'Create contract and milestone';
+
+  @override
+  String get workTogetherTrackProgress => 'Work together and track progress';
+
+  @override
+  String get viewProject => 'View Project';
+
+  @override
+  String get goToDashboard => 'Go to dashboard';
 }

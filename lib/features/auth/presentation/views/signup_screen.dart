@@ -42,7 +42,8 @@ class _SignupScreenState extends State<SignupScreen> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            backgroundColor: context.colorScheme.primary, // Dark blue background
+            backgroundColor:
+                context.colorScheme.primary, // Dark blue background
             body: SafeArea(
               bottom: false,
               child: Column(
@@ -72,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(height: 40.h),
                     ],
                   ),
-          
+
                   // Bottom Section with Form
                   Expanded(
                     child: Container(
@@ -103,28 +104,30 @@ class _SignupScreenState extends State<SignupScreen> {
                                   hint: context.local.enterFirstName,
                                   controller: _firstNameController,
                                   textInputAction: TextInputAction.next,
-                                  validator: (value) => Validators.validateRequired(
-                                    context,
-                                    value,
-                                    context.local.firstName,
-                                  ),
+                                  validator: (value) =>
+                                      Validators.validateRequired(
+                                        context,
+                                        value,
+                                        context.local.firstName,
+                                      ),
                                 ),
                                 SizedBox(height: 16.h),
-          
+
                                 // Last Name Field
                                 AuthTextField(
                                   label: context.local.lastName,
                                   hint: context.local.enterLastName,
                                   controller: _lastNameController,
                                   textInputAction: TextInputAction.next,
-                                  validator: (value) => Validators.validateRequired(
-                                    context,
-                                    value,
-                                    context.local.lastName,
-                                  ),
+                                  validator: (value) =>
+                                      Validators.validateRequired(
+                                        context,
+                                        value,
+                                        context.local.lastName,
+                                      ),
                                 ),
                                 SizedBox(height: 16.h),
-          
+
                                 // Email Field
                                 AuthTextField(
                                   label: context.local.email,
@@ -136,7 +139,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       Validators.validateEmail(context, value),
                                 ),
                                 SizedBox(height: 16.h),
-          
+
                                 // Password Field
                                 AuthTextField(
                                   label: context.local.password,
@@ -145,7 +148,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller: _passwordController,
                                   textInputAction: TextInputAction.done,
                                   validator: (value) =>
-                                      Validators.validatePassword(context, value),
+                                      Validators.validatePassword(
+                                        context,
+                                        value,
+                                      ),
                                   onFieldSubmitted: (_) {
                                     if (_formKey.currentState!.validate()) {
                                       context.read<SignupCubit>().signup(
@@ -163,68 +169,154 @@ class _SignupScreenState extends State<SignupScreen> {
                                   },
                                 ),
                                 SizedBox(height: 32.h),
-          
-                                // Sign Up Button
-                                BlocConsumer<SignupCubit, SignupState>(
-                                  listener: (context, state) {
-                                    if (state is SignupSuccess) {
-                                      // Navigate on success
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              context.local.signupSuccess,
-                                            ),
-                                          ),
-                                        );
-                                      context.go(AppRoutes.login);
-                                    } else if (state is SignupFailure) {
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(
-                                          SnackBar(content: Text(state.message)),
-                                        );
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return AuthButton(
-                                      text: context.local.signUp,
-                                      isLoading: state is SignupLoading,
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          context.read<SignupCubit>().signup(
-                                            firstName: _firstNameController.text,
-                                            lastName: _lastNameController.text,
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                            userType: 1, // Default Freelancer
-                                            gender: 1, // Default Male
-                                            dateOfBirth: "2000-01-01",
-                                            phoneNumber: "0123456789",
-                                            countryId: 1,
-                                          );
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // Freelancer Button
+                                    BlocConsumer<SignupCubit, SignupState>(
+                                      listener: (context, state) {
+                                        if (state is SignupSuccess) {
+                                          // Navigate on success
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  context.local.signupSuccess,
+                                                ),
+                                              ),
+                                            );
+                                          context.go(AppRoutes.login);
+                                        } else if (state is SignupFailure) {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text(state.message),
+                                              ),
+                                            );
                                         }
                                       },
-                                    );
-                                  },
+                                      builder: (context, state) {
+                                        return Expanded(
+                                          child: AuthButton(
+                                            text: context.local.freelancer,
+                                            isLoading: state is SignupLoading,
+                                            onPressed: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                context
+                                                    .read<SignupCubit>()
+                                                    .signup(
+                                                      firstName:
+                                                          _firstNameController
+                                                              .text,
+                                                      lastName:
+                                                          _lastNameController
+                                                              .text,
+                                                      email:
+                                                          _emailController.text,
+                                                      password:
+                                                          _passwordController
+                                                              .text,
+                                                      userType: 1, // Freelancer
+                                                      gender: 1, // Male
+                                                      dateOfBirth: "2000-01-01",
+                                                      phoneNumber: "0123456789",
+                                                      countryId: 1,
+                                                    );
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+
+                                    SizedBox(width: 24.w),
+
+                                    // Client Button
+                                    BlocConsumer<SignupCubit, SignupState>(
+                                      listener: (context, state) {
+                                        if (state is SignupSuccess) {
+                                          // Navigate on success
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  context.local.signupSuccess,
+                                                ),
+                                              ),
+                                            );
+                                          context.go(AppRoutes.login);
+                                        } else if (state is SignupFailure) {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text(state.message),
+                                              ),
+                                            );
+                                        }
+                                      },
+                                      builder: (context, state) {
+                                        return Expanded(
+                                          child: AuthButton(
+                                            text: context.local.client,
+                                            isLoading: state is SignupLoading,
+                                            onPressed: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                context
+                                                    .read<SignupCubit>()
+                                                    .signup(
+                                                      firstName:
+                                                          _firstNameController
+                                                              .text,
+                                                      lastName:
+                                                          _lastNameController
+                                                              .text,
+                                                      email:
+                                                          _emailController.text,
+                                                      password:
+                                                          _passwordController
+                                                              .text,
+                                                      userType: 2, // Client
+                                                      gender: 1, // Male
+                                                      dateOfBirth: "2000-01-01",
+                                                      phoneNumber: "0123456789",
+                                                      countryId: 1,
+                                                    );
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
+
                                 SizedBox(height: 24.h),
-          
+
                                 // Login Link
                                 Center(
                                   child: RichText(
                                     text: TextSpan(
-                                      text: '${context.local.alreadyHaveAccount} ',
-                                      style: context.textTheme.bodyMedium?.copyWith(
-                                        color: context.colorScheme.onSurface,
-                                      ),
+                                      text:
+                                          '${context.local.alreadyHaveAccount} ',
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color:
+                                                context.colorScheme.onSurface,
+                                          ),
                                       children: [
                                         TextSpan(
                                           text: context.local.logIn,
                                           style: context.textTheme.bodyMedium
                                               ?.copyWith(
-                                                color: context.colorScheme.primary,
+                                                color:
+                                                    context.colorScheme.primary,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                           recognizer: TapGestureRecognizer()
@@ -247,7 +339,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           );
-        }
+        },
       ),
     );
   }

@@ -11,7 +11,11 @@ class DioConsumer implements ApiConsumer {
   DioConsumer({required this.client});
 
   @override
-  Future get(String path, {Object? data, Map<String, dynamic>? queryParameters}) async {
+  Future get(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
       final response = await client.get(
         path,
@@ -25,12 +29,18 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future post(String path,
-      {Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {
+  Future post(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  }) async {
     try {
       final response = await client.post(
         path,
-        data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data: isFormData
+            ? FormData.fromMap(data as Map<String, dynamic>)
+            : data,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -40,12 +50,18 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future patch(String path,
-      {Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {
+  Future patch(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  }) async {
     try {
       final response = await client.patch(
         path,
-        data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data: isFormData
+            ? FormData.fromMap(data as Map<String, dynamic>)
+            : data,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -55,12 +71,18 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future put(String path,
-      {Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {
+  Future put(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  }) async {
     try {
       final response = await client.put(
         path,
-        data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data: isFormData
+            ? FormData.fromMap(data as Map<String, dynamic>)
+            : data,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -70,12 +92,18 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future delete(String path,
-      {Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {
+  Future delete(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  }) async {
     try {
       final response = await client.delete(
         path,
-        data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data: isFormData
+            ? FormData.fromMap(data as Map<String, dynamic>)
+            : data,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -88,16 +116,19 @@ class DioConsumer implements ApiConsumer {
     if (e.type == DioExceptionType.badResponse) {
       final data = e.response?.data;
       String message = 'Unknown Error';
-      
-      if (data is Map<String, dynamic> && data.containsKey(ApiKey.errorMessage)) {
+
+      if (data is Map<String, dynamic> &&
+          data.containsKey(ApiKey.errorMessage)) {
         message = data[ApiKey.errorMessage];
       } else if (data is String) {
         message = data;
       }
-      
+
       throw ServerException(errorMessageModel: message);
     } else {
-      throw ServerException(errorMessageModel: e.message ?? 'Unknown network error');
+      throw ServerException(
+        errorMessageModel: e.message ?? 'Unknown network error',
+      );
     }
   }
 }

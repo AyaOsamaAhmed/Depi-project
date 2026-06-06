@@ -145,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 BlocConsumer<LoginCubit, LoginState>(
                                   listener: (context, state) {
                                     if (state is LoginSuccess) {
-                                      // Navigate to home (or show success)
                                       ScaffoldMessenger.of(context)
                                         ..hideCurrentSnackBar()
                                         ..showSnackBar(
@@ -155,6 +154,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                         );
+
+                                      // Navigate based on userType (1: Freelancer, 2: Client/User)
+                                      if (state.authEntity.user.userType == 1) {
+                                        context.go(AppRoutes.freelanceDashboard);
+                                      } else {
+                                        context.go(AppRoutes.userDashboard);
+                                      }
                                     } else if (state is LoginFailure) {
                                       String errorMessage = state.message;
                                       if (state.message == 'invalidCredentials') {
