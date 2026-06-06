@@ -163,4 +163,321 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goToDashboard => 'الذهاب إلى لوحة التحكم';
+
+  @override
+  String get analytics => 'التحليلات';
+
+  @override
+  String get overviews => 'نظرة عامة';
+
+  @override
+  String get topSkills => 'أبرز المهارات';
+
+  @override
+  String get totalEarnings => 'إجمالي الأرباح';
+
+  @override
+  String get thisMonth => 'هذا الشهر';
+
+  @override
+  String fromLastMonth(int percentage) {
+    return '+$percentage% من الشهر الماضي';
+  }
+
+  @override
+  String get proposalSentCount => 'العروض المرسلة';
+
+  @override
+  String get projectWonCount => 'المشاريع الفائزة';
+
+  @override
+  String get avgRating => 'متوسط التقييم';
+
+  @override
+  String projectsCount(int count) {
+    return '$count مشاريع';
+  }
+
+  @override
+  String get projectCompleted => 'اكتمل المشروع!';
+
+  @override
+  String get congratulationCompleted =>
+      'تهانينا! تم إكمال مشروعك والموافقة عليه بنجاح.';
+
+  @override
+  String get viewDetails => 'عرض التفاصيل';
+
+  @override
+  String get backToDashboard => 'العودة إلى لوحة التحكم';
+
+  @override
+  String get withdrawFunds => 'سحب الأموال';
+
+  @override
+  String get paymentMethods => 'طرق الدفع';
+
+  @override
+  String get amount => 'المبلغ';
+
+  @override
+  String get availableBalance => 'الرصيد المتاح';
+
+  @override
+  String get instaPay => 'انستا باي';
+
+  @override
+  String get bankTransfer => 'تحويل بنكي';
+
+  @override
+  String get payPal => 'بايبال';
+
+  @override
+  String get withdrawNow => 'اسحب الآن';
+
+  @override
+  String get acceptInvite => 'قبول الدعوة';
+
+  @override
+  String get decline => 'رفض';
+
+  @override
+  String get jobDetails => 'تفاصيل الوظيفة';
+
+  @override
+  String get fixedPrices => 'أسعار ثابتة';
+
+  @override
+  String get webDesigner => 'مصمم ويب';
+
+  @override
+  String get uiuxDesigner => 'مصمم واجهة وتجربة المستخدم';
+
+  @override
+  String get jobDescription => 'وصف الوظيفة';
+
+  @override
+  String get requirements => 'المتطلبات';
+
+  @override
+  String get submitProposal => 'تقديم عرض';
+
+  @override
+  String get projectOverview => 'نظرة عامة على المشروع';
+
+  @override
+  String get milestones => 'مراحل العمل';
+
+  @override
+  String get projectFiles => 'ملفات المشروع';
+
+  @override
+  String get inProgress => 'قيد التنفيذ';
+
+  @override
+  String get pending => 'قيد الانتظار';
+
+  @override
+  String get workshop => 'ورشة العمل';
+
+  @override
+  String get hello => 'مرحباً';
+
+  @override
+  String get dashboardGreeting => 'نتمنى لك يوماً سعيداً في العمل';
+
+  @override
+  String get aiProfileScore => 'درجة ملف الذكاء الاصطناعي';
+
+  @override
+  String get greatJob => 'عمل رائع!';
+
+  @override
+  String get completeProfileDesc =>
+      'أكمل ملفك الشخصي للحصول على المزيد من المشاريع';
+
+  @override
+  String get improveProfile => 'تحسين الملف الشخصي';
+
+  @override
+  String get wallet => 'المحفظة';
+
+  @override
+  String get proposals => 'العروض';
+
+  @override
+  String get contract => 'العقود';
+
+  @override
+  String get active => 'نشط';
+
+  @override
+  String get news => 'جديد';
+
+  @override
+  String get recommendedForYou => 'موجه لك';
+
+  @override
+  String get recentActivity => 'النشاط الأخير';
+
+  @override
+  String get viewAll => 'عرض الكل';
+
+  @override
+  String get featured => 'مميز';
+
+  @override
+  String get daysLeft => 'أيام متبقية';
+
+  @override
+  String get match => 'متطابق';
+
+  @override
+  String get upgradeToPro => 'الترقية للبريد';
+
+  @override
+  String get upgradeToProDesc => 'احصل على وصول غير محدود لجميع المميزات';
+
+  @override
+  String get youAreInvited => 'أنت مدعو!';
+
+  @override
+  String invitedBy(String name) {
+    return 'تمت دعوتك من قبل $name للعمل في هذا المشروع.';
+  }
+
+  @override
+  String get online => 'متصل';
+
+  @override
+  String get typeMessage => 'أكتب رسالة...';
+
+  @override
+  String get earnings => 'الأرباح';
+
+  @override
+  String get transactions => 'المعاملات';
+
+  @override
+  String get completeProfileTitle => 'إكمال الملف الشخصي';
+
+  @override
+  String get fullNameLabel => 'الاسم بالكامل';
+
+  @override
+  String get titleLabel => 'العنوان الوظيفي';
+
+  @override
+  String get monthlyRateLabel => 'المعدل الشهري';
+
+  @override
+  String get addSkillLabel => 'إضافة مهارة';
+
+  @override
+  String get saveChangesButton => 'حفظ التغييرات';
+
+  @override
+  String get findYourNextProject => 'ابحث عن مشروعك التالي';
+
+  @override
+  String get searchPlaceholder => 'البحث عن مشروع...';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get uiuxDesign => 'تصميم واجهة وتجربة المستخدم';
+
+  @override
+  String get webDevelopment => 'تطوير الويب';
+
+  @override
+  String get mobileAppDesign => 'تصميم تطبيقات الهاتف';
+
+  @override
+  String get noResultsFound => 'لم يتم العثور على نتائج';
+
+  @override
+  String get experienceLevel => 'مستوى الخبرة';
+
+  @override
+  String get proposalSentTitle => 'تم إرسال العرض!';
+
+  @override
+  String get proposalSentSuccess => 'تم تقديم عرضك بنجاح.';
+
+  @override
+  String get proposalSentNotify =>
+      'سيتم إخطار العميل وسوف تتلقى رداً إذا كان مهتماً.';
+
+  @override
+  String get viewMyProposals => 'عرض عروضي';
+
+  @override
+  String get backToJob => 'العودة للوظيفة';
+
+  @override
+  String get rateClient => 'تقييم العميل';
+
+  @override
+  String rateExperience(String name) {
+    return 'كيف كانت تجربتك في العمل مع $name؟';
+  }
+
+  @override
+  String get writeReview => 'اكتب مراجعة';
+
+  @override
+  String get optional => 'اختياري';
+
+  @override
+  String get submitReview => 'إرسال المراجعة';
+
+  @override
+  String get yourProposal => 'عرضك';
+
+  @override
+  String get bidAmount => 'مبلغ العطاء';
+
+  @override
+  String get deliveryTime => 'وقت التسليم';
+
+  @override
+  String get attachments => 'المرفقات';
+
+  @override
+  String get writeProposalHint => 'اكتب عرضك هنا...';
+
+  @override
+  String get file => 'ملف';
+
+  @override
+  String get submitWork => 'تسليم العمل';
+
+  @override
+  String get milestone => 'مرحلة العمل';
+
+  @override
+  String get deliverables => 'المخرجات';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get submitForReview => 'إرسال للمراجعة';
+
+  @override
+  String get addMoreFiles => 'إضافة المزيد من الملفات';
+
+  @override
+  String get workApprovedTitle => 'تمت الموافقة على العمل!';
+
+  @override
+  String get workApprovedSuccess => 'تمت الموافقة على عملك بنجاح.';
+
+  @override
+  String get addedToBalance => 'تمت إضافة المبلغ إلى رصيدك.';
+
+  @override
+  String get viewPayment => 'عرض الدفع';
 }

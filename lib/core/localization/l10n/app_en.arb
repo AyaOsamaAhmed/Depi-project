@@ -51,5 +51,135 @@
   "createContractMilestone": "Create contract and milestone",
   "workTogetherTrackProgress": "Work together and track progress",
   "viewProject": "View Project",
-  "goToDashboard": "Go to dashboard"
+  "goToDashboard": "Go to dashboard",
+  "analytics": "Analytics",
+  "overviews": "Overviews",
+  "topSkills": "Top Skills",
+  "totalEarnings": "Total Earnings",
+  "thisMonth": "This Month",
+  "fromLastMonth": "+{percentage}% from last month",
+  "@fromLastMonth": {
+    "placeholders": {
+      "percentage": {
+        "type": "int"
+      }
+    }
+  },
+  "proposalSentCount": "Proposal Sent",
+  "projectWonCount": "Project Won",
+  "avgRating": "Avg. Rating",
+  "projectsCount": "{count} Projects",
+  "@projectsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectCompleted": "Project Completed!",
+  "congratulationCompleted": "Congratulations! Your project has been successfully completed and approved.",
+  "viewDetails": "View Details",
+  "backToDashboard": "Back to Dashboard",
+  "withdrawFunds": "Withdraw Funds",
+  "paymentMethods": "Payment Methods",
+  "amount": "Amount",
+  "availableBalance": "Available Balance",
+  "instaPay": "InstaPay",
+  "bankTransfer": "Bank Transfer",
+  "payPal": "PayPal",
+  "withdrawNow": "Withdraw Now",
+  "acceptInvite": "Accept Invite",
+  "decline": "Decline",
+  "jobDetails": "Job Details",
+  "fixedPrices": "Fixed Prices",
+  "webDesigner": "Web Designer",
+  "uiuxDesigner": "UI/UX Designer",
+  "jobDescription": "Job Description",
+  "requirements": "Requirements",
+  "submitProposal": "Submit Proposal",
+  "projectOverview": "Project Overview",
+  "milestones": "Milestones",
+  "projectFiles": "Project Files",
+  "inProgress": "In Progress",
+  "pending": "Pending",
+  "workshop": "Workshop",
+  "hello": "Hello",
+  "dashboardGreeting": "Have a nice day at work",
+  "aiProfileScore": "AI Profile Score",
+  "greatJob": "Great Job!",
+  "completeProfileDesc": "Complete your profile to get more projects",
+  "improveProfile": "Improve Profile",
+  "wallet": "Wallet",
+  "proposals": "Proposals",
+  "contract": "Contract",
+  "active": "Active",
+  "news": "News",
+  "recommendedForYou": "Recommended For You",
+  "recentActivity": "Recent Activity",
+  "viewAll": "View All",
+  "featured": "Featured",
+  "daysLeft": "Days Left",
+  "match": "Match",
+  "upgradeToPro": "Upgrade to Pro",
+  "upgradeToProDesc": "Get unlimited access to all features",
+  "youAreInvited": "You Are Invited!",
+  "invitedBy": "You've been invited by {name} to work on this project.",
+  "@invitedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "online": "Online",
+  "typeMessage": "Type Message...",
+  "earnings": "Earnings",
+  "transactions": "Transactions",
+  "completeProfileTitle": "Complete Profile",
+  "fullNameLabel": "Full Name",
+  "titleLabel": "Title",
+  "monthlyRateLabel": "Monthly Rate",
+  "addSkillLabel": "Add Skill",
+  "saveChangesButton": "Save Changes",
+  "findYourNextProject": "Find Your Next Project",
+  "searchPlaceholder": "Search project...",
+  "all": "All",
+  "uiuxDesign": "UI/UX Design",
+  "webDevelopment": "Web Development",
+  "mobileAppDesign": "Mobile App Design",
+  "noResultsFound": "No results found",
+  "experienceLevel": "Experience Level",
+  "proposalSentTitle": "Proposal Sent!",
+  "proposalSentSuccess": "Your proposal has been submitted successfully.",
+  "proposalSentNotify": "The client will be notified and you'll hear back if they're interested.",
+  "viewMyProposals": "View My Proposals",
+  "backToJob": "Back to Job",
+  "rateClient": "Rate Client",
+  "rateExperience": "How was your experience working with {name}?",
+  "@rateExperience": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "writeReview": "Write a review",
+  "optional": "Optional",
+  "submitReview": "Submit Review",
+  "yourProposal": "Your Proposal",
+  "bidAmount": "Bid Amount",
+  "deliveryTime": "Delivery Time",
+  "attachments": "Attachments",
+  "writeProposalHint": "Write your proposal here...",
+  "file": "File",
+  "submitWork": "Submit Work",
+  "milestone": "Milestone",
+  "deliverables": "Deliverables",
+  "description": "Description",
+  "submitForReview": "Submit For Review",
+  "addMoreFiles": "Add More Files",
+  "workApprovedTitle": "Work Approved!",
+  "workApprovedSuccess": "Your work has been approved successfully.",
+  "addedToBalance": "The payment has been added to your balance.",
+  "viewPayment": "View Payment"
 }

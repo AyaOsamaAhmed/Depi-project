@@ -162,4 +162,322 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goToDashboard => 'Go to dashboard';
+
+  @override
+  String get analytics => 'Analytics';
+
+  @override
+  String get overviews => 'Overviews';
+
+  @override
+  String get topSkills => 'Top Skills';
+
+  @override
+  String get totalEarnings => 'Total Earnings';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String fromLastMonth(int percentage) {
+    return '+$percentage% from last month';
+  }
+
+  @override
+  String get proposalSentCount => 'Proposal Sent';
+
+  @override
+  String get projectWonCount => 'Project Won';
+
+  @override
+  String get avgRating => 'Avg. Rating';
+
+  @override
+  String projectsCount(int count) {
+    return '$count Projects';
+  }
+
+  @override
+  String get projectCompleted => 'Project Completed!';
+
+  @override
+  String get congratulationCompleted =>
+      'Congratulations! Your project has been successfully completed and approved.';
+
+  @override
+  String get viewDetails => 'View Details';
+
+  @override
+  String get backToDashboard => 'Back to Dashboard';
+
+  @override
+  String get withdrawFunds => 'Withdraw Funds';
+
+  @override
+  String get paymentMethods => 'Payment Methods';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get availableBalance => 'Available Balance';
+
+  @override
+  String get instaPay => 'InstaPay';
+
+  @override
+  String get bankTransfer => 'Bank Transfer';
+
+  @override
+  String get payPal => 'PayPal';
+
+  @override
+  String get withdrawNow => 'Withdraw Now';
+
+  @override
+  String get acceptInvite => 'Accept Invite';
+
+  @override
+  String get decline => 'Decline';
+
+  @override
+  String get jobDetails => 'Job Details';
+
+  @override
+  String get fixedPrices => 'Fixed Prices';
+
+  @override
+  String get webDesigner => 'Web Designer';
+
+  @override
+  String get uiuxDesigner => 'UI/UX Designer';
+
+  @override
+  String get jobDescription => 'Job Description';
+
+  @override
+  String get requirements => 'Requirements';
+
+  @override
+  String get submitProposal => 'Submit Proposal';
+
+  @override
+  String get projectOverview => 'Project Overview';
+
+  @override
+  String get milestones => 'Milestones';
+
+  @override
+  String get projectFiles => 'Project Files';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get workshop => 'Workshop';
+
+  @override
+  String get hello => 'Hello';
+
+  @override
+  String get dashboardGreeting => 'Have a nice day at work';
+
+  @override
+  String get aiProfileScore => 'AI Profile Score';
+
+  @override
+  String get greatJob => 'Great Job!';
+
+  @override
+  String get completeProfileDesc =>
+      'Complete your profile to get more projects';
+
+  @override
+  String get improveProfile => 'Improve Profile';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get proposals => 'Proposals';
+
+  @override
+  String get contract => 'Contract';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get news => 'News';
+
+  @override
+  String get recommendedForYou => 'Recommended For You';
+
+  @override
+  String get recentActivity => 'Recent Activity';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get featured => 'Featured';
+
+  @override
+  String get daysLeft => 'Days Left';
+
+  @override
+  String get match => 'Match';
+
+  @override
+  String get upgradeToPro => 'Upgrade to Pro';
+
+  @override
+  String get upgradeToProDesc => 'Get unlimited access to all features';
+
+  @override
+  String get youAreInvited => 'You Are Invited!';
+
+  @override
+  String invitedBy(String name) {
+    return 'You\'ve been invited by $name to work on this project.';
+  }
+
+  @override
+  String get online => 'Online';
+
+  @override
+  String get typeMessage => 'Type Message...';
+
+  @override
+  String get earnings => 'Earnings';
+
+  @override
+  String get transactions => 'Transactions';
+
+  @override
+  String get completeProfileTitle => 'Complete Profile';
+
+  @override
+  String get fullNameLabel => 'Full Name';
+
+  @override
+  String get titleLabel => 'Title';
+
+  @override
+  String get monthlyRateLabel => 'Monthly Rate';
+
+  @override
+  String get addSkillLabel => 'Add Skill';
+
+  @override
+  String get saveChangesButton => 'Save Changes';
+
+  @override
+  String get findYourNextProject => 'Find Your Next Project';
+
+  @override
+  String get searchPlaceholder => 'Search project...';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get uiuxDesign => 'UI/UX Design';
+
+  @override
+  String get webDevelopment => 'Web Development';
+
+  @override
+  String get mobileAppDesign => 'Mobile App Design';
+
+  @override
+  String get noResultsFound => 'No results found';
+
+  @override
+  String get experienceLevel => 'Experience Level';
+
+  @override
+  String get proposalSentTitle => 'Proposal Sent!';
+
+  @override
+  String get proposalSentSuccess =>
+      'Your proposal has been submitted successfully.';
+
+  @override
+  String get proposalSentNotify =>
+      'The client will be notified and you\'ll hear back if they\'re interested.';
+
+  @override
+  String get viewMyProposals => 'View My Proposals';
+
+  @override
+  String get backToJob => 'Back to Job';
+
+  @override
+  String get rateClient => 'Rate Client';
+
+  @override
+  String rateExperience(String name) {
+    return 'How was your experience working with $name?';
+  }
+
+  @override
+  String get writeReview => 'Write a review';
+
+  @override
+  String get optional => 'Optional';
+
+  @override
+  String get submitReview => 'Submit Review';
+
+  @override
+  String get yourProposal => 'Your Proposal';
+
+  @override
+  String get bidAmount => 'Bid Amount';
+
+  @override
+  String get deliveryTime => 'Delivery Time';
+
+  @override
+  String get attachments => 'Attachments';
+
+  @override
+  String get writeProposalHint => 'Write your proposal here...';
+
+  @override
+  String get file => 'File';
+
+  @override
+  String get submitWork => 'Submit Work';
+
+  @override
+  String get milestone => 'Milestone';
+
+  @override
+  String get deliverables => 'Deliverables';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get submitForReview => 'Submit For Review';
+
+  @override
+  String get addMoreFiles => 'Add More Files';
+
+  @override
+  String get workApprovedTitle => 'Work Approved!';
+
+  @override
+  String get workApprovedSuccess => 'Your work has been approved successfully.';
+
+  @override
+  String get addedToBalance => 'The payment has been added to your balance.';
+
+  @override
+  String get viewPayment => 'View Payment';
 }

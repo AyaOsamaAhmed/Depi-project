@@ -48,5 +48,135 @@
   "createContractMilestone": "إنشاء عقد ومراحل العمل",
   "workTogetherTrackProgress": "اعملوا معاً وتابعوا التقدم",
   "viewProject": "عرض المشروع",
-  "goToDashboard": "الذهاب إلى لوحة التحكم"
+  "goToDashboard": "الذهاب إلى لوحة التحكم",
+  "analytics": "التحليلات",
+  "overviews": "نظرة عامة",
+  "topSkills": "أبرز المهارات",
+  "totalEarnings": "إجمالي الأرباح",
+  "thisMonth": "هذا الشهر",
+  "fromLastMonth": "+{percentage}% من الشهر الماضي",
+  "@fromLastMonth": {
+    "placeholders": {
+      "percentage": {
+        "type": "int"
+      }
+    }
+  },
+  "proposalSentCount": "العروض المرسلة",
+  "projectWonCount": "المشاريع الفائزة",
+  "avgRating": "متوسط التقييم",
+  "projectsCount": "{count} مشاريع",
+  "@projectsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectCompleted": "اكتمل المشروع!",
+  "congratulationCompleted": "تهانينا! تم إكمال مشروعك والموافقة عليه بنجاح.",
+  "viewDetails": "عرض التفاصيل",
+  "backToDashboard": "العودة إلى لوحة التحكم",
+  "withdrawFunds": "سحب الأموال",
+  "paymentMethods": "طرق الدفع",
+  "amount": "المبلغ",
+  "availableBalance": "الرصيد المتاح",
+  "instaPay": "انستا باي",
+  "bankTransfer": "تحويل بنكي",
+  "payPal": "بايبال",
+  "withdrawNow": "اسحب الآن",
+  "acceptInvite": "قبول الدعوة",
+  "decline": "رفض",
+  "jobDetails": "تفاصيل الوظيفة",
+  "fixedPrices": "أسعار ثابتة",
+  "webDesigner": "مصمم ويب",
+  "uiuxDesigner": "مصمم واجهة وتجربة المستخدم",
+  "jobDescription": "وصف الوظيفة",
+  "requirements": "المتطلبات",
+  "submitProposal": "تقديم عرض",
+  "projectOverview": "نظرة عامة على المشروع",
+  "milestones": "مراحل العمل",
+  "projectFiles": "ملفات المشروع",
+  "inProgress": "قيد التنفيذ",
+  "pending": "قيد الانتظار",
+  "workshop": "ورشة العمل",
+  "hello": "مرحباً",
+  "dashboardGreeting": "نتمنى لك يوماً سعيداً في العمل",
+  "aiProfileScore": "درجة ملف الذكاء الاصطناعي",
+  "greatJob": "عمل رائع!",
+  "completeProfileDesc": "أكمل ملفك الشخصي للحصول على المزيد من المشاريع",
+  "improveProfile": "تحسين الملف الشخصي",
+  "wallet": "المحفظة",
+  "proposals": "العروض",
+  "contract": "العقود",
+  "active": "نشط",
+  "news": "جديد",
+  "recommendedForYou": "موجه لك",
+  "recentActivity": "النشاط الأخير",
+  "viewAll": "عرض الكل",
+  "featured": "مميز",
+  "daysLeft": "أيام متبقية",
+  "match": "متطابق",
+  "upgradeToPro": "الترقية للبريد",
+  "upgradeToProDesc": "احصل على وصول غير محدود لجميع المميزات",
+  "youAreInvited": "أنت مدعو!",
+  "invitedBy": "تمت دعوتك من قبل {name} للعمل في هذا المشروع.",
+  "@invitedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "online": "متصل",
+  "typeMessage": "أكتب رسالة...",
+  "earnings": "الأرباح",
+  "transactions": "المعاملات",
+  "completeProfileTitle": "إكمال الملف الشخصي",
+  "fullNameLabel": "الاسم بالكامل",
+  "titleLabel": "العنوان الوظيفي",
+  "monthlyRateLabel": "المعدل الشهري",
+  "addSkillLabel": "إضافة مهارة",
+  "saveChangesButton": "حفظ التغييرات",
+  "findYourNextProject": "ابحث عن مشروعك التالي",
+  "searchPlaceholder": "البحث عن مشروع...",
+  "all": "الكل",
+  "uiuxDesign": "تصميم واجهة وتجربة المستخدم",
+  "webDevelopment": "تطوير الويب",
+  "mobileAppDesign": "تصميم تطبيقات الهاتف",
+  "noResultsFound": "لم يتم العثور على نتائج",
+  "experienceLevel": "مستوى الخبرة",
+  "proposalSentTitle": "تم إرسال العرض!",
+  "proposalSentSuccess": "تم تقديم عرضك بنجاح.",
+  "proposalSentNotify": "سيتم إخطار العميل وسوف تتلقى رداً إذا كان مهتماً.",
+  "viewMyProposals": "عرض عروضي",
+  "backToJob": "العودة للوظيفة",
+  "rateClient": "تقييم العميل",
+  "rateExperience": "كيف كانت تجربتك في العمل مع {name}؟",
+  "@rateExperience": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "writeReview": "اكتب مراجعة",
+  "optional": "اختياري",
+  "submitReview": "إرسال المراجعة",
+  "yourProposal": "عرضك",
+  "bidAmount": "مبلغ العطاء",
+  "deliveryTime": "وقت التسليم",
+  "attachments": "المرفقات",
+  "writeProposalHint": "اكتب عرضك هنا...",
+  "file": "ملف",
+  "submitWork": "تسليم العمل",
+  "milestone": "مرحلة العمل",
+  "deliverables": "المخرجات",
+  "description": "الوصف",
+  "submitForReview": "إرسال للمراجعة",
+  "addMoreFiles": "إضافة المزيد من الملفات",
+  "workApprovedTitle": "تمت الموافقة على العمل!",
+  "workApprovedSuccess": "تمت الموافقة على عملك بنجاح.",
+  "addedToBalance": "تمت إضافة المبلغ إلى رصيدك.",
+  "viewPayment": "عرض الدفع"
 }
