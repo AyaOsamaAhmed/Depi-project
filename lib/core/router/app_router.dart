@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.freelanceDashboard,
+    initialLocation: AppRoutes.onBoarding,
     routes: [
       GoRoute(
         path: AppRoutes.onBoarding,
