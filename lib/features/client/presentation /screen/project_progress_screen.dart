@@ -1,8 +1,8 @@
-import 'package:dipe_freelance/features/contracts/domain/entities/contract_entity.dart';
-import 'package:dipe_freelance/features/contracts/domain/entities/milestone_entity.dart';
-import 'package:dipe_freelance/features/contracts/presentation/cubit/contract_cubit.dart';
-import 'package:dipe_freelance/features/contracts/presentation/cubit/contract_state.dart';
-import 'package:dipe_freelance/features/contracts/presentation/screens/milestone_review_screen.dart';
+import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
+import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';
+import 'package:dipe_freelance/features/client/presentation%20/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/presentation%20/states/contract_state.dart';
+import 'package:dipe_freelance/features/client/presentation%20/screen/milestone_review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'

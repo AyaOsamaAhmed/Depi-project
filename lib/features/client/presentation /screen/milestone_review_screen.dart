@@ -1,8 +1,8 @@
-import 'package:dipe_freelance/features/contracts/presentation/cubit/contract_cubit.dart';
-import 'package:dipe_freelance/features/contracts/presentation/screens/release_payment_screen.dart';
+import 'package:dipe_freelance/features/client/presentation%20/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/presentation%20/screen/release_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:dipe_freelance/features/contracts/domain/entities/milestone_entity.dart';
+import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MilestoneReviewScreen extends StatelessWidget {

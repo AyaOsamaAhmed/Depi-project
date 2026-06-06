@@ -2,7 +2,6 @@ import '../../domain/entities/contract_entity.dart';
 
 abstract class ContractState {}
 
-
 class ContractInitial extends ContractState {}
 
 class ContractLoading extends ContractState {}
