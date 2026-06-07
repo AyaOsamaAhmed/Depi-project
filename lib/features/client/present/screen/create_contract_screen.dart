@@ -1,7 +1,7 @@
 import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
-import 'package:dipe_freelance/features/client/presentation/states/contract_cubit.dart';
-import 'package:dipe_freelance/features/client/presentation/states/contract_state.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/project_progress_screen.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_state.dart';
+import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

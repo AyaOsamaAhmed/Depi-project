@@ -1,13 +1,13 @@
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/views/login_screen.dart';
 import 'package:dipe_freelance/features/auth/presentation/views/signup_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/create_contract_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/freelance_dashboard_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/milestone_review_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/project_details_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/project_progress_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/release_payment_screen.dart';
-import 'package:dipe_freelance/features/client/presentation/screen/user_dashboard_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/create_contract_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/freelance_dashboard_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/milestone_review_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/project_details_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/release_payment_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/user_dashboard_screen.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,10 +38,6 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.projectDetails,
         builder: (context, state) => const ProjectDetailsPage(),
-      ),
-      GoRoute(
-        path: AppRoutes.createContract,
-        builder: (context, state) => const CreateContractScreen(),
       ),
       GoRoute(
         path: AppRoutes.createContract,

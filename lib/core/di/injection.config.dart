@@ -27,10 +27,9 @@ import '../../features/auth/presentation/states/login/login_cubit.dart'
     as _i911;
 import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
-import '../../features/client/presentation/states/freelance_dashboard_cubit.dart'
+import '../../features/client/present/states/freelance_dashboard_cubit.dart'
     as _i709;
-import '../../features/client/presentation/states/user_dashboard_cubit.dart'
-    as _i49;
+import '../../features/client/present/states/user_dashboard_cubit.dart' as _i49;
 import '../network/api_consumer.dart' as _i931;
 import '../network/dio_consumer.dart' as _i802;
 import 'network_module.dart' as _i567;

@@ -1,5 +1,5 @@
-import 'package:dipe_freelance/features/client/presentation/states/contract_cubit.dart';
-import 'package:dipe_freelance/features/client/presentation/states/contract_state.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder;
 
