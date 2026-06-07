@@ -1,9 +1,13 @@
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_state.dart';
-import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_blue_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateContractScreen extends StatelessWidget {
   const CreateContractScreen({super.key});
@@ -23,14 +27,20 @@ class _CreateContractView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
+      backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F6FA),
+        backgroundColor: context.colorScheme.surface,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
+          onPressed: () => context.pop(),
+        ),
+        title: Text(
           'Create Contract',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: context.textTheme.titleLarge?.copyWith(
+            color: context.colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -53,80 +63,83 @@ class _CreateContractView extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Project Summary Card
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE8EAF6),
-                    borderRadius: BorderRadius.circular(12),
+                    color: context.colorScheme.primary.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Project Summary',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      const SizedBox(height: 4),
                       Text(
-                        contract.projectTitle,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                        'Project Summary',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 4.h),
+                      Text(
+                        contract.projectTitle,
+                        style: context.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: context.colorScheme.onSurface,
+                        ),
+                      ),
+                      SizedBox(height: 8.h),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 4.h,
                         ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFFE0CC),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Text(
                           contract.projectType,
                           style: const TextStyle(color: Color(0xFFE07B3A)),
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Budget',
-                                style: TextStyle(color: Colors.grey),
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: Colors.grey,
+                                ),
                               ),
                               Text(
                                 '\$${contract.budget.toInt()}',
-                                style: const TextStyle(
+                                style: context.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(width: 40),
+                          SizedBox(width: 40.w),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Duration',
-                                style: TextStyle(color: Colors.grey),
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: Colors.grey,
+                                ),
                               ),
                               Text(
                                 '${contract.durationDays} Days',
-                                style: const TextStyle(
+                                style: context.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
                                 ),
                               ),
                             ],
@@ -136,48 +149,58 @@ class _CreateContractView extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
-                const Text(
+                SizedBox(height: 24.h),
+                Text(
                   'Milestones',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface,
+                  ),
                 ),
-                const SizedBox(height: 12),
-                // Milestones List
+                SizedBox(height: 12.h),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    color: context.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 8,
+                      ),
+                    ],
                   ),
                   child: ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: contract.milestones.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    separatorBuilder: (_, __) => Divider(height: 1.h),
                     itemBuilder: (context, index) {
                       final milestone = contract.milestones[index];
                       return ListTile(
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: EdgeInsets.all(16.w),
                         leading: Container(
-                          width: 50,
-                          height: 50,
+                          width: 50.w,
+                          height: 50.h,
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFE0CC),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                           child: Center(
                             child: Text(
                               '${index + 1}',
-                              style: const TextStyle(
-                                color: Color(0xFFE07B3A),
+                              style: TextStyle(
+                                color: const Color(0xFFE07B3A),
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                               ),
                             ),
                           ),
                         ),
                         title: Text(
                           milestone.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: context.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         subtitle: Text(
                           milestone.dueDate,
@@ -188,9 +211,8 @@ class _CreateContractView extends StatelessWidget {
                         ),
                         trailing: Text(
                           '\$${milestone.amount.toInt()}',
-                          style: const TextStyle(
+                          style: context.textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
                           ),
                         ),
                       );
@@ -201,35 +223,11 @@ class _CreateContractView extends StatelessWidget {
             ),
           ),
         ),
-        // Bottom Button
         Padding(
-          padding: const EdgeInsets.all(16),
-          child: SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A2340),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider.value(
-                      value: context.read<ContractCubit>(),
-                      child: const ProjectProgressScreen(),
-                    ),
-                  ),
-                );
-              },
-              child: const Text(
-                'Create Contract',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
+          padding: EdgeInsets.all(16.w),
+          child: SharedBlueButton(
+            text: 'Create Contract',
+            onPressed: () => context.push(AppRoutes.projectProgress),
           ),
         ),
       ],

@@ -28,8 +28,10 @@ import '../../features/auth/presentation/states/login/login_cubit.dart'
 import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
 import '../../features/client/present/states/freelance_dashboard_cubit.dart'
-    as _i709;
-import '../../features/client/present/states/project_live_cubit.dart' as _i49;
+    as _i249;
+import '../../features/client/present/states/project_live_cubit.dart' as _i213;
+import '../../features/client/present/states/user_dashboard_cubit.dart'
+    as _i360;
 import '../network/api_consumer.dart' as _i931;
 import '../network/dio_consumer.dart' as _i802;
 import 'network_module.dart' as _i567;
@@ -44,10 +46,11 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
     final storageModule = _$StorageModule();
-    gh.factory<_i709.FreelanceDashboardCubit>(
-      () => _i709.FreelanceDashboardCubit(),
+    gh.factory<_i249.FreelanceDashboardCubit>(
+      () => _i249.FreelanceDashboardCubit(),
     );
-    gh.factory<_i49.ProjectLiveCubit>(() => _i49.ProjectLiveCubit());
+    gh.factory<_i213.ProjectLiveCubit>(() => _i213.ProjectLiveCubit());
+    gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => storageModule.storage);
     gh.lazySingleton<_i992.AuthLocalDataSource>(

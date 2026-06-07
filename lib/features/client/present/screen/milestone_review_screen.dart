@@ -1,9 +1,13 @@
-import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
-import 'package:dipe_freelance/features/client/present/screen/release_payment_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_blue_button.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_white_button.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class MilestoneReviewScreen extends StatelessWidget {
   final MilestoneEntity? milestone;
@@ -12,14 +16,20 @@ class MilestoneReviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
+      backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F6FA),
+        backgroundColor: context.colorScheme.surface,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
+          onPressed: () => context.pop(),
+        ),
+        title: Text(
           'Milestone Review',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: context.textTheme.titleLarge?.copyWith(
+            color: context.colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -27,43 +37,56 @@ class MilestoneReviewScreen extends StatelessWidget {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Milestone',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
+                    ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     milestone?.title ?? 'Frontend Development',
-                    style: const TextStyle(color: Colors.grey, fontSize: 15),
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         'Submitted on',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: context.colorScheme.onSurface,
+                        ),
                       ),
                       Text(
                         'May 20, 2024',
-                        style: TextStyle(color: Colors.grey),
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
+                  SizedBox(height: 20.h),
+                  Text(
                     'Deliverables',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
+                    ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8EAF6),
-                      borderRadius: BorderRadius.circular(12),
+                      color: context.colorScheme.primary.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Column(
                       children: ['Homepage.html', 'script.js', 'script.js']
@@ -71,133 +94,100 @@ class MilestoneReviewScreen extends StatelessWidget {
                             (file) => ListTile(
                               title: Text(
                                 file,
-                                style: const TextStyle(
-                                  color: Color(0xFF1A2340),
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  color: context.colorScheme.primary,
                                 ),
                               ),
-                              trailing: const Icon(
+                              trailing: Icon(
                                 Icons.download_outlined,
-                                color: Color(0xFF1A2340),
+                                color: context.colorScheme.primary,
                               ),
                             ),
                           )
                           .toList(),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
+                  SizedBox(height: 20.h),
+                  Text(
                     'Preview',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1A2340),
-                      borderRadius: BorderRadius.circular(12),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
                     ),
-                    child: const Center(
+                  ),
+                  SizedBox(height: 8.h),
+                  Container(
+                    height: 150.h,
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Center(
                       child: Text(
                         'Preview Image',
-                        style: TextStyle(color: Colors.white),
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: context.colorScheme.onPrimary,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
+                  SizedBox(height: 20.h),
+                  Text(
                     'Feedback',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
+                    ),
                   ),
-                  const SizedBox(height: 4),
-                  const Text(
+                  SizedBox(height: 4.h),
+                  Text(
                     '(Optional)',
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   TextFormField(
                     maxLines: 4,
                     decoration: InputDecoration(
                       hintText: 'Write your feedback here...',
                       hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
-                      fillColor: const Color(0xFFE8EAF6),
+                      fillColor: context.colorScheme.primary.withOpacity(0.08),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.all(14),
+                      contentPadding: EdgeInsets.all(14.w),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          // ─── Bottom Buttons ───────────────────────────────
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+            padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 32.h),
             child: Row(
               children: [
                 Expanded(
-                  child: SizedBox(
-                    height: 55,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: Color(0xFF1A2340),
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'Request Changes',
-                        style: TextStyle(
-                          color: Color(0xFF1A2340),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                  child: SharedWhiteButton(
+                    text: 'Request Changes',
+                    onPressed: () => context.pop(),
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 Expanded(
-                  child: SizedBox(
-                    height: 55,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A2340),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        context.read<ContractCubit>().releasePayment(
-                          freelancerName: 'Sarah Ahmed',
-                          amount: 500,
-                          milestoneTitle:
-                              milestone?.title ?? 'Frontend Development',
-                        );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider.value(
-                              value: context.read<ContractCubit>(),
-                              child: const ReleasePaymentScreen(),
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Approve Work',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                  child: SharedBlueButton(
+                    text: 'Approve Work',
+                    onPressed: () {
+                      context.read<ContractCubit>().releasePayment(
+                        freelancerName: 'Sarah Ahmed',
+                        amount: 500,
+                        milestoneTitle:
+                            milestone?.title ?? 'Frontend Development',
+                      );
+                      context.push(AppRoutes.releasePayment);
+                    },
                   ),
                 ),
               ],

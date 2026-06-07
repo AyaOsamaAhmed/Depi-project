@@ -1,12 +1,14 @@
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
 import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_state.dart';
-import 'package:dipe_freelance/features/client/present/screen/milestone_review_screen.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_blue_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'
-    show BlocBuilder, BlocProvider, ReadContext;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ProjectProgressScreen extends StatelessWidget {
   const ProjectProgressScreen({super.key});
@@ -14,14 +16,20 @@ class ProjectProgressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
+      backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F6FA),
+        backgroundColor: context.colorScheme.surface,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
+          onPressed: () => context.pop(),
+        ),
+        title: Text(
           'Project Progress',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: context.textTheme.titleLarge?.copyWith(
+            color: context.colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -41,55 +49,63 @@ class ProjectProgressScreen extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Overall Progress
-                const Text(
+                Text(
                   'Overall Progress',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '${(contract.overallProgress * 100).toInt()}%',
-                      style: const TextStyle(
-                        color: Color(0xFF1A2340),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: context.colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       '${(contract.overallProgress * 100).toInt()}%',
-                      style: const TextStyle(color: Colors.grey),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
                 LinearProgressIndicator(
                   value: contract.overallProgress,
                   backgroundColor: Colors.grey[300],
-                  color: const Color(0xFF1A2340),
+                  color: context.colorScheme.primary,
                   minHeight: 8,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
-                const SizedBox(height: 24),
-                // Current Milestone
-                const Text(
+                SizedBox(height: 24.h),
+                Text(
                   'Current Milestones',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                _buildCurrentMilestone(contract.milestones[1]),
-                const SizedBox(height: 24),
-                // All Milestones
-                const Text(
+                SizedBox(height: 8.h),
+                _buildCurrentMilestone(context, contract.milestones[1]),
+                SizedBox(height: 24.h),
+                Text(
                   'Milestones',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface,
+                  ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 ...contract.milestones.map(
                   (m) => _buildMilestoneItem(context, m),
                 ),
@@ -98,68 +114,51 @@ class ProjectProgressScreen extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(16),
-          child: SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A2340),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider.value(
-                      value: context.read<ContractCubit>(),
-                      child: const MilestoneReviewScreen(),
-                    ),
-                  ),
-                );
-              },
-              child: const Text(
-                'Message Freelancer',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
+          padding: EdgeInsets.all(16.w),
+          child: SharedBlueButton(
+            text: 'Message Freelancer',
+            onPressed: () => context.push(AppRoutes.milestoneReview),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildCurrentMilestone(MilestoneEntity milestone) {
+  Widget _buildCurrentMilestone(
+    BuildContext context,
+    MilestoneEntity milestone,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           milestone.title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: context.textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: context.colorScheme.onSurface,
+          ),
         ),
-        const SizedBox(height: 4),
+        SizedBox(height: 4.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'In Progress\nDue In 5 days',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
+              style: context.textTheme.bodySmall?.copyWith(color: Colors.grey),
             ),
             Text(
               '${(milestone.progress * 100).toInt()}%',
-              style: const TextStyle(color: Colors.grey),
+              style: context.textTheme.bodySmall?.copyWith(color: Colors.grey),
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: 6.h),
         LinearProgressIndicator(
           value: milestone.progress,
           backgroundColor: Colors.grey[300],
-          color: const Color(0xFF1A2340),
+          color: context.colorScheme.primary,
           minHeight: 8,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(4.r),
         ),
       ],
     );
@@ -167,62 +166,58 @@ class ProjectProgressScreen extends StatelessWidget {
 
   Widget _buildMilestoneItem(BuildContext context, MilestoneEntity milestone) {
     final isCompleted = milestone.status == 3;
-    final color = isCompleted ? Colors.green : const Color(0xFF1A2340);
+    final color = isCompleted ? Colors.green : context.colorScheme.primary;
 
     return GestureDetector(
       onTap: () {
         if (!isCompleted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => BlocProvider.value(
-                value: context.read<ContractCubit>(),
-                child: MilestoneReviewScreen(milestone: milestone),
-              ),
-            ),
-          );
+          context.push(AppRoutes.milestoneReview);
         }
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.only(bottom: 16.h),
         child: Row(
           children: [
             CircleAvatar(
-              radius: 18,
+              radius: 18.r,
               backgroundColor: color,
-              child: const Icon(Icons.check, color: Colors.white, size: 16),
+              child: Icon(Icons.check, color: Colors.white, size: 16.sp),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     milestone.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
+                    ),
                   ),
                   Text(
                     isCompleted ? 'Completed' : 'In Progress',
-                    style: TextStyle(
+                    style: context.textTheme.bodySmall?.copyWith(
                       color: isCompleted ? Colors.green : Colors.grey,
-                      fontSize: 12,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   LinearProgressIndicator(
                     value: milestone.progress,
                     backgroundColor: Colors.grey[300],
-                    color: isCompleted ? Colors.green : const Color(0xFF1A2340),
+                    color: isCompleted
+                        ? Colors.green
+                        : context.colorScheme.primary,
                     minHeight: 6,
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(4.r),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             Text(
               '${(milestone.progress * 100).toInt()}%',
-              style: const TextStyle(color: Colors.grey),
+              style: context.textTheme.bodySmall?.copyWith(color: Colors.grey),
             ),
           ],
         ),
