@@ -196,4 +196,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recentRequirements => 'recent Requirements';
+
+  @override
+  String get aiPricePrediction => 'AI price prediction';
+
+  @override
+  String get aiEstimatedBudget => 'AI ESTIMATED BUDGET';
+
+  @override
+  String get basedOnProjectRequirementsAndMarketData =>
+      'Based on project requirements and market data';
+
+  @override
+  String get priceBreakdown => 'Price breakdown';
+
+  @override
+  String get thisIsAPredictionYouCanAdjustTheBudgetBeforePublishing =>
+      'This is a prediction. You can adjust the budget before publishing';
+
+  @override
+  String get publishProject => 'Publish Project';
+
+  @override
+  String get projectPublished => 'Project Published';
+
+  @override
+  String nameHiredForYourProject(Object name) {
+    return '$name has been hired for your project';
+  }
+
+  @override
+  String get youCanReviewAndHireTheBestFit =>
+      'You can review and hire the best fit';
+
+  @override
+  String get freelanceCanSendProposals => 'Freelance can send proposals';
+
+  @override
+  String get createContract => 'create Contract';
+
+  @override
+  String get goToProject => 'Go to Project';
 }

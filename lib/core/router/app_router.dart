@@ -7,6 +7,7 @@ import 'package:dipe_freelance/features/client/present/screen/milestone_review_s
 import 'package:dipe_freelance/features/client/present/screen/price_breakdown_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_details_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/project_publish_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/release_payment_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_live_screen.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
@@ -31,6 +32,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.freelanceDashboard,
         builder: (context, state) => const FreelanceDashboardView(),
+      ),
+      GoRoute(
+        path: AppRoutes.projectPublish,
+        builder: (context, state) => const ProjectPublishScreen(),
       ),
       GoRoute(
         path: AppRoutes.projectLive,

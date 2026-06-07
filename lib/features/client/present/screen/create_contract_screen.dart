@@ -1,9 +1,11 @@
+import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_state.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateContractScreen extends StatelessWidget {
   const CreateContractScreen({super.key});
@@ -215,15 +217,7 @@ class _CreateContractView extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider.value(
-                      value: context.read<ContractCubit>(),
-                      child: const ProjectProgressScreen(),
-                    ),
-                  ),
-                );
+                context.push(AppRoutes.projectProgress);
               },
               child: const Text(
                 'Create Contract',

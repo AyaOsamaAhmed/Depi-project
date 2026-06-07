@@ -14,4 +14,5 @@ class AppRoutes {
   static const String priceBreakdown = '/priceBreakdown';
   static const String releasePayment = '/releasePayment';
   static const String projectProgress = '/projectProgress';
+  static const String projectPublish = '/projectPublish';
 }
