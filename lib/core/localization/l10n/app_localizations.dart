@@ -463,6 +463,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'recent Requirements'**
   String get recentRequirements;
+
+  /// No description provided for @aiPricePrediction.
+  ///
+  /// In en, this message translates to:
+  /// **'AI price prediction'**
+  String get aiPricePrediction;
+
+  /// No description provided for @aiEstimatedBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'AI ESTIMATED BUDGET'**
+  String get aiEstimatedBudget;
+
+  /// No description provided for @basedOnProjectRequirementsAndMarketData.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on project requirements and market data'**
+  String get basedOnProjectRequirementsAndMarketData;
+
+  /// No description provided for @priceBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Price breakdown'**
+  String get priceBreakdown;
+
+  /// No description provided for @thisIsAPredictionYouCanAdjustTheBudgetBeforePublishing.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a prediction. You can adjust the budget before publishing'**
+  String get thisIsAPredictionYouCanAdjustTheBudgetBeforePublishing;
+
+  /// No description provided for @publishProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Project'**
+  String get publishProject;
+
+  /// No description provided for @projectPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Published'**
+  String get projectPublished;
+
+  /// No description provided for @nameHiredForYourProject.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} has been hired for your project'**
+  String nameHiredForYourProject(Object name);
+
+  /// No description provided for @youCanReviewAndHireTheBestFit.
+  ///
+  /// In en, this message translates to:
+  /// **'You can review and hire the best fit'**
+  String get youCanReviewAndHireTheBestFit;
+
+  /// No description provided for @freelanceCanSendProposals.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelance can send proposals'**
+  String get freelanceCanSendProposals;
+
+  /// No description provided for @createContract.
+  ///
+  /// In en, this message translates to:
+  /// **'create Contract'**
+  String get createContract;
+
+  /// No description provided for @goToProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Project'**
+  String get goToProject;
 }
 
 class _AppLocalizationsDelegate

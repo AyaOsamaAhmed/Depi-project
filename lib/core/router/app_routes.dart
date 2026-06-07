@@ -16,4 +16,5 @@ class AppRoutes {
   static const String projectProgress = '/projectProgress';
   static const String userDashboard = '/userDashboard';
   static const String createNewProject = '/createNewProject';
+  static const String projectPublish = '/projectPublish';
 }

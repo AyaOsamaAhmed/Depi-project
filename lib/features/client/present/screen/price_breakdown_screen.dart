@@ -1,4 +1,8 @@
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_blue_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PriceBreakdownScreen extends StatelessWidget {
   const PriceBreakdownScreen({super.key});
@@ -22,8 +26,8 @@ class PriceBreakdownScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Color(0xFF111111)),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
-          'AI price prediction',
+        title: Text(
+          context.local.aiPricePrediction,
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -52,7 +56,16 @@ class PriceBreakdownScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _PublishButton(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: SharedBlueButton(
+                text: context.local.publishProject,
+                onPressed: () {
+                  context.push(AppRoutes.projectPublish);
+                },
+              ),
+            ),
+
             const SizedBox(height: 28),
           ],
         ),
@@ -73,9 +86,9 @@ class _BudgetCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
-            'AI ESTIMATED BUDGET',
+            context.local.aiEstimatedBudget,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -95,7 +108,7 @@ class _BudgetCard extends StatelessWidget {
           ),
           SizedBox(height: 6),
           Text(
-            'Based on project requirements and market data',
+            context.local.basedOnProjectRequirementsAndMarketData,
             style: TextStyle(
               fontSize: 13,
               color: Color(0xFF888888),
@@ -118,8 +131,8 @@ class _BreakdownSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Price breakdown',
+        Text(
+          context.local.priceBreakdown,
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -199,12 +212,12 @@ class _NoteBox extends StatelessWidget {
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Icon(Icons.auto_awesome, size: 18, color: Color(0xFF3A5BCF)),
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              'This is a prediction. You can adjust the budget before publishing.',
+              context.local.basedOnProjectRequirementsAndMarketData,
               style: TextStyle(
                 fontSize: 12,
                 color: Color(0xFF555555),
@@ -234,8 +247,8 @@ class _PublishButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
           ),
         ),
-        child: const Text(
-          'Publish project',
+        child: Text(
+          context.local.publishProject,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,

@@ -62,5 +62,17 @@
   "requiredDocuments":"Required Documents",
   "addRequirements":"Add Requirements",
   "attachedFile":"Attached File",
-  "recentRequirements":"recent Requirements"
+  "recentRequirements":"recent Requirements",
+  "aiPricePrediction":"AI price prediction",
+  "aiEstimatedBudget":"AI ESTIMATED BUDGET",
+  "basedOnProjectRequirementsAndMarketData":"Based on project requirements and market data",
+  "priceBreakdown":"Price breakdown",
+  "thisIsAPredictionYouCanAdjustTheBudgetBeforePublishing":"This is a prediction. You can adjust the budget before publishing",
+  "publishProject":"Publish Project",
+  "projectPublished":"Project Published",
+  "nameHiredForYourProject":"{name} has been hired for your project",
+  "youCanReviewAndHireTheBestFit":"You can review and hire the best fit",
+  "freelanceCanSendProposals":"Freelance can send proposals",
+  "createContract":"create Contract",
+  "goToProject":"Go to Project"
 }
