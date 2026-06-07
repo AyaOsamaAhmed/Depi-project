@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'verify_email_screen.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-
-import '../widgets/auth_button.dart';
 
 class ChooseRoleScreen extends StatefulWidget {
-  const ChooseRoleScreen({super.key});
+  final String email;
+  const ChooseRoleScreen({super.key, required this.email});
 
   @override
   State<ChooseRoleScreen> createState() => _ChooseRoleScreenState();
@@ -147,8 +144,8 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const VerifyEmailScreen(
-                              email: 'omar.hassan@gmail.com',
+                            builder: (_) =>  VerifyEmailScreen(
+                              email: widget.email,
                             ),
                           ),
                         );

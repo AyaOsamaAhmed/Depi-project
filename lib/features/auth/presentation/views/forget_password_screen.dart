@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../core/utils/validators.dart';
-import '../widgets/auth_button.dart';
-import '../widgets/auth_text_field.dart';
-
 import 'verify_email_screen.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {

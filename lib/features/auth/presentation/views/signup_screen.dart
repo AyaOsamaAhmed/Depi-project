@@ -170,131 +170,61 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 SizedBox(height: 32.h),
 
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // Freelancer Button
-                                    BlocConsumer<SignupCubit, SignupState>(
-                                      listener: (context, state) {
-                                        if (state is SignupSuccess) {
-                                          // Navigate on success
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  context.local.signupSuccess,
-                                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: BlocConsumer<SignupCubit, SignupState>(
+                                    listener: (context, state) {
+                                      if (state is SignupSuccess) {
+                                        // Navigate on success
+                                        ScaffoldMessenger.of(context)
+                                          ..hideCurrentSnackBar()
+                                          ..showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                context.local.signupSuccess,
                                               ),
-                                            );
-                                          context.go(AppRoutes.login);
-                                        } else if (state is SignupFailure) {
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(
-                                              SnackBar(
-                                                content: Text(state.message),
-                                              ),
-                                            );
-                                        }
-                                      },
-                                      builder: (context, state) {
-                                        return Expanded(
-                                          child: AuthButton(
-                                            text: context.local.freelancer,
-                                            isLoading: state is SignupLoading,
-                                            onPressed: () {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                context
-                                                    .read<SignupCubit>()
-                                                    .signup(
-                                                      firstName:
-                                                          _firstNameController
-                                                              .text,
-                                                      lastName:
-                                                          _lastNameController
-                                                              .text,
-                                                      email:
-                                                          _emailController.text,
-                                                      password:
-                                                          _passwordController
-                                                              .text,
-                                                      userType: 1, // Freelancer
-                                                      gender: 1, // Male
-                                                      dateOfBirth: "2000-01-01",
-                                                      phoneNumber: "0123456789",
-                                                      countryId: 1,
-                                                    );
-                                              }
-                                            },
-                                          ),
+                                            ),
+                                          );
+                                        context.push(
+                                          AppRoutes.chooseRole,
+                                          extra: _emailController.text,
                                         );
-                                      },
-                                    ),
-
-                                    SizedBox(width: 24.w),
-
-                                    // Client Button
-                                    BlocConsumer<SignupCubit, SignupState>(
-                                      listener: (context, state) {
-                                        if (state is SignupSuccess) {
-                                          // Navigate on success
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  context.local.signupSuccess,
-                                                ),
-                                              ),
+                                      } else if (state is SignupFailure) {
+                                        ScaffoldMessenger.of(context)
+                                          ..hideCurrentSnackBar()
+                                          ..showSnackBar(
+                                            SnackBar(
+                                              content: Text(state.message),
+                                            ),
+                                          );
+                                      }
+                                    },
+                                    builder: (context, state) {
+                                      return AuthButton(
+                                        text: context.local.signUp,
+                                        isLoading: state is SignupLoading,
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            context.read<SignupCubit>().signup(
+                                              firstName:
+                                                  _firstNameController.text,
+                                              lastName:
+                                                  _lastNameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                              userType: 1, // Default user type
+                                              gender: 1, // Default Male
+                                              dateOfBirth: "2000-01-01",
+                                              phoneNumber: "0123456789",
+                                              countryId: 1,
                                             );
-                                          context.go(AppRoutes.login);
-                                        } else if (state is SignupFailure) {
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(
-                                              SnackBar(
-                                                content: Text(state.message),
-                                              ),
-                                            );
-                                        }
-                                      },
-                                      builder: (context, state) {
-                                        return Expanded(
-                                          child: AuthButton(
-                                            text: context.local.client,
-                                            isLoading: state is SignupLoading,
-                                            onPressed: () {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                context
-                                                    .read<SignupCubit>()
-                                                    .signup(
-                                                      firstName:
-                                                          _firstNameController
-                                                              .text,
-                                                      lastName:
-                                                          _lastNameController
-                                                              .text,
-                                                      email:
-                                                          _emailController.text,
-                                                      password:
-                                                          _passwordController
-                                                              .text,
-                                                      userType: 2, // Client
-                                                      gender: 1, // Male
-                                                      dateOfBirth: "2000-01-01",
-                                                      phoneNumber: "0123456789",
-                                                      countryId: 1,
-                                                    );
-                                              }
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                          }
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
 
                                 SizedBox(height: 24.h),

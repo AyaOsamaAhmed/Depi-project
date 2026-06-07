@@ -39,7 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            backgroundColor: context.colorScheme.primary, // Dark blue background
+            backgroundColor:
+                context.colorScheme.primary, // Dark blue background
             body: SafeArea(
               bottom: false,
               child: Column(
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-          
+
                   // Bottom Section with Form
                   Expanded(
                     flex: 3,
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 40.h),
-          
+
                                 // Email Field
                                 AuthTextField(
                                   label: context.local.email,
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Validators.validateEmail(context, value),
                                 ),
                                 SizedBox(height: 24.h),
-          
+
                                 // Password Field
                                 AuthTextField(
                                   label: context.local.password,
@@ -113,7 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: _passwordController,
                                   textInputAction: TextInputAction.done,
                                   validator: (value) =>
-                                      Validators.validatePassword(context, value),
+                                      Validators.validatePassword(
+                                        context,
+                                        value,
+                                      ),
                                   onFieldSubmitted: (_) {
                                     if (_formKey.currentState!.validate()) {
                                       context.read<LoginCubit>().login(
@@ -124,23 +128,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                                 SizedBox(height: 16.h),
-          
+
                                 // Forget Password
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      context.push(AppRoutes.resetPassword);
+                                    },
                                     child: Text(
                                       context.local.forgetPassword,
-                                      style: context.textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: context.colorScheme.onSurface,
-                                      ),
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                                context.colorScheme.onSurface,
+                                          ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 32.h),
-          
+
                                 // Login Button
                                 BlocConsumer<LoginCubit, LoginState>(
                                   listener: (context, state) {
@@ -157,13 +165,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                       // Navigate based on userType (1: Freelancer, 2: Client/User)
                                       if (state.authEntity.user.userType == 1) {
-                                        context.go(AppRoutes.freelanceDashboard);
+                                        context.go(
+                                          AppRoutes.freelanceDashboard,
+                                        );
                                       } else {
                                         context.go(AppRoutes.userDashboard);
                                       }
                                     } else if (state is LoginFailure) {
                                       String errorMessage = state.message;
-                                      if (state.message == 'invalidCredentials') {
+                                      if (state.message ==
+                                          'invalidCredentials') {
                                         errorMessage =
                                             context.local.invalidCredentials;
                                       }
@@ -190,21 +201,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                                 SizedBox(height: 24.h),
-          
+
                                 // Sign Up Link
                                 Center(
                                   child: RichText(
                                     text: TextSpan(
                                       text: context.local.dontHaveAccount,
-                                      style: context.textTheme.bodyMedium?.copyWith(
-                                        color: context.colorScheme.onSurface,
-                                      ),
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color:
+                                                context.colorScheme.onSurface,
+                                          ),
                                       children: [
                                         TextSpan(
                                           text: context.local.signUp,
                                           style: context.textTheme.bodyMedium
                                               ?.copyWith(
-                                                color: context.colorScheme.primary,
+                                                color:
+                                                    context.colorScheme.primary,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                           recognizer: TapGestureRecognizer()
@@ -227,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           );
-        }
+        },
       ),
     );
   }
