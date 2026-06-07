@@ -1,5 +1,5 @@
-import 'package:dipe_freelance/features/client/presentation%20/states/contract_cubit.dart';
-import 'package:dipe_freelance/features/client/presentation%20/screen/release_payment_screen.dart';
+import 'package:dipe_freelance/features/client/presentation/states/contract_cubit.dart';
+import 'package:dipe_freelance/features/client/presentation/screen/release_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';

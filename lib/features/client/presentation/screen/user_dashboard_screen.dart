@@ -1,7 +1,7 @@
 import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
-import 'package:dipe_freelance/features/client/presentation%20/widgets/shared_blue_button.dart';
-import 'package:dipe_freelance/features/client/presentation%20/widgets/shared_white_button.dart';
+import 'package:dipe_freelance/features/client/presentation/widgets/shared_blue_button.dart';
+import 'package:dipe_freelance/features/client/presentation/widgets/shared_white_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

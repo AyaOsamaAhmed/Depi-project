@@ -1,6 +1,6 @@
 import 'package:dipe_freelance/features/client/domain/entities/contract_entity.dart';
 import 'package:dipe_freelance/features/client/domain/entities/milestone_entity.dart';
-import 'package:dipe_freelance/features/client/presentation%20/states/contract_state.dart';
+import 'package:dipe_freelance/features/client/presentation/states/contract_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContractCubit extends Cubit<ContractState> {
