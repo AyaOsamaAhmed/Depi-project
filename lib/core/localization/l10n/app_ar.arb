@@ -48,5 +48,16 @@
   "createContractMilestone": "إنشاء عقد ومراحل العمل",
   "workTogetherTrackProgress": "اعملوا معاً وتابعوا التقدم",
   "viewProject": "عرض المشروع",
-  "goToDashboard": "الذهاب إلى لوحة التحكم"
+  "goToDashboard": "الذهاب إلى لوحة التحكم",
+  "getAIPrediction": "احصل على توقعات الأسعار بالذكاء الاصطناعي",
+  "getAIPredictionDesc": "بناءً على تفاصيل مشروعك، احصل على اقتراحات تسعير مدعومة بالذكاء الاصطناعي من قاعدة بيانات المشاريع المماثلة السابقة لدينا",
+  "projectDetails": "تفاصيل المشروع",
+  "category": "الفئة",
+  "projectTitle": "عنوان المشروع",
+  "budget": "الميزانية",
+  "projectType": "نوع المشروع",
+  "requiredDocuments": "المستندات المطلوبة",
+  "addRequirements": "إضافة المتطلبات",
+  "attachedFile": "الملفات المرفقة",
+  "recentRequirements": "المتطلبات الحديثة"
 }

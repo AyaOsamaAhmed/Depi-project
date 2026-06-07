@@ -51,5 +51,16 @@
   "createContractMilestone": "Create contract and milestone",
   "workTogetherTrackProgress": "Work together and track progress",
   "viewProject": "View Project",
-  "goToDashboard": "Go to dashboard"
+  "goToDashboard": "Go to dashboard",
+  "getAIPrediction": "Get AI price prediction",
+  "getAIPredictionDesc": "Based on your project details, get AI-powered price suggestions from our database of similar past projects",
+  "projectDetails": "Project Details",
+  "category":"Category",
+  "projectTitle":"project Title",
+  "budget":"Budget",
+  "projectType":"Project Type",
+  "requiredDocuments":"Required Documents",
+  "addRequirements":"Add Requirements",
+  "attachedFile":"Attached File",
+  "recentRequirements":"recent Requirements"
 }

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PriceBreakdownItem {
-  final String label;
-  final String range;
-
-  const PriceBreakdownItem({required this.label, required this.range});
-}
-
-class AiPricePredictionScreen extends StatelessWidget {
-  const AiPricePredictionScreen({super.key});
+class PriceBreakdownScreen extends StatelessWidget {
+  const PriceBreakdownScreen({super.key});
 
   static const List<PriceBreakdownItem> _breakdownItems = [
     PriceBreakdownItem(label: 'Project Management', range: '\$600 – \$800'),
@@ -252,4 +245,11 @@ class _PublishButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class PriceBreakdownItem {
+  final String label;
+  final String range;
+
+  const PriceBreakdownItem({required this.label, required this.range});
 }

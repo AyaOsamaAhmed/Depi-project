@@ -163,4 +163,38 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goToDashboard => 'الذهاب إلى لوحة التحكم';
+
+  @override
+  String get getAIPrediction => 'احصل على توقعات الأسعار بالذكاء الاصطناعي';
+
+  @override
+  String get getAIPredictionDesc =>
+      'بناءً على تفاصيل مشروعك، احصل على اقتراحات تسعير مدعومة بالذكاء الاصطناعي من قاعدة بيانات المشاريع المماثلة السابقة لدينا';
+
+  @override
+  String get projectDetails => 'تفاصيل المشروع';
+
+  @override
+  String get category => 'الفئة';
+
+  @override
+  String get projectTitle => 'عنوان المشروع';
+
+  @override
+  String get budget => 'الميزانية';
+
+  @override
+  String get projectType => 'نوع المشروع';
+
+  @override
+  String get requiredDocuments => 'المستندات المطلوبة';
+
+  @override
+  String get addRequirements => 'إضافة المتطلبات';
+
+  @override
+  String get attachedFile => 'الملفات المرفقة';
+
+  @override
+  String get recentRequirements => 'المتطلبات الحديثة';
 }

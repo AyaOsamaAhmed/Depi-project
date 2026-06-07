@@ -4,16 +4,17 @@ import 'package:dipe_freelance/features/auth/presentation/views/signup_screen.da
 import 'package:dipe_freelance/features/client/present/screen/create_contract_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/freelance_dashboard_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/milestone_review_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/price_breakdown_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_details_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_progress_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/release_payment_screen.dart';
-import 'package:dipe_freelance/features/client/present/screen/user_dashboard_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/project_live_screen.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.onBoarding,
+    initialLocation: AppRoutes.projectDetails,
     routes: [
       GoRoute(
         path: AppRoutes.onBoarding,
@@ -32,8 +33,8 @@ class AppRouter {
         builder: (context, state) => const FreelanceDashboardView(),
       ),
       GoRoute(
-        path: AppRoutes.userDashboard,
-        builder: (context, state) => const UserDashboardView(),
+        path: AppRoutes.projectLive,
+        builder: (context, state) => const ProjectLiveScreen(),
       ),
       GoRoute(
         path: AppRoutes.projectDetails,
@@ -55,6 +56,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.projectProgress,
         builder: (context, state) => const ProjectProgressScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.priceBreakdown,
+        builder: (context, state) => const PriceBreakdownScreen(),
       ),
     ],
   );

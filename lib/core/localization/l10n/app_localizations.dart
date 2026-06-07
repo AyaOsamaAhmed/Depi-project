@@ -397,6 +397,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to dashboard'**
   String get goToDashboard;
+
+  /// No description provided for @getAIPrediction.
+  ///
+  /// In en, this message translates to:
+  /// **'Get AI price prediction'**
+  String get getAIPrediction;
+
+  /// No description provided for @getAIPredictionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your project details, get AI-powered price suggestions from our database of similar past projects'**
+  String get getAIPredictionDesc;
+
+  /// No description provided for @projectDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Details'**
+  String get projectDetails;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @projectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'project Title'**
+  String get projectTitle;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
+
+  /// No description provided for @projectType.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Type'**
+  String get projectType;
+
+  /// No description provided for @requiredDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Documents'**
+  String get requiredDocuments;
+
+  /// No description provided for @addRequirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Requirements'**
+  String get addRequirements;
+
+  /// No description provided for @attachedFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Attached File'**
+  String get attachedFile;
+
+  /// No description provided for @recentRequirements.
+  ///
+  /// In en, this message translates to:
+  /// **'recent Requirements'**
+  String get recentRequirements;
 }
 
 class _AppLocalizationsDelegate

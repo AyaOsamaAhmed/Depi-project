@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import '../states/user_dashboard_cubit.dart';
+import '../states/project_live_cubit.dart';
 
-class UserDashboardView extends StatelessWidget {
-  const UserDashboardView({super.key});
+class ProjectLiveScreen extends StatelessWidget {
+  const ProjectLiveScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<UserDashboardCubit>(),
+      create: (context) => getIt<ProjectLiveCubit>(),
       child: Scaffold(
         backgroundColor: context.colorScheme.surface,
         appBar: AppBar(
@@ -25,15 +25,15 @@ class UserDashboardView extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: const _UserDashboardBody(),
-        bottomNavigationBar: const _UserDashboardFooter(),
+        body: const _ProjectLiveBody(),
+        bottomNavigationBar: const _ProjectLiveFooter(),
       ),
     );
   }
 }
 
-class _UserDashboardBody extends StatelessWidget {
-  const _UserDashboardBody();
+class _ProjectLiveBody extends StatelessWidget {
+  const _ProjectLiveBody();
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +113,8 @@ class _NextStepItem extends StatelessWidget {
   }
 }
 
-class _UserDashboardFooter extends StatelessWidget {
-  const _UserDashboardFooter();
+class _ProjectLiveFooter extends StatelessWidget {
+  const _ProjectLiveFooter();
 
   @override
   Widget build(BuildContext context) {

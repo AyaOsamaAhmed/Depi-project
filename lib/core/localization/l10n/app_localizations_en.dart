@@ -162,4 +162,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goToDashboard => 'Go to dashboard';
+
+  @override
+  String get getAIPrediction => 'Get AI price prediction';
+
+  @override
+  String get getAIPredictionDesc =>
+      'Based on your project details, get AI-powered price suggestions from our database of similar past projects';
+
+  @override
+  String get projectDetails => 'Project Details';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get projectTitle => 'project Title';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get projectType => 'Project Type';
+
+  @override
+  String get requiredDocuments => 'Required Documents';
+
+  @override
+  String get addRequirements => 'Add Requirements';
+
+  @override
+  String get attachedFile => 'Attached File';
+
+  @override
+  String get recentRequirements => 'recent Requirements';
 }
