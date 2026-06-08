@@ -36,7 +36,17 @@ class ReleasePaymentScreen extends StatelessWidget {
           if (state is PaymentReleased) {
             return _buildContent(context, state);
           }
-          return const SizedBox();
+          // Dummy data للـ preview لحد ما الـ API يجهز
+          return _buildContent(
+            context,
+            PaymentReleased(
+              freelancerName: 'Sarah Ahmed',
+              amount: 500,
+              milestoneTitle: 'Frontend Development',
+              date: 'May 16, 2026',
+              transactionId: '9999945648448469',
+            ),
+          );
         },
       ),
     );

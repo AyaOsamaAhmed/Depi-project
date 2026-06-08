@@ -143,7 +143,7 @@ class _UserDashboardBody extends StatelessWidget {
           SizedBox(height: 24.h),
           SharedBlueButton(
             text: '+ Create Projects',
-            onPressed: () => context.push(AppRoutes.projectDetails),
+            onPressed: () => context.push(AppRoutes.createNewProject),
           ),
           SizedBox(height: 16.h),
         ],

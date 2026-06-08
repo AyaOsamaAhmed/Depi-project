@@ -17,7 +17,7 @@ class CreateNewProjectScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
         title: Text(
           'Create New Projects',
@@ -33,7 +33,6 @@ class CreateNewProjectScreen extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            // Custom Folder Illustration
             Container(
               width: 200.w,
               height: 200.w,
@@ -65,28 +64,9 @@ class CreateNewProjectScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-
-            SizedBox(
-              width: double.infinity,
-              height: 56.h,
-              child: ElevatedButton(
-                onPressed: () => context.push(AppRoutes.projectDetails),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1E3A5F),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.r),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+            SharedBlueButton(
+              text: 'Get Started',
+              onPressed: () => context.push(AppRoutes.projectDetails),
             ),
             SizedBox(height: 24.h),
           ],
@@ -103,7 +83,6 @@ class FolderPainter extends CustomPainter {
     final midPaint = Paint()..color = const Color(0xFF2D5090);
     final lightPaint = Paint()..color = const Color(0xFF4A72C0);
 
-    // Tab بتاع الـ back folder
     final backTabPath = Path()
       ..moveTo(size.width * 0.10, size.height * 0.10)
       ..lineTo(size.width * 0.42, size.height * 0.10)
@@ -118,7 +97,6 @@ class FolderPainter extends CustomPainter {
       ..close();
     canvas.drawPath(backTabPath, darkPaint);
 
-    // Body بتاع الـ back folder
     final backBodyRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(
         size.width * 0.10,
@@ -133,7 +111,6 @@ class FolderPainter extends CustomPainter {
     );
     canvas.drawRRect(backBodyRect, darkPaint);
 
-    // === Middle folder (النص) ===
     final midBodyRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(
         size.width * 0.04,
@@ -148,7 +125,6 @@ class FolderPainter extends CustomPainter {
     );
     canvas.drawRRect(midBodyRect, midPaint);
 
-    // Tab بتاع الـ middle folder
     final midTabPath = Path()
       ..moveTo(size.width * 0.04, size.height * 0.26)
       ..lineTo(size.width * 0.36, size.height * 0.26)
@@ -163,7 +139,6 @@ class FolderPainter extends CustomPainter {
       ..close();
     canvas.drawPath(midTabPath, midPaint);
 
-    // === Front folder (الأمام - أفتح) ===
     final frontBodyRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(
         size.width * 0.00,
@@ -178,7 +153,6 @@ class FolderPainter extends CustomPainter {
     );
     canvas.drawRRect(frontBodyRect, lightPaint);
 
-    // Tab بتاع الـ front folder
     final frontTabPath = Path()
       ..moveTo(size.width * 0.00, size.height * 0.40)
       ..lineTo(size.width * 0.32, size.height * 0.40)

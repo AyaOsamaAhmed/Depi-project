@@ -10,13 +10,25 @@ import 'package:dipe_freelance/features/client/present/screen/project_progress_s
 import 'package:dipe_freelance/features/client/present/screen/project_publish_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/release_payment_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/project_live_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/user_dashboard_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/create_new_project_screen.dart';
+import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.projectDetails,
+    initialLocation: AppRoutes.userDashboard,
     routes: [
+      GoRoute(
+        path: AppRoutes.userDashboard,
+        builder: (context, state) => const UserDashboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.createNewProject,
+        builder: (context, state) => const CreateNewProjectScreen(),
+      ),
       GoRoute(
         path: AppRoutes.onBoarding,
         builder: (context, state) => const OnBoardingScreen(),
@@ -47,20 +59,31 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.createContract,
-        builder: (context, state) => const CreateContractScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.milestoneReview,
-        builder: (context, state) => const MilestoneReviewScreen(),
-      ),
-
-      GoRoute(
-        path: AppRoutes.releasePayment,
-        builder: (context, state) => const ReleasePaymentScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => ContractCubit()..loadContract(),
+          child: const CreateContractScreen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.projectProgress,
-        builder: (context, state) => const ProjectProgressScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => ContractCubit()..loadContract(),
+          child: const ProjectProgressScreen(),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.milestoneReview,
+        builder: (context, state) => BlocProvider(
+          create: (_) => ContractCubit()..loadContract(),
+          child: const MilestoneReviewScreen(),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.releasePayment,
+        builder: (context, state) => BlocProvider(
+          create: (_) => ContractCubit()..loadContract(),
+          child: const ReleasePaymentScreen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.priceBreakdown,
