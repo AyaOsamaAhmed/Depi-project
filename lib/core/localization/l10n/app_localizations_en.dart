@@ -480,4 +480,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewPayment => 'View Payment';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get messages => 'Messages';
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get allTab => 'All';
+
+  @override
+  String get unreadTab => 'Unread';
+
+  @override
+  String get mentionTab => 'Mention';
+
+  @override
+  String get payment => 'Payment';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get walletTab => 'Wallet';
+
+  @override
+  String get manageEverything => 'Manage everything in one place';
+
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String get addFunds => 'Add Funds';
+
+  @override
+  String get safeSecure => '100% Safe & secure';
+
+  @override
+  String get multiplePaymentMethods => 'Multiple payment methods';
+
+  @override
+  String get securePayments => 'Secure Payments';
+
+  @override
+  String get projectHistory => 'Project History';
+
+  @override
+  String allProjectsCount(int count) {
+    return 'All Projects($count)';
+  }
+
+  @override
+  String inProgressCount(int count) {
+    return 'In Progress($count)';
+  }
+
+  @override
+  String completedCount(int count) {
+    return 'Completed($count)';
+  }
+
+  @override
+  String acceptCount(int count) {
+    return 'Accept($count)';
+  }
+
+  @override
+  String declinedCount(int count) {
+    return 'Decline($count)';
+  }
+
+  @override
+  String proposedOn(String date) {
+    return 'Proposed on $date';
+  }
+
+  @override
+  String get lastUpdate => 'Last Update';
+
+  @override
+  String get rejected => 'Rejected';
+
+  @override
+  String get invited => 'Invited';
+
+  @override
+  String get accepted => 'Accepted';
+
+  @override
+  String get declined => 'Declined';
+
+  @override
+  String get budget => 'Budget';
 }

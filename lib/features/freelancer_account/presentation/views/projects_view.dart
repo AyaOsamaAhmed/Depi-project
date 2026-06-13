@@ -5,6 +5,11 @@ import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_history_cubit.dart';
 
 class ProjectModel {
   final String title;
@@ -85,41 +90,49 @@ class _ProjectsViewState extends State<ProjectsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProjectCubit, ProjectState>(
-      builder: (context, state) {
-        if (state is ProjectLoading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.local.findYourNextProject,
-                    style: context.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28.sp,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<ProjectCubit>()),
+        BlocProvider(create: (context) => getIt<ProjectHistoryCubit>()),
+      ],
+      child: BlocBuilder<ProjectCubit, ProjectState>(
+        builder: (context, state) {
+          if (state is ProjectLoading) {
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.local.findYourNextProject,
+                      style: context.textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28.sp,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 24.h),
-                  _SearchBar(
-                    controller: _searchController,
-                    onChanged: _filterProjects,
-                  ),
-                  SizedBox(height: 24.h),
-                  const _FilterChips(),
-                  SizedBox(height: 32.h),
-                  _ProjectsList(projects: _filteredProjects),
-                ],
+                    SizedBox(height: 24.h),
+                    _SearchBar(
+                      controller: _searchController,
+                      onChanged: _filterProjects,
+                    ),
+                    SizedBox(height: 24.h),
+                    const _FilterChips(),
+                    SizedBox(height: 32.h),
+                    _ProjectsList(projects: _filteredProjects),
+                    SizedBox(height: 32.h),
+                    const _WalletCard(),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -296,59 +309,188 @@ class _ProjectItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              project.title,
-              style: context.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () => context.push(AppRoutes.jobDetails),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                project.title,
+                style: context.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text(
-              project.price,
-              style: context.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+              Text(
+                project.price,
+                style: context.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8.h),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-          decoration: BoxDecoration(
-            color: AppColors.secondary200,
-            borderRadius: BorderRadius.circular(12.r),
+            ],
           ),
-          child: Text(
-            context.local.fixedPrices,
-            style: TextStyle(
-              color: AppColors.secondary700,
-              fontSize: 10.sp,
+          SizedBox(height: 8.h),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+            decoration: BoxDecoration(
+              color: AppColors.secondary200,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Text(
+              context.local.fixedPrices,
+              style: TextStyle(
+                color: AppColors.secondary700,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 16.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${context.local.experienceLevel}: ${project.experienceLevel}',
+                style: context.textTheme.labelSmall?.copyWith(
+                  color: context.colorScheme.onSurface.withOpacity(0.5),
+                ),
+              ),
+              Text(
+                project.time,
+                style: context.textTheme.labelSmall?.copyWith(
+                  color: context.colorScheme.onSurface.withOpacity(0.5),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+class _WalletCard extends StatelessWidget {
+  const _WalletCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(
+        color: context.colorScheme.primary.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.local.walletTab,
+            style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        SizedBox(height: 16.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '${context.local.experienceLevel}: ${project.experienceLevel}',
-              style: context.textTheme.labelSmall?.copyWith(
-                color: context.colorScheme.onSurface.withOpacity(0.5),
-              ),
+          Text(
+            context.local.manageEverything,
+            style: context.textTheme.bodySmall?.copyWith(
+              color: context.colorScheme.onSurface.withOpacity(0.6),
             ),
-            Text(
-              project.time,
-              style: context.textTheme.labelSmall?.copyWith(
-                color: context.colorScheme.onSurface.withOpacity(0.5),
+          ),
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.local.currentBalance,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: context.colorScheme.onSurface.withOpacity(0.6),
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    '\$3000',
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.primary,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                decoration: BoxDecoration(
+                  color: AppColors.secondary200,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.add, color: AppColors.secondary700, size: 20.sp),
+                    SizedBox(width: 4.w),
+                    Text(
+                      context.local.addFunds,
+                      style: context.textTheme.labelMedium?.copyWith(
+                        color: AppColors.secondary700,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _WalletInfoItem(
+                icon: Icons.verified_user_outlined,
+                label: context.local.safeSecure,
+              ),
+              _WalletInfoItem(
+                icon: Icons.credit_card_outlined,
+                label: context.local.multiplePaymentMethods,
+                isShort: true,
+              ),
+              _WalletInfoItem(
+                icon: Icons.lock_outline,
+                label: context.local.securePayments,
+                isShort: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WalletInfoItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isShort;
+
+  const _WalletInfoItem({
+    required this.icon,
+    required this.label,
+    this.isShort = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 14.sp, color: context.colorScheme.onSurface.withOpacity(0.6)),
+        SizedBox(width: 4.w),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 8.sp,
+            color: context.colorScheme.onSurface.withOpacity(0.6),
+          ),
         ),
       ],
     );

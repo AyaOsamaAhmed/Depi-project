@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/inbox_state.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class InboxCubit extends Cubit<InboxState> {
   InboxCubit() : super(InboxInitial());
 

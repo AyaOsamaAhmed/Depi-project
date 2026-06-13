@@ -2,6 +2,8 @@ import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class WorkApprovedView extends StatelessWidget {
   const WorkApprovedView({super.key});
@@ -116,7 +118,7 @@ class WorkApprovedView extends StatelessWidget {
   Widget _buildActionButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Navigate to payments
+        context.push(AppRoutes.payment);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary700,

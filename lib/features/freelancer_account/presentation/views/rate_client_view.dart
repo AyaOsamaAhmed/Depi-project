@@ -5,16 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:dipe_freelance/core/di/injection.dart';
 
 class RateClientView extends StatefulWidget {
-  const RateClientView({super.key});
+  final String? clientImageUrl;
+  final String clientName;
+
+  const RateClientView({
+    super.key,
+    this.clientImageUrl,
+    this.clientName = 'Sarah Ibrahim',
+  });
 
   @override
   State<RateClientView> createState() => _RateClientViewState();
 }
 
 class _RateClientViewState extends State<RateClientView> {
-  int _rating = 5;
+  int _rating = 0;
   final TextEditingController _reviewController = TextEditingController();
 
   @override
@@ -33,10 +44,12 @@ class _RateClientViewState extends State<RateClientView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProjectCubit, ProjectState>(
+    return BlocProvider(
+      create: (context) => getIt<ProjectCubit>(),
+      child: BlocConsumer<ProjectCubit, ProjectState>(
       listener: (context, state) {
         if (state is RatingSuccess) {
-          Navigator.pop(context);
+          context.push(AppRoutes.finishProject);
         }
       },
       builder: (context, state) {
@@ -64,11 +77,17 @@ class _RateClientViewState extends State<RateClientView> {
               children: [
                 CircleAvatar(
                   radius: 65.r,
-                  backgroundImage: const AssetImage('assets/images/client_profile.png'),
+                  backgroundColor: context.colorScheme.surface,
+                  backgroundImage: widget.clientImageUrl != null
+                      ? NetworkImage(widget.clientImageUrl!)
+                      : const NetworkImage('https://ui-avatars.com/api/?name=Sarah+Ibrahim&background=0D2C54&color=fff') as ImageProvider,
+                  onBackgroundImageError: (exception, stackTrace) {
+                    // Fallback logic if image fails to load
+                  },
                 ),
                 SizedBox(height: 24.h),
                 Text(
-                  'Sarah Ibrahim',
+                  widget.clientName,
                   style: context.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -78,7 +97,7 @@ class _RateClientViewState extends State<RateClientView> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40.w),
                   child: Text(
-                    context.local.rateExperience('Sarah'),
+                    context.local.rateExperience(widget.clientName.split(' ')[0]),
                     textAlign: TextAlign.center,
                     style: context.textTheme.bodyLarge?.copyWith(
                       color: context.colorScheme.onSurface.withOpacity(0.5),
@@ -98,8 +117,10 @@ class _RateClientViewState extends State<RateClientView> {
           ),
         );
       },
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildStarRating() {
     return Row(
@@ -186,7 +207,7 @@ class _RateClientViewState extends State<RateClientView> {
 
   Widget _buildSubmitButton(ProjectState state) {
     return ElevatedButton(
-      onPressed: state is RatingInProgress
+      onPressed: state is RatingInProgress || _rating == 0
           ? null
           : () {
               context.read<ProjectCubit>().submitRating(_rating);
@@ -211,4 +232,5 @@ class _RateClientViewState extends State<RateClientView> {
             ),
     );
   }
+
 }

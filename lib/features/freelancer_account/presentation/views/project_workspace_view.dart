@@ -1,10 +1,14 @@
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
-import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_history_cubit.dart';
 
 class ProjectWorkspaceView extends StatefulWidget {
   const ProjectWorkspaceView({super.key});
@@ -14,11 +18,14 @@ class ProjectWorkspaceView extends StatefulWidget {
 }
 
 class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProjectCubit, ProjectState>(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<ProjectCubit>()),
+        BlocProvider(create: (context) => getIt<ProjectHistoryCubit>()),
+      ],
+      child: BlocBuilder<ProjectCubit, ProjectState>(
       builder: (context, state) {
         if (state is ProjectLoading) {
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -28,22 +35,35 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
           body: SafeArea(
             child: Column(
               children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 8.w),
+                      Expanded(
+                        child: Text(
                           'E-commerce Website UI',
                           style: context.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: 24.sp,
+                            fontSize: 22.sp,
                           ),
                         ),
-                        SizedBox(height: 12.h),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         _buildTag(context.local.fixedPrices),
-                        SizedBox(height: 32.h),
+                        SizedBox(height: 24.h),
                         _buildSectionHeader(context.local.projectOverview),
                         SizedBox(height: 12.h),
                         Text(
@@ -62,30 +82,34 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
                         _buildSectionHeader(context.local.projectFiles),
                         SizedBox(height: 16.h),
                         _buildFileItem(context, 'Prief.pdf'),
+                        SizedBox(height: 32.h),
+                        _buildSubmitButton(context),
+                        SizedBox(height: 24.h),
                       ],
                     ),
                   ),
                 ),
-                _buildBottomNavigationBar(context),
               ],
             ),
           ),
         );
       },
+      ),
     );
   }
+
 
   Widget _buildTag(String label) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: AppColors.secondary200,
+        color: const Color(0xFFFFE5D0),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Text(
         label,
         style: TextStyle(
-          color: AppColors.secondary700,
+          color: const Color(0xFFE67E22),
           fontSize: 10.sp,
           fontWeight: FontWeight.bold,
         ),
@@ -131,7 +155,7 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
             'Mobile App Design',
             context.local.inProgress,
             '\$1,500',
-             const Color(0xFF38B880),
+            const Color(0xFF38B880),
           ),
           _buildDivider(),
           _buildMilestoneItem(
@@ -154,18 +178,18 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
     Color statusColor,
   ) {
     return Padding(
-      padding: EdgeInsets.all(20.r),
+      padding: EdgeInsets.all(16.r),
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(12.r),
+            padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
-              color: AppColors.secondary200.withOpacity(0.5),
+              color: const Color(0xFFFFE5D0),
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: Icon(
               title.contains('Mobile') ? Icons.architecture_rounded : Icons.web_rounded,
-              color: AppColors.secondary700,
+              color: const Color(0xFFE67E22),
               size: 28.r,
             ),
           ),
@@ -178,13 +202,14 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
                   title,
                   style: context.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
+                    fontSize: 14.sp,
                   ),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   status,
                   style: TextStyle(
-                    color: statusColor,
+                    color: statusColor.withOpacity(0.6),
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -196,6 +221,7 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
             price,
             style: context.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
+              fontSize: 14.sp,
             ),
           ),
         ],
@@ -205,7 +231,7 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
 
   Widget _buildDivider() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Divider(height: 1, color: Colors.grey.withOpacity(0.1)),
     );
   }
@@ -214,21 +240,21 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: context.colorScheme.onSurface.withOpacity(0.04),
+        color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: context.colorScheme.onSurface.withOpacity(0.1)),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(8.r),
             decoration: BoxDecoration(
-              color: AppColors.secondary200.withOpacity(0.5),
+              color: const Color(0xFFFFE5D0),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(
               Icons.insert_drive_file_outlined,
-              color: AppColors.secondary700,
+              color: const Color(0xFFE67E22),
               size: 24.r,
             ),
           ),
@@ -237,6 +263,7 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
             fileName,
             style: context.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
             ),
           ),
         ],
@@ -244,34 +271,25 @@ class _ProjectWorkspaceViewState extends State<ProjectWorkspaceView> {
     );
   }
 
-  Widget _buildBottomNavigationBar(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 24.h),
-      decoration: BoxDecoration(
-        color: context.colorScheme.surface,
-        border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.1))),
+  Widget _buildSubmitButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        context.push(AppRoutes.submitWork);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF0D2C54),
+        minimumSize: Size(double.infinity, 56.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        elevation: 0,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(0, context.local.milestones),
-          _buildNavItem(1, context.local.workshop),
-          _buildNavItem(2, 'Files'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavItem(int index, String label) {
-    bool isSelected = _currentIndex == index;
-    return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
       child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected ? const Color(0xFF0B2647) : Colors.grey,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          fontSize: 16.sp,
+        context.local.submitWork,
+        style: context.textTheme.titleMedium?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20.sp,
         ),
       ),
     );

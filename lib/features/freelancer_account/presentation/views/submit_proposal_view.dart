@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/proposal_send_view.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -27,11 +28,15 @@ class _SubmitProposalViewState extends State<SubmitProposalView> {
     _proposalController = TextEditingController();
     _amountController = TextEditingController(text: '7');
     _timeController = TextEditingController(text: '7');
-
-    _proposalController.addListener(() {
-      setState(() {});
-    });
+    _proposalController.addListener(() => setState(() {}));
+    _amountController.addListener(() => setState(() {}));
+    _timeController.addListener(() => setState(() {}));
   }
+
+  bool get _isFormValid =>
+      _proposalController.text.trim().isNotEmpty &&
+      _amountController.text.trim().isNotEmpty &&
+      _timeController.text.trim().isNotEmpty;
 
   Future<void> _pickFile() async {
     try {
@@ -56,90 +61,94 @@ class _SubmitProposalViewState extends State<SubmitProposalView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<JobsCubit, JobsState>(
-      listener: (context, state) {
-        if (state is ProposalSubmitSuccess) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProposalSendView()),
-          );
-        }
-      },
-      child: Scaffold(
-        backgroundColor: context.colorScheme.surface,
-        appBar: AppBar(
+    return BlocProvider(
+      create: (context) => getIt<JobsCubit>(),
+      child: BlocListener<JobsCubit, JobsState>(
+        listener: (context, state) {
+          if (state is ProposalSubmitSuccess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProposalSendView()),
+            );
+          }
+        },
+        child: Scaffold(
           backgroundColor: context.colorScheme.surface,
-          elevation: 0,
-          surfaceTintColor: Colors.transparent,
-          title: Text(
-            context.local.submitProposal,
-            style: context.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
+          appBar: AppBar(
+            backgroundColor: context.colorScheme.surface,
+            elevation: 0,
+            surfaceTintColor: Colors.transparent,
+            title: Text(
+              context.local.submitProposal,
+              style: context.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionHeader(context.local.yourProposal),
-              SizedBox(height: 12.h),
-              _buildProposalField(),
-              SizedBox(height: 24.h),
-              _buildSectionHeader(context.local.bidAmount),
-              SizedBox(height: 12.h),
-              _buildSimpleTextField(_amountController),
-              SizedBox(height: 24.h),
-              _buildSectionHeader(context.local.deliveryTime),
-              SizedBox(height: 12.h),
-              _buildDeliveryTimeField(),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  _buildSectionHeader(context.local.attachments),
-                  SizedBox(width: 8.w),
-                  Text(
-                    '(${context.local.optional})',
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.colorScheme.onSurface.withOpacity(0.4),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12.h),
-              _buildAttachments(),
-              SizedBox(height: 48.h),
-              BlocBuilder<JobsCubit, JobsState>(
-                builder: (context, state) {
-                  return ElevatedButton(
-                    onPressed: state is ProposalSubmitting
-                        ? null
-                        : () {
-                            context.read<JobsCubit>().submitProposal();
-                          },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary700,
-                      minimumSize: Size(double.infinity, 56.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSectionHeader(context.local.yourProposal),
+                SizedBox(height: 12.h),
+                _buildProposalField(),
+                SizedBox(height: 24.h),
+                _buildSectionHeader(context.local.bidAmount),
+                SizedBox(height: 12.h),
+                _buildSimpleTextField(_amountController),
+                SizedBox(height: 24.h),
+                _buildSectionHeader(context.local.deliveryTime),
+                SizedBox(height: 12.h),
+                _buildDeliveryTimeField(),
+                SizedBox(height: 24.h),
+                Row(
+                  children: [
+                    _buildSectionHeader(context.local.attachments),
+                    SizedBox(width: 8.w),
+                    Text(
+                      '(${context.local.optional})',
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: context.colorScheme.onSurface.withOpacity(0.4),
                       ),
-                      elevation: 0,
                     ),
-                    child: state is ProposalSubmitting
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : Text(
-                            context.local.submitProposal,
-                            style: context.textTheme.titleMedium?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 12.h),
+                _buildAttachments(),
+                SizedBox(height: 48.h),
+                BlocBuilder<JobsCubit, JobsState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      onPressed: (state is ProposalSubmitting || !_isFormValid)
+                          ? null
+                          : () {
+                              context.read<JobsCubit>().submitProposal();
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary700,
+                        disabledBackgroundColor: AppColors.primary700.withOpacity(0.5),
+                        minimumSize: Size(double.infinity, 56.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: state is ProposalSubmitting
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              context.local.submitProposal,
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

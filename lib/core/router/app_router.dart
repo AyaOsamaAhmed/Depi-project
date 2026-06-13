@@ -1,7 +1,6 @@
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/views/login_screen.dart';
 import 'package:dipe_freelance/features/auth/presentation/views/signup_screen.dart';
-import 'package:dipe_freelance/features/freelance_dashboard/presentation/views/freelance_dashboard_view.dart';
 import 'package:dipe_freelance/features/user_dashboard/presentation/views/user_dashboard_view.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/analysitcs_view.dart';
@@ -10,7 +9,10 @@ import 'package:dipe_freelance/features/freelancer_account/presentation/views/fu
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/home_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/invite_recieved_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/job_detalis.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/massege_chat_view.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/views/chat_view.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/views/message_view.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/views/notification_view.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/views/navbar.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/payment_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/profile_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/project_workspace_view.dart';
@@ -20,11 +22,14 @@ import 'package:dipe_freelance/features/freelancer_account/presentation/views/ra
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/submit_proposal_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/submit_work_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/work_approved_view.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/views/project_history_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
+  static String initialRoute = AppRoutes.projectHistory;
+
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.freelanceDashboard,
+    initialLocation: initialRoute,
     routes: [
       GoRoute(
         path: AppRoutes.onBoarding,
@@ -40,7 +45,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.freelanceDashboard,
-        builder: (context, state) => const FreelanceDashboardView(),
+        builder: (context, state) => const FreelancerNavbar(),
       ),
       GoRoute(
         path: AppRoutes.userDashboard,
@@ -71,8 +76,16 @@ class AppRouter {
         builder: (context, state) => const JobDetailsView(),
       ),
       GoRoute(
-        path: AppRoutes.messageChat,
-        builder: (context, state) => const MessageChatView(),
+        path: AppRoutes.chat,
+        builder: (context, state) => const ChatView(),
+      ),
+      GoRoute(
+        path: AppRoutes.messages,
+        builder: (context, state) => const MessageView(),
+      ),
+      GoRoute(
+        path: AppRoutes.notifications,
+        builder: (context, state) => const NotificationView(),
       ),
       GoRoute(
         path: AppRoutes.payment,
@@ -109,6 +122,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.workApproved,
         builder: (context, state) => const WorkApprovedView(),
+      ),
+      GoRoute(
+        path: AppRoutes.projectHistory,
+        builder: (context, state) => const ProjectHistoryView(),
       ),
     ],
   );

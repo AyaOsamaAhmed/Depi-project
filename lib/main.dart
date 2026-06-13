@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dipe_freelance/core/localization/l10n/app_localizations.dart';
 import 'package:dipe_freelance/core/di/injection.dart';
-import 'package:dipe_freelance/core/router/app_router.dart';
 import 'package:dipe_freelance/core/theme/app_theme.dart';
+import 'package:dipe_freelance/core/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
-          routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
+          routerConfig: AppRouter.router,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

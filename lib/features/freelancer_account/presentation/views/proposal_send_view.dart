@@ -5,74 +5,80 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class ProposalSendView extends StatelessWidget {
   const ProposalSendView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<JobsCubit, JobsState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 8.h),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () => Navigator.pop(context),
+    return BlocProvider(
+      create: (context) => getIt<JobsCubit>(),
+      child: BlocBuilder<JobsCubit, JobsState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back, color: Colors.black),
+                          onPressed: () => Navigator.pop(context),
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  _buildSuccessIcon(),
-                  SizedBox(height: 48.h),
-                  Text(
-                    context.local.proposalSentTitle,
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.sp,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Text(
-                      context.local.proposalSentSuccess,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: context.colorScheme.onSurface.withOpacity(0.5),
-                        fontSize: 16.sp,
+                    const Spacer(),
+                    _buildSuccessIcon(),
+                    SizedBox(height: 48.h),
+                    Text(
+                      context.local.proposalSentTitle,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.sp,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Text(
-                      context.local.proposalSentNotify,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: context.colorScheme.onSurface.withOpacity(0.5),
-                        fontSize: 16.sp,
+                    SizedBox(height: 16.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        context.local.proposalSentSuccess,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyLarge?.copyWith(
+                          color: context.colorScheme.onSurface.withOpacity(0.5),
+                          fontSize: 16.sp,
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(flex: 2),
-                  _buildActionButtons(context),
-                  SizedBox(height: 24.h),
-                ],
+                    SizedBox(height: 8.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        context.local.proposalSentNotify,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyLarge?.copyWith(
+                          color: context.colorScheme.onSurface.withOpacity(0.5),
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                    const Spacer(flex: 2),
+                    _buildActionButtons(context),
+                    SizedBox(height: 24.h),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -92,11 +98,7 @@ class ProposalSendView extends StatelessWidget {
         ],
       ),
       child: Center(
-        child: Icon(
-          Icons.check_rounded,
-          color: Colors.white,
-          size: 90.r,
-        ),
+        child: Icon(Icons.check_rounded, color: Colors.white, size: 90.r),
       ),
     );
   }
@@ -128,15 +130,16 @@ class ProposalSendView extends StatelessWidget {
         SizedBox(height: 16.h),
         OutlinedButton(
           onPressed: () {
-            // Back to job
-            Navigator.pop(context);
+            context.pushReplacement(AppRoutes.jobDetails);
           },
           style: OutlinedButton.styleFrom(
             minimumSize: Size(double.infinity, 56.h),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
             ),
-            side: const BorderSide(color: Color(0xFFD1D5DB)), // Light gray border
+            side: const BorderSide(
+              color: Color(0xFFD1D5DB),
+            ), // Light gray border
           ),
           child: Text(
             context.local.backToJob,

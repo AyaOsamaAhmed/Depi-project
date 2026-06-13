@@ -4,47 +4,53 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/freelancer_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/freelancer_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:go_router/go_router.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FreelancerCubit, FreelancerState>(
-      builder: (context, state) {
-        if (state is FreelancerLoading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const _HomeHeader(),
-                  SizedBox(height: 24.h),
-                  const _AIScoreCard(),
-                  SizedBox(height: 24.h),
-                  const _QuickActionsGrid(),
-                  SizedBox(height: 32.h),
-                  const _SectionHeader(titleKey: 'recommendedForYou'),
-                  SizedBox(height: 16.h),
-                  const _RecommendedSection(),
-                  SizedBox(height: 32.h),
-                  const _SectionHeader(titleKey: 'recentActivity'),
-                  SizedBox(height: 16.h),
-                  const _RecentActivitySection(),
-                  SizedBox(height: 32.h),
-                  const _UpgradeCard(),
-                  SizedBox(height: 20.h),
-                ],
+    return BlocProvider(
+      create: (context) => getIt<FreelancerCubit>(),
+      child: BlocBuilder<FreelancerCubit, FreelancerState>(
+        builder: (context, state) {
+          if (state is FreelancerLoading) {
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const _HomeHeader(),
+                    SizedBox(height: 24.h),
+                    const _AIScoreCard(),
+                    SizedBox(height: 24.h),
+                    const _QuickActionsGrid(),
+                    SizedBox(height: 32.h),
+                    const _SectionHeader(titleKey: 'recommendedForYou'),
+                    SizedBox(height: 16.h),
+                    const _RecommendedSection(),
+                    SizedBox(height: 32.h),
+                    const _SectionHeader(titleKey: 'recentActivity'),
+                    SizedBox(height: 16.h),
+                    const _RecentActivitySection(),
+                    SizedBox(height: 32.h),
+                    const _UpgradeCard(),
+                    SizedBox(height: 20.h),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -90,64 +96,37 @@ class _HomeHeader extends StatelessWidget {
             ],
           ),
         ),
-        Stack(
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: context.colorScheme.onSurface.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Icon(Icons.notifications_none_outlined,
-                  color: context.colorScheme.onSurface),
-            ),
-            Position(
-              right: 6.w,
-              top: 6.h,
-              child: Container(
-                padding: EdgeInsets.all(4.r),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
+        GestureDetector(
+          onTap: () => context.push(AppRoutes.notifications),
+          child: Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8.r),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.onSurface.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
-                child: Text(
-                  '3',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.bold,
+                child: Icon(Icons.notifications_none_outlined,
+                    color: context.colorScheme.onSurface),
+              ),
+              Positioned(
+                right: 6.w,
+                top: 6.h,
+                child: Container(
+                  padding: EdgeInsets.all(4.r),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
   }
 }
-
-class Position extends StatelessWidget {
-  final double? left;
-  final double? top;
-  final double? right;
-  final double? bottom;
-  final Widget child;
-
-  const Position({super.key, this.left, this.top, this.right, this.bottom, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: left,
-      top: top,
-      right: right,
-      bottom: bottom,
-      child: child,
-    );
-  }
-}
-
 
 class _AIScoreCard extends StatelessWidget {
   const _AIScoreCard();
@@ -158,7 +137,7 @@ class _AIScoreCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: context.colorScheme.primary, // Using primary color (dark blue)
+        color: context.colorScheme.primary,
         borderRadius: BorderRadius.circular(24.r),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -220,7 +199,7 @@ class _AIScoreCard extends StatelessWidget {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  context.local.greatJob,
+                   context.local.greatJob,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
@@ -236,27 +215,30 @@ class _AIScoreCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.r),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        context.local.improveProfile,
-                        style: TextStyle(
-                          color: context.colorScheme.primary,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: () => context.push(AppRoutes.analytics),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          context.local.improveProfile,
+                          style: TextStyle(
+                            color: context.colorScheme.primary,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 4.w),
-                      Icon(Icons.chevron_right,
-                          size: 16.r, color: context.colorScheme.primary),
-                    ],
+                        SizedBox(width: 4.w),
+                        Icon(Icons.chevron_right,
+                            size: 16.r, color: context.colorScheme.primary),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -281,6 +263,7 @@ class _QuickActionsGrid extends StatelessWidget {
           label: context.local.wallet,
           value: '\$1,250',
           iconColor: Colors.orange,
+          // onTap: () => context.push(),
         ),
         _QuickActionCard(
           icon: Icons.description_outlined,
@@ -299,6 +282,7 @@ class _QuickActionsGrid extends StatelessWidget {
           label: context.local.projects,
           value: '12 ${context.local.news}',
           iconColor: Colors.orange,
+          // onTap: () => context.push(AppRoutes.projects),
         ),
       ],
     );
@@ -310,56 +294,61 @@ class _QuickActionCard extends StatelessWidget {
   final String label;
   final String value;
   final Color iconColor;
+  final VoidCallback? onTap;
 
   const _QuickActionCard({
     required this.icon,
     required this.label,
     required this.value,
     required this.iconColor,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80.w,
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8.r),
-            decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12.r),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 80.w,
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            child: Icon(icon, color: iconColor, size: 24.r),
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            label,
-            style: context.textTheme.labelSmall?.copyWith(
-              color: context.colorScheme.onSurface.withOpacity(0.6),
+          ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.r),
+              decoration: BoxDecoration(
+                color: iconColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              child: Icon(icon, color: iconColor, size: 24.r),
             ),
-          ),
-          SizedBox(height: 2.h),
-          Text(
-            value,
-            style: context.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 10.sp,
+            SizedBox(height: 8.h),
+            Text(
+              label,
+              style: context.textTheme.labelSmall?.copyWith(
+                color: context.colorScheme.onSurface.withOpacity(0.6),
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 2.h),
+            Text(
+              value,
+              style: context.textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 10.sp,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -402,7 +391,7 @@ class _RecommendedSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _JobCard(
+        const _JobCard(
           title: 'UI/UX Design for Mobile App',
           client: 'creative studio',
           price: '\$1,200',
@@ -411,7 +400,7 @@ class _RecommendedSection extends StatelessWidget {
           isFeatured: true,
         ),
         SizedBox(height: 16.h),
-        _JobCard(
+        const _JobCard(
           title: 'UI/UX Design for Mobile App',
           client: 'creative studio',
           price: '\$1,200',
@@ -443,123 +432,126 @@ class _JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 50.r,
-                height: 50.r,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(12.r),
+    return InkWell(
+      onTap: () => context.push(AppRoutes.jobDetails),
+      child: Container(
+        padding: EdgeInsets.all(16.r),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 50.r,
+                  height: 50.r,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Icon(Icons.palette, color: Colors.white, size: 24.r),
                 ),
-                child: Icon(Icons.palette, color: Colors.white, size: 24.r),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Row(
-                      children: [
-                        Text(
-                          'Client:$client',
-                          style: context.textTheme.labelSmall?.copyWith(
-                            color: context.colorScheme.onSurface.withOpacity(0.5),
-                          ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                        if (isFeatured) ...[
-                          SizedBox(width: 8.w),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-                            decoration: BoxDecoration(
-                              color: Colors.green.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      SizedBox(height: 4.h),
+                      Row(
+                        children: [
+                          Text(
+                            'Client:$client',
+                            style: context.textTheme.labelSmall?.copyWith(
+                              color: context.colorScheme.onSurface.withOpacity(0.5),
                             ),
-                            child: Text(
-                              context.local.featured,
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 8.sp,
-                                fontWeight: FontWeight.bold,
+                          ),
+                          if (isFeatured) ...[
+                            SizedBox(width: 8.w),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(4.r),
+                              ),
+                              child: Text(
+                                context.local.featured,
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ],
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Icon(Icons.bookmark_border, color: context.colorScheme.onSurface, size: 24.r),
-            ],
-          ),
-          SizedBox(height: 12.h),
-          Row(
-            children: [
-              Text(
-                price,
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+                Icon(Icons.bookmark_border, color: context.colorScheme.onSurface, size: 24.r),
+              ],
+            ),
+            SizedBox(height: 12.h),
+            Row(
+              children: [
+                Text(
+                  price,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(width: 16.w),
-              Text(
-                '$daysLeft ${context.local.daysLeft}',
-                style: context.textTheme.labelSmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.5),
+                SizedBox(width: 16.w),
+                Text(
+                  '$daysLeft ${context.local.daysLeft}',
+                  style: context.textTheme.labelSmall?.copyWith(
+                    color: context.colorScheme.onSurface.withOpacity(0.5),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              Text(
-                '$matchPercent% ${context.local.match}',
-                style: context.textTheme.labelSmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.5),
+                const Spacer(),
+                Text(
+                  '$matchPercent% ${context.local.match}',
+                  style: context.textTheme.labelSmall?.copyWith(
+                    color: context.colorScheme.onSurface.withOpacity(0.5),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 8.h),
-          Row(
-            children: [
-              _TagChip('UI/X Designer'),
-              _TagChip('Figma'),
-              _TagChip('Mobile App'),
-              const Spacer(),
-              SizedBox(
-                width: 80.w,
-                child: LinearProgressIndicator(
-                  value: double.parse(matchPercent) / 100,
-                  backgroundColor: context.colorScheme.onSurface.withOpacity(0.1),
-                  valueColor: AlwaysStoppedAnimation<Color>(context.colorScheme.primary),
+              ],
+            ),
+            SizedBox(height: 8.h),
+            Row(
+              children: [
+                const _TagChip('UI/X Designer'),
+                const _TagChip('Figma'),
+                const _TagChip('Mobile App'),
+                const Spacer(),
+                SizedBox(
+                  width: 80.w,
+                  child: LinearProgressIndicator(
+                    value: double.parse(matchPercent) / 100,
+                    backgroundColor: context.colorScheme.onSurface.withOpacity(0.1),
+                    valueColor: AlwaysStoppedAnimation<Color>(context.colorScheme.primary),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -595,60 +587,63 @@ class _RecentActivitySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 24.r,
-            backgroundImage: const NetworkImage('https://i.pravatar.cc/150?u=a042581f4e29026704d'),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: () => context.push(AppRoutes.chat),
+      child: Container(
+        padding: EdgeInsets.all(16.r),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 24.r,
+              backgroundImage: const NetworkImage('https://i.pravatar.cc/150?u=a042581f4e29026704d'),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Manuella Beshara',
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    'Send you a message about your proposal',
+                    style: context.textTheme.labelSmall?.copyWith(
+                      color: context.colorScheme.onSurface.withOpacity(0.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Manuella Beshara',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  'Send you a message about your proposal',
+                  '10m ago',
                   style: context.textTheme.labelSmall?.copyWith(
                     color: context.colorScheme.onSurface.withOpacity(0.5),
                   ),
                 ),
+                SizedBox(height: 4.h),
+                Container(
+                  width: 8.r,
+                  height: 8.r,
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.primary,
+                    shape: BoxShape.circle,
+                  ),
+                ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '10m ago',
-                style: context.textTheme.labelSmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.5),
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Container(
-                width: 8.r,
-                height: 8.r,
-                decoration: BoxDecoration(
-                  color: context.colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -659,47 +654,50 @@ class _UpgradeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: context.colorScheme.primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: context.colorScheme.primary.withOpacity(0.2)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12.r),
-            decoration: BoxDecoration(
-              color: context.colorScheme.primary.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(16.r),
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16.r),
+        decoration: BoxDecoration(
+          color: context.colorScheme.primary.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(color: context.colorScheme.primary.withOpacity(0.2)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(12.r),
+              decoration: BoxDecoration(
+                color: context.colorScheme.primary.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Icon(Icons.workspace_premium, color: context.colorScheme.primary, size: 30.r),
             ),
-            child: Icon(Icons.workspace_premium, color: context.colorScheme.primary, size: 30.r),
-          ),
-          SizedBox(width: 16.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  context.local.upgradeToPro,
-                  style: context.textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.local.upgradeToPro,
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  context.local.upgradeToProDesc,
-                  style: context.textTheme.labelSmall?.copyWith(
-                    color: context.colorScheme.onSurface.withOpacity(0.6),
+                  SizedBox(height: 4.h),
+                  Text(
+                    context.local.upgradeToProDesc,
+                    style: context.textTheme.labelSmall?.copyWith(
+                      color: context.colorScheme.onSurface.withOpacity(0.6),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Icon(Icons.chevron_right, color: context.colorScheme.onSurface),
-        ],
+            Icon(Icons.chevron_right, color: context.colorScheme.onSurface),
+          ],
+        ),
       ),
     );
   }

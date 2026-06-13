@@ -29,6 +29,22 @@ import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
 import '../../features/freelance_dashboard/presentation/states/freelance_dashboard_cubit.dart'
     as _i709;
+import '../../features/freelancer_account/presentation/states/finance_cubit.dart'
+    as _i548;
+import '../../features/freelancer_account/presentation/states/freelancer_cubit.dart'
+    as _i245;
+import '../../features/freelancer_account/presentation/states/inbox_cubit.dart'
+    as _i512;
+import '../../features/freelancer_account/presentation/states/jobs_cubit.dart'
+    as _i354;
+import '../../features/freelancer_account/presentation/states/messages_cubit.dart'
+    as _i866;
+import '../../features/freelancer_account/presentation/states/notifications_cubit.dart'
+    as _i493;
+import '../../features/freelancer_account/presentation/states/project_cubit.dart'
+    as _i105;
+import '../../features/freelancer_account/presentation/states/project_history_cubit.dart'
+    as _i992;
 import '../../features/user_dashboard/presentation/states/user_dashboard_cubit.dart'
     as _i49;
 import '../network/api_consumer.dart' as _i931;
@@ -48,9 +64,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i709.FreelanceDashboardCubit>(
       () => _i709.FreelanceDashboardCubit(),
     );
+    gh.factory<_i245.FreelancerCubit>(() => _i245.FreelancerCubit());
+    gh.factory<_i512.InboxCubit>(() => _i512.InboxCubit());
+    gh.factory<_i354.JobsCubit>(() => _i354.JobsCubit());
+    gh.factory<_i866.MessagesCubit>(() => _i866.MessagesCubit());
+    gh.factory<_i493.NotificationsCubit>(() => _i493.NotificationsCubit());
     gh.factory<_i49.UserDashboardCubit>(() => _i49.UserDashboardCubit());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => storageModule.storage);
+    gh.lazySingleton<_i548.FinanceCubit>(() => _i548.FinanceCubit());
+    gh.lazySingleton<_i105.ProjectCubit>(() => _i105.ProjectCubit());
+    gh.lazySingleton<_i992.ProjectHistoryCubit>(
+      () => _i992.ProjectHistoryCubit(),
+    );
     gh.lazySingleton<_i992.AuthLocalDataSource>(
       () => _i992.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
     );

@@ -5,53 +5,58 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/finance_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/finance_state.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/funds_view.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class PaymentView extends StatelessWidget {
   const PaymentView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FinanceCubit, FinanceState>(
-      builder: (context, state) {
-        if (state is FinanceLoading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          appBar: AppBar(
+    return BlocProvider(
+      create: (context) => getIt<FinanceCubit>(),
+      child: BlocBuilder<FinanceCubit, FinanceState>(
+        builder: (context, state) {
+          if (state is FinanceLoading) {
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
             backgroundColor: context.colorScheme.surface,
-            elevation: 0,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            centerTitle: true,
-            title: Text(
-              context.local.earnings,
-              style: context.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              surfaceTintColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
+              centerTitle: true,
+              title: Text(
+                context.local.earnings,
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildBalanceCard(context),
-                SizedBox(height: 32.h),
-                _buildSectionHeader(context.local.transactions),
-                SizedBox(height: 16.h),
-                _buildTransactionsList(context),
-                SizedBox(height: 48.h),
-                _buildWithdrawButton(context),
-              ],
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildBalanceCard(context),
+                  SizedBox(height: 32.h),
+                  _buildSectionHeader(context.local.transactions),
+                  SizedBox(height: 16.h),
+                  _buildTransactionsList(context),
+                  SizedBox(height: 48.h),
+                  _buildWithdrawButton(context),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -221,10 +226,7 @@ class PaymentView extends StatelessWidget {
   Widget _buildWithdrawButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const FundsView()),
-        );
+        context.push(AppRoutes.funds);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary700,

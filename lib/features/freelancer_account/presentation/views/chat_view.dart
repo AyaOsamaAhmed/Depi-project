@@ -5,15 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/inbox_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/inbox_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
 
-class MessageChatView extends StatefulWidget {
-  const MessageChatView({super.key});
+class ChatView extends StatefulWidget {
+  const ChatView({super.key});
 
   @override
-  State<MessageChatView> createState() => _MessageChatViewState();
+  State<ChatView> createState() => _ViewState();
 }
 
-class _MessageChatViewState extends State<MessageChatView> {
+class _ViewState extends State<ChatView> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final List<Map<String, dynamic>> _messages = [
@@ -73,66 +74,69 @@ class _MessageChatViewState extends State<MessageChatView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InboxCubit, InboxState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          appBar: AppBar(
+    return BlocProvider(
+      create: (context) => getIt<InboxCubit>(),
+      child: BlocBuilder<InboxCubit, InboxState>(
+        builder: (context, state) {
+          return Scaffold(
             backgroundColor: context.colorScheme.surface,
-            elevation: 0,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              surfaceTintColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 20.r,
+                    backgroundImage: const AssetImage('assets/images/client_profile.png'),
+                  ),
+                  SizedBox(width: 12.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Manuella Beshara',
+                        style: context.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        context.local.online,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            title: Row(
+            body: Column(
               children: [
-                CircleAvatar(
-                  radius: 20.r,
-                  backgroundImage: const AssetImage('assets/images/client_profile.png'),
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      final message = _messages[index];
+                      return _ChatBubble(
+                        text: message['text'],
+                        isSender: message['isSender'],
+                      );
+                    },
+                  ),
                 ),
-                SizedBox(width: 12.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Manuella Beshara',
-                      style: context.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      context.local.online,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+                _buildInputArea(state),
               ],
             ),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-                  itemCount: _messages.length,
-                  itemBuilder: (context, index) {
-                    final message = _messages[index];
-                    return _ChatBubble(
-                      text: message['text'],
-                      isSender: message['isSender'],
-                    );
-                  },
-                ),
-              ),
-              _buildInputArea(state),
-            ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

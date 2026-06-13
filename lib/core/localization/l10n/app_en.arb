@@ -181,5 +181,75 @@
   "workApprovedTitle": "Work Approved!",
   "workApprovedSuccess": "Your work has been approved successfully.",
   "addedToBalance": "The payment has been added to your balance.",
-  "viewPayment": "View Payment"
+  "viewPayment": "View Payment",
+  "search": "Search",
+  "messages": "Messages",
+  "notificationsTitle": "Notifications",
+  "allTab": "All",
+  "unreadTab": "Unread",
+  "mentionTab": "Mention",
+  "payment": "Payment",
+  "home": "Home",
+  "walletTab": "Wallet",
+  "manageEverything": "Manage everything in one place",
+  "currentBalance": "Current Balance",
+  "addFunds": "Add Funds",
+  "safeSecure": "100% Safe & secure",
+  "multiplePaymentMethods": "Multiple payment methods",
+  "securePayments": "Secure Payments",
+  "projectHistory": "Project History",
+  "allProjectsCount": "All Projects({count})",
+  "@allProjectsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inProgressCount": "In Progress({count})",
+  "@inProgressCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "completedCount": "Completed({count})",
+  "@completedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "acceptCount": "Accept({count})",
+  "@acceptCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "declinedCount": "Decline({count})",
+  "@declinedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "proposedOn": "Proposed on {date}",
+  "@proposedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lastUpdate": "Last Update",
+  "rejected": "Rejected",
+  "invited": "Invited",
+  "accepted": "Accepted",
+  "declined": "Declined",
+  "budget": "Budget"
 }

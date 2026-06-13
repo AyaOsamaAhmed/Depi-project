@@ -5,6 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/finance_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/finance_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class FundsView extends StatefulWidget {
   const FundsView({super.key});
@@ -18,46 +21,56 @@ class _FundsViewState extends State<FundsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FinanceCubit, FinanceState>(
-      builder: (context, state) {
-        if (state is FinanceLoading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          appBar: AppBar(
+    return BlocProvider(
+      create: (context) => getIt<FinanceCubit>(),
+      child: BlocListener<FinanceCubit, FinanceState>(
+        listener: (context, state) {
+          if (state is WithdrawalSuccess) {
+            context.push(AppRoutes.rateClient);
+          }
+        },
+        child: BlocBuilder<FinanceCubit, FinanceState>(
+          builder: (context, state) {
+          if (state is FinanceLoading) {
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
             backgroundColor: context.colorScheme.surface,
-            elevation: 0,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            centerTitle: true,
-            title: Text(
-              context.local.withdrawFunds,
-              style: context.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              surfaceTintColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
+              centerTitle: true,
+              title: Text(
+                context.local.withdrawFunds,
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildAmountCard(context),
-                SizedBox(height: 32.h),
-                _buildSectionHeader(context.local.paymentMethods),
-                SizedBox(height: 16.h),
-                _buildPaymentMethodsList(),
-                SizedBox(height: 48.h),
-                _buildWithdrawButton(context, state),
-              ],
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildAmountCard(context),
+                  SizedBox(height: 32.h),
+                  _buildSectionHeader(context.local.paymentMethods),
+                  SizedBox(height: 16.h),
+                  _buildPaymentMethodsList(),
+                  SizedBox(height: 48.h),
+                  _buildWithdrawButton(context, state),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+          },
+        ),
+      ),
     );
   }
 

@@ -480,4 +480,100 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewPayment => 'عرض الدفع';
+
+  @override
+  String get search => 'بحث';
+
+  @override
+  String get messages => 'الرسائل';
+
+  @override
+  String get notificationsTitle => 'التنبيهات';
+
+  @override
+  String get allTab => 'الكل';
+
+  @override
+  String get unreadTab => 'غير مقروء';
+
+  @override
+  String get mentionTab => 'إشارة';
+
+  @override
+  String get payment => 'الدفع';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get walletTab => 'المحفظة';
+
+  @override
+  String get manageEverything => 'إدارة كل شيء في مكان واحد';
+
+  @override
+  String get currentBalance => 'الرصيد الحالي';
+
+  @override
+  String get addFunds => 'إضافة أموال';
+
+  @override
+  String get safeSecure => '100٪ آمن ومضمون';
+
+  @override
+  String get multiplePaymentMethods => 'طرق دفع متعددة';
+
+  @override
+  String get securePayments => 'مدفوعات آمنة';
+
+  @override
+  String get projectHistory => 'سجل المشاريع';
+
+  @override
+  String allProjectsCount(int count) {
+    return 'كل المشاريع($count)';
+  }
+
+  @override
+  String inProgressCount(int count) {
+    return 'قيد التنفيذ($count)';
+  }
+
+  @override
+  String completedCount(int count) {
+    return 'مكتمل($count)';
+  }
+
+  @override
+  String acceptCount(int count) {
+    return 'مقبول($count)';
+  }
+
+  @override
+  String declinedCount(int count) {
+    return 'مرفوض($count)';
+  }
+
+  @override
+  String proposedOn(String date) {
+    return 'قُدم في $date';
+  }
+
+  @override
+  String get lastUpdate => 'آخر تحديث';
+
+  @override
+  String get rejected => 'مرفوض';
+
+  @override
+  String get invited => 'مدعو';
+
+  @override
+  String get accepted => 'مقبول';
+
+  @override
+  String get declined => 'مرفوض';
+
+  @override
+  String get budget => 'الميزانية';
 }

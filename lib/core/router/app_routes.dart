@@ -14,7 +14,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String inviteReceived = '/inviteReceived';
   static const String jobDetails = '/jobDetails';
-  static const String messageChat = '/messageChat';
+  static const String chat = '/chat';
   static const String payment = '/payment';
   static const String profile = '/profile';
   static const String projectWorkspace = '/projectWorkspace';
@@ -24,4 +24,7 @@ class AppRoutes {
   static const String submitProposal = '/submitProposal';
   static const String submitWork = '/submitWork';
   static const String workApproved = '/workApproved';
+  static const String messages = '/messages';
+  static const String notifications = '/notifications';
+  static const String projectHistory = '/projectHistory';
 }

@@ -1009,6 +1009,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Payment'**
   String get viewPayment;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get messages;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @allTab.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allTab;
+
+  /// No description provided for @unreadTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get unreadTab;
+
+  /// No description provided for @mentionTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention'**
+  String get mentionTab;
+
+  /// No description provided for @payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @walletTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get walletTab;
+
+  /// No description provided for @manageEverything.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage everything in one place'**
+  String get manageEverything;
+
+  /// No description provided for @currentBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance'**
+  String get currentBalance;
+
+  /// No description provided for @addFunds.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Funds'**
+  String get addFunds;
+
+  /// No description provided for @safeSecure.
+  ///
+  /// In en, this message translates to:
+  /// **'100% Safe & secure'**
+  String get safeSecure;
+
+  /// No description provided for @multiplePaymentMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple payment methods'**
+  String get multiplePaymentMethods;
+
+  /// No description provided for @securePayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure Payments'**
+  String get securePayments;
+
+  /// No description provided for @projectHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Project History'**
+  String get projectHistory;
+
+  /// No description provided for @allProjectsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'All Projects({count})'**
+  String allProjectsCount(int count);
+
+  /// No description provided for @inProgressCount.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress({count})'**
+  String inProgressCount(int count);
+
+  /// No description provided for @completedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed({count})'**
+  String completedCount(int count);
+
+  /// No description provided for @acceptCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept({count})'**
+  String acceptCount(int count);
+
+  /// No description provided for @declinedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline({count})'**
+  String declinedCount(int count);
+
+  /// No description provided for @proposedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Proposed on {date}'**
+  String proposedOn(String date);
+
+  /// No description provided for @lastUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Update'**
+  String get lastUpdate;
+
+  /// No description provided for @rejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get rejected;
+
+  /// No description provided for @invited.
+  ///
+  /// In en, this message translates to:
+  /// **'Invited'**
+  String get invited;
+
+  /// No description provided for @accepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get accepted;
+
+  /// No description provided for @declined.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined'**
+  String get declined;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
 }
 
 class _AppLocalizationsDelegate

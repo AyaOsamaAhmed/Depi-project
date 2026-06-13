@@ -2,10 +2,13 @@ import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/work_approved_view.dart';
+
+import 'package:dipe_freelance/core/di/injection.dart';
 
 class SubmitWorkView extends StatefulWidget {
   const SubmitWorkView({super.key});
@@ -33,17 +36,16 @@ class _SubmitWorkViewState extends State<SubmitWorkView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProjectCubit, ProjectState>(
-      listener: (context, state) {
-        if (state is WorkSubmitSuccess) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const WorkApprovedView()),
-          );
-        }
-      },
-      child: Scaffold(
-        backgroundColor: context.colorScheme.surface,
+    return BlocProvider(
+      create: (context) => getIt<ProjectCubit>(),
+      child: BlocListener<ProjectCubit, ProjectState>(
+        listener: (context, state) {
+          if (state is WorkSubmitSuccess) {
+            context.pushReplacement(AppRoutes.workApproved);
+          }
+        },
+        child: Scaffold(
+          backgroundColor: context.colorScheme.surface,
         appBar: AppBar(
           backgroundColor: context.colorScheme.surface,
           elevation: 0,
@@ -91,7 +93,7 @@ class _SubmitWorkViewState extends State<SubmitWorkView> {
               BlocBuilder<ProjectCubit, ProjectState>(
                 builder: (context, state) {
                   return ElevatedButton(
-                    onPressed: state is WorkSubmitting
+                    onPressed: state is WorkSubmitting || _descriptionController.text.isEmpty
                         ? null
                         : () {
                             context.read<ProjectCubit>().submitWork();
@@ -121,8 +123,11 @@ class _SubmitWorkViewState extends State<SubmitWorkView> {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 
   Widget _buildSectionHeader(String title) {
     return Text(

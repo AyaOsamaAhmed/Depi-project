@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class ProjectCubit extends Cubit<ProjectState> {
   ProjectCubit() : super(ProjectInitial());
 

@@ -8,6 +8,7 @@ class FreelancerTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final Widget? prefixIcon;
 
   const FreelancerTextField({
     super.key,
@@ -15,7 +16,8 @@ class FreelancerTextField extends StatelessWidget {
     this.controller,
     this.validator,
     this.keyboardType,
-    this.textInputAction, required String text,
+    this.textInputAction,
+    this.prefixIcon,
   });
 
   @override
@@ -33,6 +35,7 @@ class FreelancerTextField extends StatelessWidget {
         hintStyle: context.textTheme.bodyMedium?.copyWith(
           color: context.theme.disabledColor,
         ),
+        prefixIcon: prefixIcon,
         filled: true,
         fillColor: context.colorScheme.surface,
         contentPadding: EdgeInsets.symmetric(

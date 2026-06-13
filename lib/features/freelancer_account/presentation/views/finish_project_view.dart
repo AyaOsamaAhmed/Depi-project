@@ -5,66 +5,74 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:dipe_freelance/core/di/injection.dart';
 
 class FinishProjectView extends StatelessWidget {
   const FinishProjectView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProjectCubit, ProjectState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 8.h),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () => Navigator.pop(context),
+    return BlocProvider(
+      create: (context) => getIt<ProjectCubit>(),
+      child: BlocBuilder<ProjectCubit, ProjectState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back, color: Colors.black),
+                          onPressed: () => Navigator.pop(context),
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  _buildTrophyIllustration(),
-                  SizedBox(height: 48.h),
-                  Text(
-                    context.local.projectCompleted,
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.sp,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Text(
-                      context.local.congratulationCompleted,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: context.colorScheme.onSurface.withOpacity(0.5),
-                        fontSize: 16.sp,
+                    const Spacer(),
+                    _buildTrophyIllustration(),
+                    SizedBox(height: 48.h),
+                    Text(
+                      context.local.projectCompleted,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.sp,
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  _buildProjectCard(context),
-                  const Spacer(flex: 2),
-                  _buildActionButton(context),
-                  SizedBox(height: 24.h),
-                ],
+                    SizedBox(height: 16.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        context.local.congratulationCompleted,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyLarge?.copyWith(
+                          color: context.colorScheme.onSurface.withOpacity(0.5),
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    _buildProjectCard(context),
+                    const Spacer(flex: 2),
+                    _buildActionButton(context),
+                    SizedBox(height: 24.h),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
+
 
   Widget _buildTrophyIllustration() {
     return Container(
@@ -160,7 +168,7 @@ class FinishProjectView extends StatelessWidget {
   Widget _buildActionButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Navigate to dashboard
+        context.go(AppRoutes.freelanceDashboard);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary700,

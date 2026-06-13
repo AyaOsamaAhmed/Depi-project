@@ -1,68 +1,81 @@
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:dipe_freelance/core/theme/app_colors.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_history_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/inbox_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/inbox_state.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:go_router/go_router.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
 
 class InviteRecievedView extends StatelessWidget {
   const InviteRecievedView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InboxCubit, InboxState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 8.h),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () => Navigator.pop(context),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<InboxCubit>()),
+        BlocProvider(create: (context) => getIt<ProjectHistoryCubit>()),
+      ],
+      child: BlocBuilder<InboxCubit, InboxState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  _buildInviteIllustration(),
-                  SizedBox(height: 32.h),
-                  Text(
-                    context.local.youAreInvited,
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.sp,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Text(
-                      context.local.invitedBy('Sarah Ahmed'),
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: context.colorScheme.onSurface.withOpacity(0.5),
-                        fontSize: 16.sp,
+                    const Spacer(),
+                    _buildInviteIllustration(),
+                    SizedBox(height: 32.h),
+                    Text(
+                      context.local.youAreInvited,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.sp,
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  _buildProjectCard(context),
-                  const Spacer(flex: 2),
-                  _buildActionButtons(context),
-                  SizedBox(height: 24.h),
-                ],
+                    SizedBox(height: 16.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        context.local.invitedBy('Sarah Ahmed'),
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyLarge?.copyWith(
+                          color: context.colorScheme.onSurface.withOpacity(0.5),
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    _buildProjectCard(context),
+                    const Spacer(flex: 2),
+                    _buildActionButtons(context),
+                    SizedBox(height: 24.h),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -140,22 +153,25 @@ class InviteRecievedView extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            decoration: BoxDecoration(
-              color: context.colorScheme.onSurface.withOpacity(0.04),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(16.r),
-                bottomRight: Radius.circular(16.r),
+          InkWell(
+            onTap: () => context.push(AppRoutes.jobDetails),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              decoration: BoxDecoration(
+                color: context.colorScheme.onSurface.withOpacity(0.04),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16.r),
+                  bottomRight: Radius.circular(16.r),
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                'View Details',
-                style: context.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colorScheme.onSurface.withOpacity(0.6),
+              child: Center(
+                child: Text(
+                  'View Details',
+                  style: context.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface.withOpacity(0.6),
+                  ),
                 ),
               ),
             ),
@@ -169,7 +185,12 @@ class InviteRecievedView extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.read<ProjectHistoryCubit>().acceptInvite(
+              'Dashboard UI/UX design',
+            );
+            Navigator.pop(context);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary700,
             minimumSize: Size(double.infinity, 56.h),
@@ -190,6 +211,9 @@ class InviteRecievedView extends StatelessWidget {
         SizedBox(height: 16.h),
         OutlinedButton(
           onPressed: () {
+            context.read<ProjectHistoryCubit>().declineInvite(
+              'Dashboard UI/UX design',
+            );
             Navigator.pop(context);
           },
           style: OutlinedButton.styleFrom(

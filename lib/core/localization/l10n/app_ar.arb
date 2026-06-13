@@ -178,5 +178,75 @@
   "workApprovedTitle": "تمت الموافقة على العمل!",
   "workApprovedSuccess": "تمت الموافقة على عملك بنجاح.",
   "addedToBalance": "تمت إضافة المبلغ إلى رصيدك.",
-  "viewPayment": "عرض الدفع"
+  "viewPayment": "عرض الدفع",
+  "search": "بحث",
+  "messages": "الرسائل",
+  "notificationsTitle": "التنبيهات",
+  "allTab": "الكل",
+  "unreadTab": "غير مقروء",
+  "mentionTab": "إشارة",
+  "payment": "الدفع",
+  "home": "الرئيسية",
+  "walletTab": "المحفظة",
+  "manageEverything": "إدارة كل شيء في مكان واحد",
+  "currentBalance": "الرصيد الحالي",
+  "addFunds": "إضافة أموال",
+  "safeSecure": "100٪ آمن ومضمون",
+  "multiplePaymentMethods": "طرق دفع متعددة",
+  "securePayments": "مدفوعات آمنة",
+  "projectHistory": "سجل المشاريع",
+  "allProjectsCount": "كل المشاريع({count})",
+  "@allProjectsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inProgressCount": "قيد التنفيذ({count})",
+  "@inProgressCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "completedCount": "مكتمل({count})",
+  "@completedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "acceptCount": "مقبول({count})",
+  "@acceptCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "declinedCount": "مرفوض({count})",
+  "@declinedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "proposedOn": "قُدم في {date}",
+  "@proposedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lastUpdate": "آخر تحديث",
+  "rejected": "مرفوض",
+  "invited": "مدعو",
+  "accepted": "مقبول",
+  "declined": "مرفوض",
+  "budget": "الميزانية"
 }

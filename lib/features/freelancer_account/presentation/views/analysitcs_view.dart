@@ -5,55 +5,61 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/freelancer_cubit.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/freelancer_state.dart';
 
+import 'package:dipe_freelance/core/di/injection.dart';
+
 class AnalysitcsView extends StatelessWidget {
   const AnalysitcsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FreelancerCubit, FreelancerState>(
-      builder: (context, state) {
-        if (state is AnalyticsLoading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: context.colorScheme.surface,
-          appBar: AppBar(
+    return BlocProvider(
+      create: (context) => getIt<FreelancerCubit>(),
+      child: BlocBuilder<FreelancerCubit, FreelancerState>(
+        builder: (context, state) {
+          if (state is AnalyticsLoading) {
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
             backgroundColor: context.colorScheme.surface,
-            elevation: 0,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            centerTitle: true,
-            title: Text(
-              context.local.analytics,
-              style: context.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              surfaceTintColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
+              centerTitle: true,
+              title: Text(
+                context.local.analytics,
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildEarningsCard(context),
-                SizedBox(height: 32.h),
-                _buildSectionHeader(context.local.overviews),
-                SizedBox(height: 16.h),
-                _buildOverviewRow(context),
-                SizedBox(height: 32.h),
-                _buildSectionHeader(context.local.topSkills),
-                SizedBox(height: 16.h),
-                _buildSkillsList(context),
-              ],
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildEarningsCard(context),
+                  SizedBox(height: 32.h),
+                  _buildSectionHeader(context.local.overviews),
+                  SizedBox(height: 16.h),
+                  _buildOverviewRow(context),
+                  SizedBox(height: 32.h),
+                  _buildSectionHeader(context.local.topSkills),
+                  SizedBox(height: 16.h),
+                  _buildSkillsList(context),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
+
 
   Widget _buildEarningsCard(BuildContext context) {
     return Container(
@@ -143,19 +149,19 @@ class AnalysitcsView extends StatelessWidget {
 
   Widget _buildOverviewRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildOverviewItem(context, '3', context.local.proposalSentCount),
-        _buildOverviewItem(context, '4', context.local.projectWonCount),
-        _buildOverviewItem(context, '4.5', context.local.avgRating),
+        Expanded(child: _buildOverviewItem(context, '3', context.local.proposalSentCount)),
+        SizedBox(width: 12.w),
+        Expanded(child: _buildOverviewItem(context, '4', context.local.projectWonCount)),
+        SizedBox(width: 12.w),
+        Expanded(child: _buildOverviewItem(context, '4.5', context.local.avgRating)),
       ],
     );
   }
 
   Widget _buildOverviewItem(BuildContext context, String value, String label) {
     return Container(
-      width: 110.w,
-      padding: EdgeInsets.symmetric(vertical: 16.h),
+      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
