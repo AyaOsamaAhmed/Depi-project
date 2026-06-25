@@ -21,12 +21,20 @@ import '../../features/auth/data/datasources/auth_remote_datasource.dart'
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/usecases/forgot_password_usecase.dart'
+    as _i560;
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
+import '../../features/auth/domain/usecases/resend_verify_email_usecase.dart'
+    as _i821;
+import '../../features/auth/presentation/states/forgot_password/forgot_password_cubit.dart'
+    as _i568;
 import '../../features/auth/presentation/states/login/login_cubit.dart'
     as _i911;
 import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
+import '../../features/auth/presentation/states/verify_email/verify_email_cubit.dart'
+    as _i1036;
 import '../../features/freelance_dashboard/presentation/states/freelance_dashboard_cubit.dart'
     as _i709;
 import '../../features/user_dashboard/presentation/states/user_dashboard_cubit.dart'
@@ -66,14 +74,26 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i992.AuthLocalDataSource>(),
       ),
     );
+    gh.factory<_i560.ForgotPasswordUseCase>(
+      () => _i560.ForgotPasswordUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.factory<_i188.LoginUseCase>(
       () => _i188.LoginUseCase(gh<_i787.AuthRepository>()),
     );
     gh.factory<_i941.RegisterUseCase>(
       () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
     );
+    gh.factory<_i821.ResendVerifyEmailUseCase>(
+      () => _i821.ResendVerifyEmailUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.factory<_i911.LoginCubit>(
       () => _i911.LoginCubit(gh<_i188.LoginUseCase>()),
+    );
+    gh.factory<_i1036.VerifyEmailCubit>(
+      () => _i1036.VerifyEmailCubit(gh<_i821.ResendVerifyEmailUseCase>()),
+    );
+    gh.factory<_i568.ForgotPasswordCubit>(
+      () => _i568.ForgotPasswordCubit(gh<_i560.ForgotPasswordUseCase>()),
     );
     gh.factory<_i748.SignupCubit>(
       () => _i748.SignupCubit(gh<_i941.RegisterUseCase>()),

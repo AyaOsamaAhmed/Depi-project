@@ -1,6 +1,14 @@
 import 'dart:async';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/features/auth/presentation/states/verify_email/verify_email_cubit.dart';
+import 'package:dipe_freelance/features/auth/presentation/states/verify_email/verify_email_state.dart';
+import 'package:dipe_freelance/features/auth/presentation/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   final String email;
@@ -30,10 +38,24 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     });
   }
 
-  void _resendEmail() {
-    if (_seconds == 0) {
-      setState(() => _seconds = 44);
-      _startTimer();
+  void _resetTimer() {
+    setState(() => _seconds = 44);
+    _startTimer();
+  }
+
+  Future<void> _openEmailApp() async {
+    final Uri emailUri = Uri(scheme: 'mailto');
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('مش قادر يفتح تطبيق الإيميل'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -45,95 +67,144 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F6FA),
-        elevation: 0,
-        leading: const BackButton(color: Colors.black),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            // Email Icon
-            Container(
-              width: 120,
-              height: 120,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE8EAF6),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.mail_outline_rounded,
-                size: 60,
-                color: Color(0xFF1A2340),
-              ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              'Verify Your email',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              "We've sent a verification link to\n${widget.email}",
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.grey, fontSize: 14),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                'Check your inbox and spam folder',
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+    return BlocProvider(
+      create: (_) => getIt<VerifyEmailCubit>(),
+      child: BlocConsumer<VerifyEmailCubit, VerifyEmailState>(
+        listener: (context, state) {
+          if (state is VerifyEmailResendSuccess) {
+            _resetTimer();
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green,
+                ),
+              );
+          }
+          if (state is VerifyEmailFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+          }
+        },
+        builder: (context, state) {
+          final isLoading = state is VerifyEmailLoading;
+
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: context.colorScheme.onSurface,
+                ),
+                onPressed: () => context.pop(),
               ),
             ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A2340),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+            body: Padding(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                children: [
+                  SizedBox(height: 40.h),
+                  // Email Icon
+                  Container(
+                    width: 120.w,
+                    height: 120.h,
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.mail_outline_rounded,
+                      size: 60.sp,
+                      color: context.colorScheme.primary,
+                    ),
                   ),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'Open Email App',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
+                  SizedBox(height: 32.h),
+                  Text(
+                    'Verify Your email',
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  Text(
+                    "We've sent a verification link to\n${widget.email}",
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 12.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      'Check your inbox and spam folder',
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  // Open Email App Button
+                  AuthButton(
+                    text: 'Open Email App',
+                    isLoading: false,
+                    onPressed: _openEmailApp,
+                  ),
+                  SizedBox(height: 16.h),
+                  // Resend Email
+                  GestureDetector(
+                    onTap: _seconds == 0 && !isLoading
+                        ? () => context.read<VerifyEmailCubit>().resendEmail(
+                            widget.email,
+                          )
+                        : null,
+                    child: isLoading
+                        ? SizedBox(
+                            height: 20.h,
+                            width: 20.w,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: context.colorScheme.primary,
+                            ),
+                          )
+                        : Text(
+                            _seconds > 0
+                                ? 'Resend Email (00:${_seconds.toString().padLeft(2, '0')})'
+                                : 'Resend Email',
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: _seconds > 0
+                                  ? Colors.grey
+                                  : context.colorScheme.primary,
+                              fontWeight: _seconds > 0
+                                  ? FontWeight.normal
+                                  : FontWeight.bold,
+                            ),
+                          ),
+                  ),
+                  SizedBox(height: 24.h),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            GestureDetector(
-              onTap: _resendEmail,
-              child: Text(
-                _seconds > 0
-                    ? 'Resend Email (00:${_seconds.toString().padLeft(2, '0')})'
-                    : 'Resend Email',
-                style: TextStyle(
-                  color: _seconds > 0 ? Colors.grey : const Color(0xFF1A2340),
-                  fontWeight: _seconds > 0
-                      ? FontWeight.normal
-                      : FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

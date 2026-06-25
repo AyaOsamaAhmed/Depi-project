@@ -47,6 +47,9 @@ dependencies:
   dartz: ^0.10.1
   flutter_svg: 2.3.0
   flutter_secure_storage: ^10.1.0
+  flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.14.0
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:
@@ -94,3 +97,26 @@ flutter:
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
 
+
+flutter_native_splash:
+
+  color: "#160B33"
+
+  image: assets/images/logo.png
+  branding: assets/images/logo.png
+
+  android: true
+  ios: true
+  fullscreen: true
+
+  android_12:
+    image: assets/images/logo.png
+    color: "#160B33"
+    fullscreen: true
+
+flutter_launcher_icons:
+    android: true
+    adaptive_icon_background: "#FFFFFF"
+    adaptive_icon_foreground: "assets/images/logo.png"
+    ios: true
+    image_path: "assets/images/logo.png"

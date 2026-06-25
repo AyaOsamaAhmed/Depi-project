@@ -1,5 +1,11 @@
+import 'package:dipe_freelance/core/extensions/context_extensions.dart';
+import 'package:dipe_freelance/core/router/app_routes.dart';
+import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_cubit.dart';
+import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_state.dart';
 import 'package:flutter/material.dart';
-import 'verify_email_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ChooseRoleScreen extends StatefulWidget {
   final String email;
@@ -17,147 +23,176 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
       'title': "I'm a client",
       'subtitle': 'Turn your idea into reality',
       'icon': Icons.person_outline,
+      'userType': 2, // Client
     },
     {
       'title': "I'm a Freelancer",
       'subtitle': 'Work your way. Earn your value.',
       'icon': Icons.person_outline,
+      'userType': 1, // Freelancer
     },
     {
-      'title': 'Company',
+      'title': 'Student',
       'subtitle': 'Connecting Ideas with Experts.',
-      'icon': Icons.business_outlined,
+      'icon': Icons.school_outlined,
+      'userType': 4, // Student
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F6FA),
-        elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
-          'Choose your role',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+    return BlocListener<SignupCubit, SignupState>(
+      listener: (context, state) {
+        if (state is SignupSuccess) {
+          context.go(AppRoutes.userDashboard);
+        }
+        if (state is SignupFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: context.colorScheme.surface,
+        appBar: AppBar(
+          backgroundColor: context.colorScheme.surface,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
+            onPressed: () => context.pop(),
           ),
+          title: Text(
+            'Choose your role',
+            style: context.textTheme.titleLarge?.copyWith(
+              color: context.colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Expanded(
-              child: ListView.separated(
-                itemCount: _roles.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  final role = _roles[index];
-                  final isSelected = _selectedIndex == index;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedIndex = index),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? const Color(0xFFE8EAF6)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
+        body: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            children: [
+              SizedBox(height: 16.h),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: _roles.length,
+                  separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                  itemBuilder: (context, index) {
+                    final role = _roles[index];
+                    final isSelected = _selectedIndex == index;
+                    return GestureDetector(
+                      onTap: () => setState(() => _selectedIndex = index),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: EdgeInsets.all(16.w),
+                        decoration: BoxDecoration(
                           color: isSelected
-                              ? const Color(0xFF1A2340)
-                              : Colors.transparent,
-                          width: 1.5,
+                              ? context.colorScheme.primary.withOpacity(0.08)
+                              : context.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: isSelected
+                                ? context.colorScheme.primary
+                                : Colors.grey.withOpacity(0.2),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 48.w,
+                              height: 48.h,
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? context.colorScheme.primary
+                                    : context.colorScheme.primary.withOpacity(
+                                        0.08,
+                                      ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                role['icon'] as IconData,
+                                color: isSelected
+                                    ? context.colorScheme.onPrimary
+                                    : context.colorScheme.primary,
+                                size: 24.sp,
+                              ),
+                            ),
+                            SizedBox(width: 16.w),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  role['title'] as String,
+                                  style: context.textTheme.bodyLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colorScheme.onSurface,
+                                  ),
+                                ),
+                                SizedBox(height: 4.h),
+                                Text(
+                                  role['subtitle'] as String,
+                                  style: context.textTheme.bodySmall?.copyWith(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? const Color(0xFF1A2340)
-                                  : const Color(0xFFF5F6FA),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              role['icon'] as IconData,
-                              color: isSelected
-                                  ? Colors.white
-                                  : const Color(0xFF1A2340),
-                              size: 24,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                role['title'] as String,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: isSelected
-                                      ? const Color(0xFF1A2340)
-                                      : Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                role['subtitle'] as String,
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 16.h),
+              BlocBuilder<SignupCubit, SignupState>(
+                builder: (context, state) {
+                  final isLoading = state is SignupLoading;
+                  return SizedBox(
+                    width: double.infinity,
+                    height: 56.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colorScheme.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
                       ),
+                      onPressed: _selectedIndex == -1 || isLoading
+                          ? null
+                          : () {
+                              final userType =
+                                  _roles[_selectedIndex]['userType'] as int;
+                              context.read<SignupCubit>().register(
+                                userType: userType,
+                              );
+                            },
+                      child: isLoading
+                          ? SizedBox(
+                              height: 24.h,
+                              width: 24.w,
+                              child: CircularProgressIndicator(
+                                color: context.colorScheme.onPrimary,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(
+                              'Continue',
+                              style: context.textTheme.labelLarge?.copyWith(
+                                color: context.colorScheme.onPrimary,
+                                fontSize: 16.sp,
+                              ),
+                            ),
                     ),
                   );
                 },
               ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A2340),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: _selectedIndex == -1
-                    ? null
-                    : () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>  VerifyEmailScreen(
-                              email: widget.email,
-                            ),
-                          ),
-                        );
-                      },
-                child: const Text(
-                  'Continue',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
+              SizedBox(height: 16.h),
+            ],
+          ),
         ),
       ),
     );

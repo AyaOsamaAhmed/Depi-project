@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:dipe_freelance/core/errors/exceptions.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -103,6 +104,32 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(_handleDioError(e) as Failure);
     } catch (e) {
       await localDataSource.clearAuthData();
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
+    }
+  }
+
+  // ─── Forgot Password ────────────────────────────────────
+  @override
+  Future<Either<Failure, void>> forgotPassword(String email) async {
+    try {
+      await remoteDataSource.forgotPassword(email);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(_handleDioError(e) as Failure);
+    } catch (e) {
+      return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
+    }
+  }
+
+  // ─── Resend Verify Email ────────────────────────────────────
+  @override
+  Future<Either<Failure, void>> resendVerifyEmail(String email) async {
+    try {
+      await remoteDataSource.resendVerifyEmail(email);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(_handleDioError(e) as Failure);
+    } catch (e) {
       return Left(NetworkFailure('تأكد من الاتصال بالإنترنت') as Failure);
     }
   }

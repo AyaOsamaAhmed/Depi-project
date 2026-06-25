@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dipe_freelance/core/network/end_points.dart';
 import 'package:injectable/injectable.dart';
 import '../models/auth_model.dart';
 
@@ -17,6 +18,8 @@ abstract class AuthRemoteDataSource {
   });
   Future<void> logout();
   Future<AuthModel> refreshToken(String refreshToken);
+  Future<void> forgotPassword(String email);
+  Future<void> resendVerifyEmail(String email);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -69,6 +72,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> logout() async {
     await dio.post('$baseUrl/auth/logout');
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    await dio.post('$baseUrl/auth/forgot-password', data: {'email': email});
+  }
+
+  @override
+  Future<void> resendVerifyEmail(String email) async {
+    await dio.post(
+      '$baseUrl/auth/resend-verification', // TODO: confirm with backend
+      data: {'email': email},
+    );
   }
 
   @override
