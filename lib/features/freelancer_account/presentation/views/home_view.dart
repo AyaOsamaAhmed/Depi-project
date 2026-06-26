@@ -13,8 +13,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<FreelancerCubit>(),
+    return BlocProvider.value(
+      value: getIt<FreelancerCubit>(),
       child: BlocBuilder<FreelancerCubit, FreelancerState>(
         builder: (context, state) {
           if (state is FreelancerLoading) {
@@ -65,8 +65,15 @@ class _HomeHeader extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(8.r),
           decoration: BoxDecoration(
-            color: context.colorScheme.onSurface.withOpacity(0.05),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(12.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.04),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Icon(Icons.menu, color: context.colorScheme.onSurface),
         ),
@@ -78,9 +85,10 @@ class _HomeHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${context.local.hello} Sarah',
+                    '${context.local.hello}, Sarah',
                     style: context.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
                     ),
                   ),
                   SizedBox(width: 4.w),
@@ -88,9 +96,10 @@ class _HomeHeader extends StatelessWidget {
                 ],
               ),
               Text(
-                context.local.dashboardGreeting,
+                'Ready to grow your career?',
                 style: context.textTheme.bodySmall?.copyWith(
                   color: context.colorScheme.onSurface.withOpacity(0.6),
+                  fontSize: 12.sp,
                 ),
               ),
             ],
@@ -99,24 +108,40 @@ class _HomeHeader extends StatelessWidget {
         GestureDetector(
           onTap: () => context.push(AppRoutes.notifications),
           child: Stack(
+            clipBehavior: Clip.none,
             children: [
               Container(
                 padding: EdgeInsets.all(8.r),
                 decoration: BoxDecoration(
-                  color: context.colorScheme.onSurface.withOpacity(0.05),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Icon(Icons.notifications_none_outlined,
                     color: context.colorScheme.onSurface),
               ),
               Positioned(
-                right: 6.w,
-                top: 6.h,
+                right: -2.w,
+                top: -2.h,
                 child: Container(
                   padding: EdgeInsets.all(4.r),
                   decoration: const BoxDecoration(
-                    color: Colors.red,
+                    color: Color(0xFF0D2C54),
                     shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    '3',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -137,112 +162,125 @@ class _AIScoreCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: context.colorScheme.primary,
-        borderRadius: BorderRadius.circular(24.r),
-        gradient: LinearGradient(
+        borderRadius: BorderRadius.circular(16.r),
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            context.colorScheme.primary,
-            context.colorScheme.primary.withOpacity(0.8),
+            Color(0xFF030D31),
+            Color(0xFF0D2C54),
           ],
         ),
       ),
-      child: Row(
+      child: Stack(
         children: [
-          Stack(
-            alignment: Alignment.center,
+          // Background pattern placeholder (can be improved with SVG if available)
+          Positioned(
+            right: -20,
+            top: -20,
+            child: Opacity(
+              opacity: 0.1,
+              child: Icon(Icons.grid_4x4, size: 100.r, color: Colors.white),
+            ),
+          ),
+          Row(
             children: [
-              SizedBox(
-                width: 80.r,
-                height: 80.r,
-                child: CircularProgressIndicator(
-                  value: 0.85,
-                  strokeWidth: 8.r,
-                  backgroundColor: Colors.white.withOpacity(0.2),
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text(
-                    '85',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: 70.r,
+                    height: 70.r,
+                    child: CircularProgressIndicator(
+                      value: 0.85,
+                      strokeWidth: 6.r,
+                      backgroundColor: Colors.white.withOpacity(0.1),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
                   ),
-                  Text(
-                    '/100',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                      fontSize: 12.sp,
-                    ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '85',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '/100',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 10.sp,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          SizedBox(width: 20.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  context.local.aiProfileScore,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 12.sp,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                   context.local.greatJob,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  context.local.completeProfileDesc,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 12.sp,
-                  ),
-                ),
-                SizedBox(height: 16.h),
-                GestureDetector(
-                  onTap: () => context.push(AppRoutes.analytics),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.r),
+              SizedBox(width: 20.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'AI profile score',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          context.local.improveProfile,
-                          style: TextStyle(
-                            color: context.colorScheme.primary,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    SizedBox(height: 12.h),
+                    Text(
+                      'Great job!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 4.h),
+                    Text(
+                      context.local.completeProfileDesc,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    InkWell(
+                      onTap: () => context.push(AppRoutes.analytics),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100.r),
                         ),
-                        SizedBox(width: 4.w),
-                        Icon(Icons.chevron_right,
-                            size: 16.r, color: context.colorScheme.primary),
-                      ],
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              context.local.improveProfile,
+                              style: TextStyle(
+                                color: const Color(0xFF0D2C54),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 4.w),
+                            Icon(Icons.chevron_right,
+                                size: 14.r, color: const Color(0xFF0D2C54)),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -261,28 +299,22 @@ class _QuickActionsGrid extends StatelessWidget {
         _QuickActionCard(
           icon: Icons.account_balance_wallet_outlined,
           label: context.local.wallet,
-          value: '\$1,250',
-          iconColor: Colors.orange,
-          // onTap: () => context.push(),
+          value: r'$1.250',
+          iconColor: const Color(0xFFF2994A),
+          onTap: () => context.push(AppRoutes.payment),
         ),
         _QuickActionCard(
           icon: Icons.description_outlined,
           label: context.local.proposals,
-          value: '5 ${context.local.pending}',
-          iconColor: Colors.orange,
+          value: '5 Pending',
+          iconColor: const Color(0xFFF2994A),
         ),
         _QuickActionCard(
-          icon: Icons.assignment_outlined,
-          label: context.local.contract,
-          value: '3 ${context.local.active}',
-          iconColor: Colors.orange,
-        ),
-        _QuickActionCard(
-          icon: Icons.folder_open_outlined,
+          icon: Icons.grid_view_sharp,
           label: context.local.projects,
-          value: '12 ${context.local.news}',
-          iconColor: Colors.orange,
-          // onTap: () => context.push(AppRoutes.projects),
+          value: '12News',
+          iconColor: const Color(0xFFF2994A),
+          onTap: () => context.go(AppRoutes.projects),
         ),
       ],
     );
@@ -309,14 +341,14 @@ class _QuickActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 80.w,
-        padding: EdgeInsets.symmetric(vertical: 12.h),
+        width: 105.w,
+        padding: EdgeInsets.symmetric(vertical: 16.h),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withOpacity(0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -327,23 +359,25 @@ class _QuickActionCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.r),
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
+                color: const Color(0xFFFDF0E5),
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Icon(icon, color: iconColor, size: 24.r),
             ),
-            SizedBox(height: 8.h),
+            SizedBox(height: 12.h),
             Text(
               label,
               style: context.textTheme.labelSmall?.copyWith(
-                color: context.colorScheme.onSurface.withOpacity(0.6),
+                color: const Color(0xFF0D2C54),
+                fontWeight: FontWeight.bold,
+                fontSize: 12.sp,
               ),
             ),
-            SizedBox(height: 2.h),
+            SizedBox(height: 4.h),
             Text(
               value,
               style: context.textTheme.labelSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                color: const Color(0xFF0D2C54).withOpacity(0.6),
                 fontSize: 10.sp,
               ),
             ),
@@ -441,7 +475,7 @@ class _JobCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withOpacity(0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -453,15 +487,7 @@ class _JobCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 50.r,
-                  height: 50.r,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                  child: Icon(Icons.palette, color: Colors.white, size: 24.r),
-                ),
+                _buildFigmaIcon(),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Column(
@@ -471,6 +497,7 @@ class _JobCard extends StatelessWidget {
                         title,
                         style: context.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: const Color(0xFF1B1B1B),
                         ),
                       ),
                       SizedBox(height: 4.h),
@@ -479,7 +506,8 @@ class _JobCard extends StatelessWidget {
                           Text(
                             'Client:$client',
                             style: context.textTheme.labelSmall?.copyWith(
-                              color: context.colorScheme.onSurface.withOpacity(0.5),
+                              color: const Color(0xFF828282),
+                              fontSize: 10.sp,
                             ),
                           ),
                           if (isFeatured) ...[
@@ -487,13 +515,13 @@ class _JobCard extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                               decoration: BoxDecoration(
-                                color: Colors.green.withOpacity(0.1),
+                                color: const Color(0xFFE8F5E9),
                                 borderRadius: BorderRadius.circular(4.r),
                               ),
                               child: Text(
-                                context.local.featured,
+                                'Featured',
                                 style: TextStyle(
-                                  color: Colors.green,
+                                  color: const Color(0xFF2E7D32),
                                   fontSize: 8.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -505,7 +533,7 @@ class _JobCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.bookmark_border, color: context.colorScheme.onSurface, size: 24.r),
+                Icon(Icons.bookmark_border, color: const Color(0xFF1B1B1B), size: 24.r),
               ],
             ),
             SizedBox(height: 12.h),
@@ -515,20 +543,21 @@ class _JobCard extends StatelessWidget {
                   price,
                   style: context.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1B1B1B),
                   ),
                 ),
-                SizedBox(width: 16.w),
+                SizedBox(width: 12.w),
                 Text(
-                  '$daysLeft ${context.local.daysLeft}',
+                  '$daysLeft Days Left',
                   style: context.textTheme.labelSmall?.copyWith(
-                    color: context.colorScheme.onSurface.withOpacity(0.5),
+                    color: const Color(0xFF828282),
                   ),
                 ),
                 const Spacer(),
                 Text(
-                  '$matchPercent% ${context.local.match}',
+                  '$matchPercent% Match',
                   style: context.textTheme.labelSmall?.copyWith(
-                    color: context.colorScheme.onSurface.withOpacity(0.5),
+                    color: const Color(0xFF828282),
                   ),
                 ),
               ],
@@ -536,22 +565,83 @@ class _JobCard extends StatelessWidget {
             SizedBox(height: 8.h),
             Row(
               children: [
-                const _TagChip('UI/X Designer'),
-                const _TagChip('Figma'),
-                const _TagChip('Mobile App'),
-                const Spacer(),
+                Expanded(
+                  child: Wrap(
+                    runSpacing: 4.h,
+                    children: const [
+                      _TagChip('UI/X Designer'),
+                      _TagChip('Figma'),
+                      _TagChip('Mobile App'),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 8.w),
                 SizedBox(
-                  width: 80.w,
-                  child: LinearProgressIndicator(
-                    value: double.parse(matchPercent) / 100,
-                    backgroundColor: context.colorScheme.onSurface.withOpacity(0.1),
-                    valueColor: AlwaysStoppedAnimation<Color>(context.colorScheme.primary),
+                  width: 70.w,
+                  height: 4.h,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(2.r),
+                    child: LinearProgressIndicator(
+                      value: double.parse(matchPercent) / 100,
+                      backgroundColor: const Color(0xFFE0E0E0),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF0D2C54)),
+                    ),
                   ),
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFigmaIcon() {
+    return Container(
+      width: 50.r,
+      height: 50.r,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1B1B1B),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Simplified Figma-like visual
+             Column(
+               mainAxisSize: MainAxisSize.min,
+               children: [
+                 Row(
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+                    _figmaDot(Colors.red),
+                    _figmaDot(Colors.purple),
+                   ],
+                 ),
+                 Row(
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+                    _figmaDot(Colors.blue),
+                    _figmaDot(Colors.green),
+                   ],
+                 ),
+               ],
+             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _figmaDot(Color color) {
+    return Container(
+      width: 8.r,
+      height: 8.r,
+      margin: EdgeInsets.all(1.r),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
       ),
     );
   }
@@ -660,19 +750,18 @@ class _UpgradeCard extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: context.colorScheme.primary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: context.colorScheme.primary.withOpacity(0.2)),
+          color: const Color(0xFF0D2C54).withOpacity(0.15),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
-                color: context.colorScheme.primary.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16.r),
+                color: const Color(0xFF0D2C54).withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12.r),
               ),
-              child: Icon(Icons.workspace_premium, color: context.colorScheme.primary, size: 30.r),
+              child: Icon(Icons.workspace_premium, color: const Color(0xFF0D2C54), size: 30.r),
             ),
             SizedBox(width: 16.w),
             Expanded(
@@ -680,22 +769,23 @@ class _UpgradeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    context.local.upgradeToPro,
+                    'Upgrade to pro',
                     style: context.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: const Color(0xFF0D2C54),
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    context.local.upgradeToProDesc,
+                    'Get more visabilty and better opportunities',
                     style: context.textTheme.labelSmall?.copyWith(
-                      color: context.colorScheme.onSurface.withOpacity(0.6),
+                      color: const Color(0xFF0D2C54).withOpacity(0.6),
                     ),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, color: context.colorScheme.onSurface),
+            Icon(Icons.chevron_right, color: const Color(0xFF0D2C54)),
           ],
         ),
       ),

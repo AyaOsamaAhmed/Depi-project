@@ -576,4 +576,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get budget => 'الميزانية';
+
+  @override
+  String get history => 'السجل';
 }

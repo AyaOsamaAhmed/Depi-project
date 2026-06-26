@@ -14,8 +14,8 @@ class PaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<FinanceCubit>(),
+    return BlocProvider.value(
+      value: getIt<FinanceCubit>(),
       child: BlocBuilder<FinanceCubit, FinanceState>(
         builder: (context, state) {
           if (state is FinanceLoading) {

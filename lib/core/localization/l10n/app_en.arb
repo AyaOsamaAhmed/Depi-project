@@ -251,5 +251,6 @@
   "invited": "Invited",
   "accepted": "Accepted",
   "declined": "Declined",
-  "budget": "Budget"
+  "budget": "Budget",
+  "history": "History"
 }

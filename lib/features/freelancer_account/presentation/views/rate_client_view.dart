@@ -44,8 +44,8 @@ class _RateClientViewState extends State<RateClientView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ProjectCubit>(),
+    return BlocProvider.value(
+      value: getIt<ProjectCubit>(),
       child: BlocConsumer<ProjectCubit, ProjectState>(
       listener: (context, state) {
         if (state is RatingSuccess) {
@@ -111,7 +111,7 @@ class _RateClientViewState extends State<RateClientView> {
                 SizedBox(height: 48.h),
                 _buildReviewSection(),
                 SizedBox(height: 48.h),
-                _buildSubmitButton(state),
+                _buildSubmitButton(context, state),
               ],
             ),
           ),
@@ -205,7 +205,7 @@ class _RateClientViewState extends State<RateClientView> {
     );
   }
 
-  Widget _buildSubmitButton(ProjectState state) {
+  Widget _buildSubmitButton(BuildContext context, ProjectState state) {
     return ElevatedButton(
       onPressed: state is RatingInProgress || _rating == 0
           ? null

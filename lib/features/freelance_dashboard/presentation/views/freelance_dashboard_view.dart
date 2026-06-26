@@ -1,13 +1,11 @@
 import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
-import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/freelance_dashboard/presentation/states/freelance_dashboard_state.dart';
 import 'package:dipe_freelance/features/freelance_dashboard/presentation/widgets/shared_blue_button.dart';
 import 'package:dipe_freelance/features/freelance_dashboard/presentation/widgets/shared_white_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import '../states/freelance_dashboard_cubit.dart';
 
 class FreelanceDashboardView extends StatelessWidget {

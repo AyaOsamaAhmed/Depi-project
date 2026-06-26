@@ -92,8 +92,8 @@ class _ProjectsViewState extends State<ProjectsView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<ProjectCubit>()),
-        BlocProvider(create: (context) => getIt<ProjectHistoryCubit>()),
+        BlocProvider.value(value: getIt<ProjectCubit>()),
+        BlocProvider.value(value: getIt<ProjectHistoryCubit>()),
       ],
       child: BlocBuilder<ProjectCubit, ProjectState>(
         builder: (context, state) {
@@ -443,24 +443,29 @@ class _WalletCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _WalletInfoItem(
-                icon: Icons.verified_user_outlined,
-                label: context.local.safeSecure,
-              ),
-              _WalletInfoItem(
-                icon: Icons.credit_card_outlined,
-                label: context.local.multiplePaymentMethods,
-                isShort: true,
-              ),
-              _WalletInfoItem(
-                icon: Icons.lock_outline,
-                label: context.local.securePayments,
-                isShort: true,
-              ),
-            ],
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _WalletInfoItem(
+                  icon: Icons.verified_user_outlined,
+                  label: context.local.safeSecure,
+                ),
+                SizedBox(width: 12.w),
+                _WalletInfoItem(
+                  icon: Icons.credit_card_outlined,
+                  label: context.local.multiplePaymentMethods,
+                  isShort: true,
+                ),
+                SizedBox(width: 12.w),
+                _WalletInfoItem(
+                  icon: Icons.lock_outline,
+                  label: context.local.securePayments,
+                  isShort: true,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -1,5 +1,4 @@
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
-import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +20,8 @@ class _FundsViewState extends State<FundsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<FinanceCubit>(),
+    return BlocProvider.value(
+      value: getIt<FinanceCubit>(),
       child: BlocListener<FinanceCubit, FinanceState>(
         listener: (context, state) {
           if (state is WithdrawalSuccess) {
@@ -31,93 +30,111 @@ class _FundsViewState extends State<FundsView> {
         },
         child: BlocBuilder<FinanceCubit, FinanceState>(
           builder: (context, state) {
-          if (state is FinanceLoading) {
-            return const Scaffold(body: Center(child: CircularProgressIndicator()));
-          }
-          return Scaffold(
-            backgroundColor: context.colorScheme.surface,
-            appBar: AppBar(
-              backgroundColor: context.colorScheme.surface,
-              elevation: 0,
-              surfaceTintColor: Colors.transparent,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () => Navigator.pop(context),
-              ),
-              centerTitle: true,
-              title: Text(
-                context.local.withdrawFunds,
-                style: context.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
+            if (state is FinanceLoading) {
+              return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()));
+            }
+            return Scaffold(
+              backgroundColor: const Color(0xFFF8F9FD),
+              appBar: AppBar(
+                backgroundColor: const Color(0xFFF8F9FD),
+                elevation: 0,
+                surfaceTintColor: Colors.transparent,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                centerTitle: true,
+                title: Text(
+                  context.local.withdrawFunds,
+                  style: context.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAmountCard(context),
-                  SizedBox(height: 32.h),
-                  _buildSectionHeader(context.local.paymentMethods),
-                  SizedBox(height: 16.h),
-                  _buildPaymentMethodsList(),
-                  SizedBox(height: 48.h),
-                  _buildWithdrawButton(context, state),
-                ],
+              body: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildBalanceCard(context),
+                    SizedBox(height: 24.h),
+                    const _SectionHeader(title: 'Withdrawal Amount'),
+                    SizedBox(height: 12.h),
+                    _buildAmountInput(),
+                    SizedBox(height: 16.h),
+                    _buildInfoBanner(),
+                    SizedBox(height: 24.h),
+                    const _SectionHeader(title: 'Payment Methods'),
+                    SizedBox(height: 16.h),
+                    _buildPaymentMethodsList(),
+                    SizedBox(height: 40.h),
+                    _buildWithdrawButton(context, state),
+                  ],
+                ),
               ),
-            ),
-          );
+            );
           },
         ),
       ),
     );
   }
 
-  Widget _buildAmountCard(BuildContext context) {
+  Widget _buildBalanceCard(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(24.r),
+      height: 180.h,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.r),
         gradient: const LinearGradient(
-          colors: [Color(0xFF0D2C54), Color(0xFF1E4B8A)],
+          colors: [Color(0xFF061B3B), Color(0xFF14305D)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20.r),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF0D2C54).withOpacity(0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Text(
-            context.local.amount,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
-              fontSize: 14.sp,
+          // Pattern Background (Simulated with icons or opacity)
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.1,
+              child: CustomPaint(
+                painter: _NetworkPainter(),
+              ),
             ),
           ),
-          SizedBox(height: 8.h),
-          Text(
-            '\$4,250.00',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 32.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 24.h),
-          Text(
-            context.local.availableBalance,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
-              fontSize: 14.sp,
+          Padding(
+            padding: EdgeInsets.all(24.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  context.local.amount,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Text(
+                  '\$4,250.00',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  context.local.availableBalance,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -125,13 +142,62 @@ class _FundsViewState extends State<FundsView> {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 18.sp,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
+  Widget _buildAmountInput() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.black.withOpacity(0.1)),
+      ),
+      child: Row(
+        children: [
+          Text(
+            '\$',
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF061B3B),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Text(
+            '1,500.00',
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF061B3B),
+            ),
+          ),
+          const Spacer(),
+          Icon(Icons.edit_note, color: const Color(0xFF061B3B), size: 28.sp),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoBanner() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE8F1FF),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.account_balance_wallet_outlined,
+              size: 20.r, color: const Color(0xFF061B3B).withOpacity(0.6)),
+          SizedBox(width: 12.w),
+          Text(
+            'Payment Methods: \$ 7,250.00',
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: const Color(0xFF061B3B).withOpacity(0.8),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -141,26 +207,26 @@ class _FundsViewState extends State<FundsView> {
       children: [
         _buildPaymentMethodItem(
           index: 0,
-          title: context.local.instaPay,
+          title: 'InstaPay',
           subtitle: 'sarahahmed18@instapay',
-          icon: Icons.flash_on_rounded,
-          iconColor: Colors.purple,
+          icon: Icons.bolt,
+          iconColor: Colors.deepPurple,
         ),
-        SizedBox(height: 16.h),
+        SizedBox(height: 12.h),
         _buildPaymentMethodItem(
           index: 1,
-          title: context.local.bankTransfer,
+          title: 'Bank transfer',
           subtitle: '****4568',
-          icon: Icons.credit_card_rounded,
-          iconColor: Colors.blue,
+          icon: Icons.credit_card,
+          iconColor: Colors.black,
         ),
-        SizedBox(height: 16.h),
+        SizedBox(height: 12.h),
         _buildPaymentMethodItem(
           index: 2,
-          title: context.local.payPal,
+          title: 'PayPal',
           subtitle: 'sarahahmed18@paypal.com',
           icon: Icons.payment_rounded,
-          iconColor: Colors.indigo,
+          iconColor: Colors.blue.shade800,
         ),
       ],
     );
@@ -182,18 +248,19 @@ class _FundsViewState extends State<FundsView> {
           color: isSelected ? const Color(0xFFEBF2FF) : Colors.white,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isSelected ? AppColors.primary700 : context.colorScheme.onSurface.withOpacity(0.1),
-            width: isSelected ? 1.5 : 1,
+            color: isSelected
+                ? const Color(0xFF061B3B)
+                : Colors.black.withOpacity(0.1),
+            width: 1,
           ),
         ),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(12.r),
+              padding: EdgeInsets.all(10.r),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color(0xFFF3F4F6),
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: context.colorScheme.onSurface.withOpacity(0.05)),
               ),
               child: Icon(icon, color: iconColor, size: 28.r),
             ),
@@ -204,15 +271,18 @@ class _FundsViewState extends State<FundsView> {
                 children: [
                   Text(
                     title,
-                    style: context.textTheme.titleSmall?.copyWith(
+                    style: TextStyle(
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
+                      color: const Color(0xFF061B3B),
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     subtitle,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.grey.shade600,
                     ),
                   ),
                 ],
@@ -224,10 +294,10 @@ class _FundsViewState extends State<FundsView> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected ? AppColors.primary700 : Colors.grey.withOpacity(0.5),
+                  color: const Color(0xFF061B3B),
                   width: 2,
                 ),
-                color: isSelected ? AppColors.primary700 : Colors.transparent,
+                color: isSelected ? const Color(0xFF061B3B) : Colors.white,
               ),
               child: isSelected
                   ? Icon(Icons.check, color: Colors.white, size: 16.r)
@@ -247,10 +317,10 @@ class _FundsViewState extends State<FundsView> {
               context.read<FinanceCubit>().withdrawFunds();
             },
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary700,
+        backgroundColor: const Color(0xFF0D2C54),
         minimumSize: Size(double.infinity, 56.h),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         elevation: 0,
       ),
@@ -258,7 +328,7 @@ class _FundsViewState extends State<FundsView> {
           ? const CircularProgressIndicator(color: Colors.white)
           : Text(
               context.local.withdrawNow,
-              style: context.textTheme.titleMedium?.copyWith(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,
@@ -266,4 +336,43 @@ class _FundsViewState extends State<FundsView> {
             ),
     );
   }
+}
+
+class _SectionHeader extends StatelessWidget {
+  final String title;
+  const _SectionHeader({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.bold,
+        color: const Color(0xFF061B3B),
+      ),
+    );
+  }
+}
+
+class _NetworkPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 1.0;
+
+    // Draw some random lines to simulate a network
+    canvas.drawLine(Offset(0, size.height * 0.2),
+        Offset(size.width * 0.3, size.height * 0.8), paint);
+    canvas.drawLine(Offset(size.width * 0.1, size.height * 0.5),
+        Offset(size.width * 0.6, size.height * 0.2), paint);
+    canvas.drawLine(Offset(size.width * 0.4, size.height * 0.7),
+        Offset(size.width * 0.9, size.height * 0.4), paint);
+    canvas.drawLine(Offset(size.width, size.height * 0.1),
+        Offset(size.width * 0.7, size.height * 0.9), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

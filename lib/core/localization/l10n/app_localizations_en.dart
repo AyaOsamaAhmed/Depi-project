@@ -576,4 +576,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get budget => 'Budget';
+
+  @override
+  String get history => 'History';
 }

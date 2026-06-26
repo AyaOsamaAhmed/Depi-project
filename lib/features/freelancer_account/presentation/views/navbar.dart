@@ -1,41 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/extensions/context_extensions.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/home_view.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/projects_view.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/message_view.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/profile_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
-class FreelancerNavbar extends StatefulWidget {
-  const FreelancerNavbar({super.key});
+class FreelancerNavbar extends StatelessWidget {
+  const FreelancerNavbar({
+    super.key,
+    required this.navigationShell,
+  });
 
-  @override
-  State<FreelancerNavbar> createState() => _FreelancerNavbarState();
-}
-
-class _FreelancerNavbarState extends State<FreelancerNavbar> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    const HomeView(),
-    const ProjectsView(),
-    const MessageView(),
-    const FreelancerProfileView(),
-  ];
+  final StatefulNavigationShell navigationShell;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: navigationShell,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -47,7 +33,7 @@ class _FreelancerNavbarState extends State<FreelancerNavbar> {
           ],
         ),
         child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
+          currentIndex: navigationShell.currentIndex,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
@@ -62,23 +48,34 @@ class _FreelancerNavbarState extends State<FreelancerNavbar> {
           ),
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined, size: 28.sp),
-              activeIcon: Icon(Icons.home, size: 28.sp),
+              icon: Icon(Icons.home_outlined, size: 24.sp),
+              activeIcon: Icon(Icons.home, size: 24.sp),
               label: context.local.home,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.work_outline, size: 28.sp),
-              activeIcon: Icon(Icons.work, size: 28.sp),
+              icon: Icon(Icons.work_outline, size: 24.sp),
+              activeIcon: Icon(Icons.work, size: 24.sp),
               label: context.local.projects,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_outlined, size: 28.sp),
-              activeIcon: Icon(Icons.chat, size: 28.sp),
+              icon: Icon(Icons.assignment_outlined, size: 24.sp),
+              activeIcon: Icon(Icons.assignment, size: 24.sp),
+              label: context.local.history,
+            ),
+            BottomNavigationBarItem(
+              icon: Badge(
+                label: const Text('3'),
+                child: Icon(Icons.chat_bubble_outline, size: 24.sp),
+              ),
+              activeIcon: Badge(
+                label: const Text('3'),
+                child: Icon(Icons.chat_bubble, size: 24.sp),
+              ),
               label: context.local.message,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline, size: 28.sp),
-              activeIcon: Icon(Icons.person, size: 28.sp),
+              icon: Icon(Icons.account_circle_outlined, size: 24.sp),
+              activeIcon: Icon(Icons.account_circle, size: 24.sp),
               label: context.local.profile,
             ),
           ],
