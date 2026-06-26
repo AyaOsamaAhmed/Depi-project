@@ -72,7 +72,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required int countryId,
   }) async {
     try {
-      final result = await remoteDataSource.register(
+      await remoteDataSource.register(
         email: email,
         password: password,
         firstName: firstName,
@@ -83,8 +83,9 @@ class AuthRepositoryImpl implements AuthRepository {
         phoneNumber: phoneNumber,
         countryId: countryId,
       );
-      await localDataSource.saveAuthData(result);
-      return Right(result);
+      final authResult = await remoteDataSource.login(email, password);
+      await localDataSource.saveAuthData(authResult);
+      return Right(authResult);
     } on DioException catch (e) {
       return Left(_handleDioError(e) as Failure);
     } catch (e) {

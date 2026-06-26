@@ -29,22 +29,25 @@ class SignupCubit extends Cubit<SignupState> {
     emit(SignupDataCollected());
   }
 
-  // Step 2 — ابعتي الـ API من شاشة الـ choose role
-  Future<void> register({required int userType}) async {
-    if (_email == null || _password == null) return;
-
+  Future<void> register({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required int userType,
+  }) async {
     emit(SignupLoading());
 
     final result = await _registerUseCase.call(
-      email: _email!,
-      password: _password!,
-      firstName: _firstName!,
-      lastName: _lastName!,
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
       userType: userType,
-      gender: 0, // NotSpecified — default
-      dateOfBirth: '2000-01-01', // default
-      phoneNumber: '', // default
-      countryId: 1, // default
+      gender: 0,
+      dateOfBirth: '2000-01-01',
+      phoneNumber: '',
+      countryId: 1,
     );
 
     result.fold(

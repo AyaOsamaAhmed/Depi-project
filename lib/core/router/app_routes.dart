@@ -6,10 +6,9 @@ class AppRoutes {
   static const String onBoarding = '/onBoarding';
   static const String login = '/login';
   static const String signup = '/signup';
+  static const String chooseRole = '/chooseRole';
   static const String freelanceDashboard = '/freelanceDashboard';
   static const String userDashboard = '/userDashboard';
-  static const String chooseRole = '/chooseRole';
   static const String resetPassword = '/resetPassword';
   static const String verifyEmail = '/verifyEmail';
- 
 }

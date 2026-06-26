@@ -37,19 +37,24 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: AppRoutes.chooseRole,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          return ChooseRoleScreen(
+            email: data['email'] ?? '',
+            password: data['password'] ?? '',
+            firstName: data['firstName'] ?? '',
+            lastName: data['lastName'] ?? '',
+          );
+        },
+      ),
+      GoRoute(
         path: AppRoutes.freelanceDashboard,
         builder: (context, state) => const FreelanceDashboardView(),
       ),
       GoRoute(
         path: AppRoutes.userDashboard,
         builder: (context, state) => const UserDashboardView(),
-      ),
-      GoRoute(
-        path: AppRoutes.chooseRole,
-        builder: (context, state) => BlocProvider(
-          create: (_) => getIt<SignupCubit>(),
-          child: ChooseRoleScreen(email: state.extra as String? ?? ''),
-        ),
       ),
       GoRoute(
         path: AppRoutes.resetPassword,

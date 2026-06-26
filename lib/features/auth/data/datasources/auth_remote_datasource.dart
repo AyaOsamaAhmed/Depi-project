@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:dipe_freelance/core/network/end_points.dart';
 import 'package:injectable/injectable.dart';
 import '../models/auth_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<AuthModel> login(String email, String password);
-  Future<AuthModel> register({
+  Future<void> register({
     required String email,
     required String password,
     required String firstName,
@@ -40,7 +39,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthModel> register({
+  Future<void> register({
     required String email,
     required String password,
     required String firstName,
@@ -51,7 +50,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String phoneNumber,
     required int countryId,
   }) async {
-    final response = await dio.post(
+    await dio.post(
       '$baseUrl/auth/register',
       data: {
         'email': email,
@@ -65,8 +64,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'countryId': countryId,
       },
     );
-    print(response.data);
-    return AuthModel.fromJson(response.data);
   }
 
   @override
@@ -81,10 +78,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<void> resendVerifyEmail(String email) async {
-    await dio.post(
-      '$baseUrl/auth/resend-verification', // TODO: confirm with backend
-      data: {'email': email},
-    );
+    await dio.post('$baseUrl/auth/resend-verification', data: {'email': email});
   }
 
   @override
