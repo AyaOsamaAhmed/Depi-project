@@ -24,7 +24,7 @@ abstract class AuthRemoteDataSource {
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Dio dio;
-  static const baseUrl = 'http://depiplatform.runasp.net/api';
+  static const baseUrl = 'https://depiplatform.runasp.net/api';
 
   AuthRemoteDataSourceImpl(this.dio);
 

@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = 'http://depiplatform.runasp.net/api/';
+  static const String baseUrl = 'https://depiplatform.runasp.net/api/';
 
   // Auth
   static const String login = 'auth/login';
