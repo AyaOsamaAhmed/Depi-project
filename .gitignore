@@ -50,3 +50,6 @@ GeneratedPluginRegistrant.swift
 flutter_export_environment.sh
 Flutter-Generated.xcconfig
 
+**/ephemeral/
+**/.plugin_symlinks/
+

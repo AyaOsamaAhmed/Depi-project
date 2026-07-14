@@ -8,7 +8,16 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String chooseRole = '/chooseRole';
   static const String freelanceDashboard = '/freelanceDashboard';
+  static const String projectLive = '/projectLive';
+  static const String projectDetails = '/projectDetails';
+  static const String createContract = '/createContract';
+  static const String milestoneReview = '/milestoneReview';
+  static const String priceBreakdown = '/priceBreakdown';
+  static const String releasePayment = '/releasePayment';
+  static const String projectProgress = '/projectProgress';
   static const String userDashboard = '/userDashboard';
   static const String resetPassword = '/resetPassword';
   static const String verifyEmail = '/verifyEmail';
+  static const String createNewProject = '/createNewProject';
+  static const String projectPublish = '/projectPublish';
 }

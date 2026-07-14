@@ -168,8 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context.go(
                                           AppRoutes.freelanceDashboard,
                                         );
-                                      } else {
-                                        context.go(AppRoutes.userDashboard);
                                       }
                                     } else if (state is LoginFailure) {
                                       String errorMessage = state.message;

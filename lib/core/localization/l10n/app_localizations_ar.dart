@@ -163,4 +163,78 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goToDashboard => 'الذهاب إلى لوحة التحكم';
+
+  @override
+  String get getAIPrediction => 'احصل على توقعات الأسعار بالذكاء الاصطناعي';
+
+  @override
+  String get getAIPredictionDesc =>
+      'بناءً على تفاصيل مشروعك، احصل على اقتراحات تسعير مدعومة بالذكاء الاصطناعي من قاعدة بيانات المشاريع المماثلة السابقة لدينا';
+
+  @override
+  String get projectDetails => 'تفاصيل المشروع';
+
+  @override
+  String get category => 'الفئة';
+
+  @override
+  String get projectTitle => 'عنوان المشروع';
+
+  @override
+  String get budget => 'الميزانية';
+
+  @override
+  String get projectType => 'نوع المشروع';
+
+  @override
+  String get requiredDocuments => 'المستندات المطلوبة';
+
+  @override
+  String get addRequirements => 'إضافة المتطلبات';
+
+  @override
+  String get attachedFile => 'الملفات المرفقة';
+
+  @override
+  String get recentRequirements => 'المتطلبات الحديثة';
+
+  @override
+  String get aiPricePrediction => 'توقعات الأسعار بالذكاء الاصطناعي';
+
+  @override
+  String get aiEstimatedBudget => 'الميزانية التقديرية بالذكاء الاصطناعي';
+
+  @override
+  String get basedOnProjectRequirementsAndMarketData =>
+      'بناءً على متطلبات المشروع وبيانات السوق';
+
+  @override
+  String get priceBreakdown => 'تفاصيل السعر';
+
+  @override
+  String get thisIsAPredictionYouCanAdjustTheBudgetBeforePublishing =>
+      'هذا توقع. يمكنك تعديل الميزانية قبل النشر';
+
+  @override
+  String get publishProject => 'نشر المشروع';
+
+  @override
+  String get projectPublished => 'تم نشر المشروع';
+
+  @override
+  String nameHiredForYourProject(Object name) {
+    return '$name تم توظيفه لمشروعك';
+  }
+
+  @override
+  String get youCanReviewAndHireTheBestFit => 'يمكنك مراجعة وتوظيف الأنسب';
+
+  @override
+  String get freelanceCanSendProposals => 'يمكن للمستقلين إرسال المقترحات';
+
+  @override
+  String get createContract => 'إنشاء عقد';
+
+  @override
+  String get goToProject => 'الذهاب إلى المشروع';
 }
