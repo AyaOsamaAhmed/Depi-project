@@ -53,3 +53,24 @@ Flutter-Generated.xcconfig
 **/ephemeral/
 **/.plugin_symlinks/
 
+# Flutter generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.pub-cache/
+build/
+
+# Generated Flutter files
+**/ephemeral/
+**/.plugin_symlinks/
+
+# iOS/macOS
+**/Flutter/Generated.xcconfig
+**/Flutter/ephemeral/
+**/Flutter/flutter_export_environment.sh
+
+# Generated plugin registrant
+**/GeneratedPluginRegistrant.*
+
