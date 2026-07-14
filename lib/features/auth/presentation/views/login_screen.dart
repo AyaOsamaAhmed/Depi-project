@@ -168,6 +168,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context.go(
                                           AppRoutes.freelanceDashboard,
                                         );
+                                      } else if (state
+                                              .authEntity
+                                              .user
+                                              .userType ==
+                                          2) {
+                                        context.go(AppRoutes.userDashboard);
                                       }
                                     } else if (state is LoginFailure) {
                                       String errorMessage = state.message;
