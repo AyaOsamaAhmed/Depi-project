@@ -18,13 +18,18 @@ import 'package:dipe_freelance/features/client/present/screen/user_dashboard_scr
 import 'package:dipe_freelance/features/client/present/screen/create_new_project_screen.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
+import 'package:dipe_freelance/features/on_boarding/presentation/screen/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.userDashboard,
+    initialLocation: AppRoutes.splash,
     routes: [
+      GoRoute(
+        path: AppRoutes.splash,
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: AppRoutes.userDashboard,
         builder: (context, state) => const UserDashboardScreen(),
