@@ -1,22 +1,33 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_state.dart';
 import 'package:injectable/injectable.dart';
+import '../../domain/usecases/get_jobs_usecase.dart';
+import '../../domain/usecases/get_categories_usecase.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_state.dart';
 
 @injectable
 class JobsCubit extends Cubit<JobsState> {
-  JobsCubit() : super(JobsInitial());
+  final GetJobsUseCase _getJobsUseCase;
+  final GetCategoriesUseCase _getCategoriesUseCase;
 
-  Future<void> fetchJobDetails(String jobId) async {
+  JobsCubit(this._getJobsUseCase, this._getCategoriesUseCase)
+    : super(JobsInitial());
+
+  Future<void> loadJobs({String? search}) async {
     emit(JobsLoading());
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 1));
-    emit(JobsLoaded());
+
+    final jobsResult = await _getJobsUseCase(search: search);
+    final categoriesResult = await _getCategoriesUseCase();
+
+    jobsResult.fold((failure) => emit(JobsError(failure.message)), (projects) {
+      categoriesResult.fold(
+        (failure) => emit(JobsLoaded(projects: projects, categories: [])),
+        (categories) =>
+            emit(JobsLoaded(projects: projects, categories: categories)),
+      );
+    });
   }
 
-  Future<void> submitProposal() async {
-    emit(ProposalSubmitting());
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 1));
-    emit(ProposalSubmitSuccess());
+  Future<void> searchJobs(String query) async {
+    await loadJobs(search: query.isEmpty ? null : query);
   }
 }

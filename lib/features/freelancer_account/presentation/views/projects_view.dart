@@ -3,27 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_cubit.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_cubit.dart';
+import 'package:dipe_freelance/features/freelancer_account/presentation/states/jobs_state.dart';
+import 'package:dipe_freelance/features/freelancer_account/domain/entities/project_entity.dart';
+import 'package:dipe_freelance/features/freelancer_account/domain/entities/category_entity.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:dipe_freelance/core/di/injection.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_history_cubit.dart';
-
-class ProjectModel {
-  final String title;
-  final String price;
-  final String experienceLevel;
-  final String time;
-
-  ProjectModel({
-    required this.title,
-    required this.price,
-    required this.experienceLevel,
-    required this.time,
-  });
-}
+import 'package:go_router/go_router.dart';
 
 class ProjectsView extends StatefulWidget {
   const ProjectsView({super.key});
@@ -33,54 +19,7 @@ class ProjectsView extends StatefulWidget {
 }
 
 class _ProjectsViewState extends State<ProjectsView> {
-  final List<ProjectModel> _allProjects = [
-    ProjectModel(
-      title: 'Mobile App Design',
-      price: '\$1,500',
-      experienceLevel: 'Intermediate',
-      time: '3h Ago',
-    ),
-    ProjectModel(
-      title: 'UI/UX Dashboard',
-      price: '\$800',
-      experienceLevel: 'Expert',
-      time: '1h Ago',
-    ),
-    ProjectModel(
-      title: 'Website Redesign',
-      price: '\$2,000',
-      experienceLevel: 'Entry',
-      time: '5h Ago',
-    ),
-    ProjectModel(
-      title: 'Flutter App Development',
-      price: '\$3,500',
-      experienceLevel: 'Intermediate',
-      time: '10m Ago',
-    ),
-  ];
-
-  List<ProjectModel> _filteredProjects = [];
   final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _filteredProjects = _allProjects;
-  }
-
-  void _filterProjects(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        _filteredProjects = _allProjects;
-      } else {
-        _filteredProjects = _allProjects
-            .where((project) =>
-                project.title.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      }
-    });
-  }
 
   @override
   void dispose() {
@@ -90,20 +29,14 @@ class _ProjectsViewState extends State<ProjectsView> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: getIt<ProjectCubit>()),
-        BlocProvider.value(value: getIt<ProjectHistoryCubit>()),
-      ],
-      child: BlocBuilder<ProjectCubit, ProjectState>(
-        builder: (context, state) {
-          if (state is ProjectLoading) {
-            return const Scaffold(body: Center(child: CircularProgressIndicator()));
-          }
-          return Scaffold(
-            backgroundColor: context.colorScheme.surface,
-            body: SafeArea(
-              child: SingleChildScrollView(
+    return BlocProvider(
+      create: (_) => getIt<JobsCubit>()..loadJobs(),
+      child: Scaffold(
+        backgroundColor: context.colorScheme.surface,
+        body: SafeArea(
+          child: BlocBuilder<JobsCubit, JobsState>(
+            builder: (context, state) {
+              return SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,22 +49,59 @@ class _ProjectsViewState extends State<ProjectsView> {
                       ),
                     ),
                     SizedBox(height: 24.h),
+                    // Search Bar
                     _SearchBar(
                       controller: _searchController,
-                      onChanged: _filterProjects,
+                      onChanged: (query) {
+                        context.read<JobsCubit>().searchJobs(query);
+                      },
                     ),
                     SizedBox(height: 24.h),
-                    const _FilterChips(),
-                    SizedBox(height: 32.h),
-                    _ProjectsList(projects: _filteredProjects),
+                    // Categories
+                    if (state is JobsLoaded && state.categories.isNotEmpty)
+                      _CategoryChips(categories: state.categories),
+                    if (state is JobsLoaded && state.categories.isNotEmpty)
+                      SizedBox(height: 32.h),
+                    // Projects List
+                    if (state is JobsLoading)
+                      const Center(child: CircularProgressIndicator()),
+                    if (state is JobsError)
+                      Center(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 40.h),
+                            Icon(
+                              Icons.error_outline,
+                              size: 64.r,
+                              color: Colors.red.withOpacity(0.5),
+                            ),
+                            SizedBox(height: 16.h),
+                            Text(
+                              state.message,
+                              textAlign: TextAlign.center,
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: Colors.red,
+                              ),
+                            ),
+                            SizedBox(height: 16.h),
+                            ElevatedButton(
+                              onPressed: () =>
+                                  context.read<JobsCubit>().loadJobs(),
+                              child: const Text('Try Again'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (state is JobsLoaded)
+                      _ProjectsList(projects: state.projects),
                     SizedBox(height: 32.h),
                     const _WalletCard(),
                   ],
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -182,66 +152,59 @@ class _SearchBar extends StatelessWidget {
   }
 }
 
-class _FilterChips extends StatelessWidget {
-  const _FilterChips();
+class _CategoryChips extends StatelessWidget {
+  final List<CategoryEntity> categories;
+
+  const _CategoryChips({required this.categories});
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      'all',
-      'uiuxDesign',
-      'mobileAppDesign',
-    ];
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       child: Row(
-        children: categories.asMap().entries.map((entry) {
-          final isFirst = entry.key == 0;
-          final key = entry.value;
-          return Container(
+        children: [
+          // All chip
+          Container(
             margin: EdgeInsets.only(right: 12.w),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             decoration: BoxDecoration(
-              color: isFirst
-                  ? AppColors.secondary200 // Peach color for "All"
-                  : context.colorScheme.onSurface.withOpacity(0.08),
+              color: AppColors.secondary200,
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Text(
-              _getLocalizedValue(context, key),
+              context.local.all,
               style: context.textTheme.labelMedium?.copyWith(
-                color: isFirst
-                    ? AppColors.secondary700
-                    : context.colorScheme.onSurface,
-                fontWeight: isFirst ? FontWeight.bold : FontWeight.normal,
+                color: AppColors.secondary700,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          );
-        }).toList(),
+          ),
+          // Dynamic categories from API
+          ...categories.map(
+            (cat) => Container(
+              margin: EdgeInsets.only(right: 12.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: context.colorScheme.onSurface.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Text(
+                cat.nameEn,
+                style: context.textTheme.labelMedium?.copyWith(
+                  color: context.colorScheme.onSurface,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  String _getLocalizedValue(BuildContext context, String key) {
-    switch (key) {
-      case 'all':
-        return context.local.all;
-      case 'uiuxDesign':
-        return context.local.uiuxDesign;
-      case 'webDevelopment':
-        return context.local.webDevelopment;
-      case 'mobileAppDesign':
-        return context.local.mobileAppDesign;
-      default:
-        return key;
-    }
   }
 }
 
 class _ProjectsList extends StatelessWidget {
-  final List<ProjectModel> projects;
+  final List<ProjectEntity> projects;
 
   const _ProjectsList({required this.projects});
 
@@ -303,28 +266,30 @@ class _ProjectsList extends StatelessWidget {
 }
 
 class _ProjectItem extends StatelessWidget {
-  final ProjectModel project;
+  final ProjectEntity project;
 
   const _ProjectItem({required this.project});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(AppRoutes.jobDetails),
+      onTap: () => context.push(AppRoutes.jobDetails, extra: project.id),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                project.title,
-                style: context.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  project.title,
+                  style: context.textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Text(
-                project.price,
+                project.priceRange,
                 style: context.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -358,7 +323,7 @@ class _ProjectItem extends StatelessWidget {
                 ),
               ),
               Text(
-                project.time,
+                project.createdAt,
                 style: context.textTheme.labelSmall?.copyWith(
                   color: context.colorScheme.onSurface.withOpacity(0.5),
                 ),
@@ -370,6 +335,7 @@ class _ProjectItem extends StatelessWidget {
     );
   }
 }
+
 class _WalletCard extends StatelessWidget {
   const _WalletCard();
 
@@ -446,7 +412,6 @@ class _WalletCard extends StatelessWidget {
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _WalletInfoItem(
                   icon: Icons.verified_user_outlined,
@@ -456,13 +421,11 @@ class _WalletCard extends StatelessWidget {
                 _WalletInfoItem(
                   icon: Icons.credit_card_outlined,
                   label: context.local.multiplePaymentMethods,
-                  isShort: true,
                 ),
                 SizedBox(width: 12.w),
                 _WalletInfoItem(
                   icon: Icons.lock_outline,
                   label: context.local.securePayments,
-                  isShort: true,
                 ),
               ],
             ),
@@ -476,19 +439,18 @@ class _WalletCard extends StatelessWidget {
 class _WalletInfoItem extends StatelessWidget {
   final IconData icon;
   final String label;
-  final bool isShort;
 
-  const _WalletInfoItem({
-    required this.icon,
-    required this.label,
-    this.isShort = false,
-  });
+  const _WalletInfoItem({required this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 14.sp, color: context.colorScheme.onSurface.withOpacity(0.6)),
+        Icon(
+          icon,
+          size: 14.sp,
+          color: context.colorScheme.onSurface.withOpacity(0.6),
+        ),
         SizedBox(width: 4.w),
         Text(
           label,

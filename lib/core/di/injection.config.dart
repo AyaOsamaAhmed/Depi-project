@@ -10,8 +10,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
-import 'package:dipe_freelance/features/auth/presentation/states/verify_email/verify_email_cubit.dart'
-    as _i1036;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -35,10 +33,25 @@ import '../../features/auth/presentation/states/login/login_cubit.dart'
     as _i911;
 import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
+import '../../features/auth/presentation/states/verify_email/verify_email_cubit.dart'
+    as _i1036;
 import '../../features/client/present/states/freelance_dashboard_cubit.dart'
     as _i249;
 import '../../features/client/present/states/project_live_cubit.dart' as _i213;
-
+import '../../features/client/present/states/project_publish_cubit.dart'
+    as _i466;
+import '../../features/client/present/states/user_dashboard_cubit.dart'
+    as _i360;
+import '../../features/freelancer_account/data/datasources/jobs_remote_datasource.dart'
+    as _i711;
+import '../../features/freelancer_account/domain/repositories/jobs_repository.dart'
+    as _i637;
+import '../../features/freelancer_account/domain/repositories/jobs_repository_impl.dart'
+    as _i65;
+import '../../features/freelancer_account/domain/usecases/get_categories_usecase.dart'
+    as _i860;
+import '../../features/freelancer_account/domain/usecases/get_jobs_usecase.dart'
+    as _i476;
 import '../../features/freelancer_account/presentation/states/finance_cubit.dart'
     as _i548;
 import '../../features/freelancer_account/presentation/states/freelancer_cubit.dart'
@@ -73,9 +86,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i249.FreelanceDashboardCubit(),
     );
     gh.factory<_i213.ProjectLiveCubit>(() => _i213.ProjectLiveCubit());
+    gh.factory<_i466.ProjectPublishCubit>(() => _i466.ProjectPublishCubit());
+    gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
     gh.factory<_i245.FreelancerCubit>(() => _i245.FreelancerCubit());
     gh.factory<_i512.InboxCubit>(() => _i512.InboxCubit());
-    gh.factory<_i354.JobsCubit>(() => _i354.JobsCubit());
     gh.factory<_i866.MessagesCubit>(() => _i866.MessagesCubit());
     gh.factory<_i493.NotificationsCubit>(() => _i493.NotificationsCubit());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
@@ -85,11 +99,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i992.ProjectHistoryCubit>(
       () => _i992.ProjectHistoryCubit(),
     );
+    gh.lazySingleton<_i711.JobsRemoteDataSource>(
+      () => _i711.JobsRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i992.AuthLocalDataSource>(
       () => _i992.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
     );
     gh.lazySingleton<_i161.AuthRemoteDataSource>(
       () => _i161.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i637.JobsRepository>(
+      () => _i65.JobsRepositoryImpl(gh<_i711.JobsRemoteDataSource>()),
     );
     gh.lazySingleton<_i931.ApiConsumer>(
       () => _i802.DioConsumer(client: gh<_i361.Dio>()),
@@ -98,6 +118,18 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i153.AuthRepositoryImpl(
         remoteDataSource: gh<_i161.AuthRemoteDataSource>(),
         localDataSource: gh<_i992.AuthLocalDataSource>(),
+      ),
+    );
+    gh.factory<_i860.GetCategoriesUseCase>(
+      () => _i860.GetCategoriesUseCase(gh<_i637.JobsRepository>()),
+    );
+    gh.factory<_i476.GetJobsUseCase>(
+      () => _i476.GetJobsUseCase(gh<_i637.JobsRepository>()),
+    );
+    gh.factory<_i354.JobsCubit>(
+      () => _i354.JobsCubit(
+        gh<_i476.GetJobsUseCase>(),
+        gh<_i860.GetCategoriesUseCase>(),
       ),
     );
     gh.factory<_i560.ForgotPasswordUseCase>(
