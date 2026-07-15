@@ -94,8 +94,8 @@ class _ProjectsViewState extends State<ProjectsView> {
                       ),
                     if (state is JobsLoaded)
                       _ProjectsList(projects: state.projects),
-                    SizedBox(height: 32.h),
-                    const _WalletCard(),
+                    //   SizedBox(height: 32.h),
+                    //  const _WalletCard(),
                   ],
                 ),
               );

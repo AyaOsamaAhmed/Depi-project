@@ -18,16 +18,25 @@ class JobsCubit extends Cubit<JobsState> {
     final jobsResult = await _getJobsUseCase(search: search);
     final categoriesResult = await _getCategoriesUseCase();
 
-    jobsResult.fold((failure) => emit(JobsError(failure.message)), (projects) {
+    /*  jobsResult.fold((failure) => emit(JobsError(failure.message)), (projects) {
       categoriesResult.fold(
         (failure) => emit(JobsLoaded(projects: projects, categories: [])),
         (categories) =>
             emit(JobsLoaded(projects: projects, categories: categories)),
       );
     });
+    */
+    categoriesResult.fold(
+      (failure) => emit(JobsLoaded(projects: [], categories: [])),
+      (categories) => emit(JobsLoaded(projects: [], categories: categories)),
+    );
   }
 
   Future<void> searchJobs(String query) async {
     await loadJobs(search: query.isEmpty ? null : query);
   }
+
+  Future<void> fetchJobDetails(String jobId) async {}
+
+  Future<void> submitProposal() async {}
 }
