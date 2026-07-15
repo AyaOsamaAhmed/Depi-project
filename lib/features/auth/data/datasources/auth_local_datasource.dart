@@ -6,6 +6,7 @@ import '../models/auth_model.dart';
 abstract class AuthLocalDataSource {
   Future<void> saveAuthData(AuthModel auth);
   Future<String?> getAccessToken();
+  Future<String?> getUserType();
   Future<String?> getRefreshToken();
   Future<void> clearAuthData();
   Future<void> saveOnBoardingSeen();
@@ -45,6 +46,11 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<String?> getAccessToken() async {
     return await _storage.read(key: _accessTokenKey);
+  }
+
+  @override
+  Future<String?> getUserType() async {
+    return await _storage.read(key: _userTypeKey);
   }
 
   @override
