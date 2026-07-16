@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dipe_freelance/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:injectable/injectable.dart';
 import 'package:dipe_freelance/core/network/api_interceptors.dart';
 import 'package:dipe_freelance/core/network/end_points.dart';
@@ -6,7 +7,7 @@ import 'package:dipe_freelance/core/network/end_points.dart';
 @module
 abstract class NetworkModule {
   @lazySingleton
-  Dio get dio {
+  Dio dio(AuthLocalDataSource authLocalDataSource) {
     final dio = Dio(
       BaseOptions(
         baseUrl: EndPoints.baseUrl,
@@ -16,7 +17,7 @@ abstract class NetworkModule {
       ),
     );
 
-    dio.interceptors.add(ApiInterceptor());
+    dio.interceptors.add(ApiInterceptor(authLocalDataSource));
     dio.interceptors.add(
       LogInterceptor(
         request: true,
