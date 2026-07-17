@@ -1,3 +1,4 @@
+import 'package:dipe_freelance/features/auth/data/models/auth_model.dart';
 import 'package:dipe_freelance/features/auth/domain/entities/user_entity.dart';
 
 class AuthEntity {
@@ -12,4 +13,13 @@ class AuthEntity {
     required this.expiresAt,
     required this.user,
   });
+
+  AuthModel toModel() {
+    return AuthModel(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      expiresAt: expiresAt,
+      user: user,
+    );
+  }
 }
