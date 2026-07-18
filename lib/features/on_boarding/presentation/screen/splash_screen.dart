@@ -22,36 +22,37 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () async {
-      BlocListener<SplashCubit, SplashState>(
-        listener: (context, state) {
-          if (state is SplashChecking) {
-            if (state.isLoggin) {
-              // Navigate based on userType (1: Freelancer, 2: Client/User)
-
-              if (state.userType == '1') {
-                context.go(AppRoutes.freelanceDashboard);
-              } else {
-                context.go(AppRoutes.userDashboard);
-              }
-            } else {
-              context.go(AppRoutes.onBoarding);
-            }
-          }
-        },
-      );
+      context.read<SplashCubit>().refreshToken();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primary900,
+    return BlocListener<SplashCubit, SplashState>(
+      listener: (context, state) {
+        if (state is SplashChecking) {
+          if (state.isLoggin) {
+            // Navigate based on userType (1: Freelancer, 2: Client/User)
 
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+            if (state.userType == '1') {
+              context.go(AppRoutes.freelanceDashboard);
+            } else {
+              context.go(AppRoutes.userDashboard);
+            }
+          } else {
+            context.go(AppRoutes.onBoarding);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.primary900,
 
-          children: [Image.asset('assets/images/logo.png')],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+            children: [Image.asset('assets/images/logo.png')],
+          ),
         ),
       ),
     );
