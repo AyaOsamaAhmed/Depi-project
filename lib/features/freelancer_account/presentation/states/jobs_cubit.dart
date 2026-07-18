@@ -30,4 +30,8 @@ class JobsCubit extends Cubit<JobsState> {
   Future<void> searchJobs(String query) async {
     await loadJobs(search: query.isEmpty ? null : query);
   }
+
+  fetchJobDetails(String s) {}
+
+  void submitProposal() {}
 }

@@ -39,4 +39,7 @@ class AppRoutes {
   static const String messages = '/messages';
   static const String notifications = '/notifications';
   static const String projectHistory = '/projectHistory';
+  static const String candidatesMatching = '/candidatesMatching';
+  static const String withdrawFunds = '/withdrawFunds';
+  static const String clientProfile = '/clientProfile';
 }

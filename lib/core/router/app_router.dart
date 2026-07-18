@@ -1,4 +1,7 @@
 import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/client/present/screen/candidates_matching_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/client_profile_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/withdraw_funds_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_cubit.dart';
@@ -43,7 +46,7 @@ import 'package:dipe_freelance/features/freelancer_account/presentation/views/pr
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static String initialRoute = AppRoutes.splash;
+  static String initialRoute = AppRoutes.clientProfile;
 
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -237,6 +240,18 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.workApproved,
         builder: (context, state) => const WorkApprovedView(),
+      ),
+      GoRoute(
+        path: AppRoutes.candidatesMatching,
+        builder: (context, state) => const CandidatesMatchingView(),
+      ),
+      GoRoute(
+        path: AppRoutes.withdrawFunds,
+        builder: (context, state) => const WithdrawFundsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.clientProfile,
+        builder: (context, state) => const ClientProfileView(),
       ),
     ],
   );
