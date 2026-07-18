@@ -1,5 +1,11 @@
 import 'package:dipe_freelance/core/di/injection.dart';
+<<<<<<< HEAD
 import 'package:dipe_freelance/features/on_boarding/presentation/state/splash_cubit.dart';
+=======
+import 'package:dipe_freelance/features/client/present/screen/List_chats_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/list_projects_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/room_chat_view.dart';
+>>>>>>> origin/screens
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_cubit.dart';
@@ -44,7 +50,7 @@ import 'package:dipe_freelance/features/freelancer_account/presentation/views/pr
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static String initialRoute = AppRoutes.splash;
+  static String initialRoute = AppRoutes.listChat;
 
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -243,6 +249,19 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.workApproved,
         builder: (context, state) => const WorkApprovedView(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.listProjects,
+        builder: (context, state) => const ListProjectsView(),
+      ),
+      GoRoute(
+        path: AppRoutes.listChat,
+        builder: (context, state) => const ListChatsView(),
+      ),
+      GoRoute(
+        path: AppRoutes.roomChat,
+        builder: (context, state) => const RoomChatView(),
       ),
     ],
   );

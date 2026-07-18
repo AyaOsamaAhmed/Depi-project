@@ -38,6 +38,7 @@ import '../../features/auth/presentation/states/verify_email/verify_email_cubit.
     as _i1036;
 import '../../features/client/present/states/freelance_dashboard_cubit.dart'
     as _i249;
+import '../../features/client/present/states/list_chats_cubit.dart' as _i1073;
 import '../../features/client/present/states/project_live_cubit.dart' as _i213;
 import '../../features/client/present/states/project_publish_cubit.dart'
     as _i466;
@@ -88,6 +89,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i249.FreelanceDashboardCubit>(
       () => _i249.FreelanceDashboardCubit(),
     );
+    gh.factory<_i1073.ListChatsCubit>(() => _i1073.ListChatsCubit());
     gh.factory<_i213.ProjectLiveCubit>(() => _i213.ProjectLiveCubit());
     gh.factory<_i466.ProjectPublishCubit>(() => _i466.ProjectPublishCubit());
     gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
