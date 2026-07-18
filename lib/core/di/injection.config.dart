@@ -24,6 +24,7 @@ import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/forgot_password_usecase.dart'
     as _i560;
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
+import '../../features/auth/domain/usecases/refresh_token.dart' as _i209;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
 import '../../features/auth/domain/usecases/resend_verify_email_usecase.dart'
     as _i821;
@@ -42,6 +43,16 @@ import '../../features/client/present/states/project_publish_cubit.dart'
     as _i466;
 import '../../features/client/present/states/user_dashboard_cubit.dart'
     as _i360;
+import '../../features/freelancer_account/data/datasources/jobs_remote_datasource.dart'
+    as _i711;
+import '../../features/freelancer_account/domain/repositories/jobs_repository.dart'
+    as _i637;
+import '../../features/freelancer_account/domain/repositories/jobs_repository_impl.dart'
+    as _i65;
+import '../../features/freelancer_account/domain/usecases/get_categories_usecase.dart'
+    as _i860;
+import '../../features/freelancer_account/domain/usecases/get_jobs_usecase.dart'
+    as _i476;
 import '../../features/freelancer_account/presentation/states/finance_cubit.dart'
     as _i548;
 import '../../features/freelancer_account/presentation/states/freelancer_cubit.dart'
@@ -58,6 +69,8 @@ import '../../features/freelancer_account/presentation/states/project_cubit.dart
     as _i105;
 import '../../features/freelancer_account/presentation/states/project_history_cubit.dart'
     as _i992;
+import '../../features/on_boarding/presentation/state/splash_cubit.dart'
+    as _i212;
 import '../network/api_consumer.dart' as _i931;
 import '../network/dio_consumer.dart' as _i802;
 import 'network_module.dart' as _i567;
@@ -80,7 +93,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
     gh.factory<_i245.FreelancerCubit>(() => _i245.FreelancerCubit());
     gh.factory<_i512.InboxCubit>(() => _i512.InboxCubit());
-    gh.factory<_i354.JobsCubit>(() => _i354.JobsCubit());
     gh.factory<_i866.MessagesCubit>(() => _i866.MessagesCubit());
     gh.factory<_i493.NotificationsCubit>(() => _i493.NotificationsCubit());
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => storageModule.storage);
@@ -95,8 +107,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(gh<_i992.AuthLocalDataSource>()),
     );
+    gh.lazySingleton<_i711.JobsRemoteDataSource>(
+      () => _i711.JobsRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i161.AuthRemoteDataSource>(
       () => _i161.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i637.JobsRepository>(
+      () => _i65.JobsRepositoryImpl(gh<_i711.JobsRemoteDataSource>()),
     );
     gh.lazySingleton<_i931.ApiConsumer>(
       () => _i802.DioConsumer(client: gh<_i361.Dio>()),
@@ -107,17 +125,38 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i992.AuthLocalDataSource>(),
       ),
     );
+    gh.factory<_i860.GetCategoriesUseCase>(
+      () => _i860.GetCategoriesUseCase(gh<_i637.JobsRepository>()),
+    );
+    gh.factory<_i476.GetJobsUseCase>(
+      () => _i476.GetJobsUseCase(gh<_i637.JobsRepository>()),
+    );
+    gh.factory<_i354.JobsCubit>(
+      () => _i354.JobsCubit(
+        gh<_i476.GetJobsUseCase>(),
+        gh<_i860.GetCategoriesUseCase>(),
+      ),
+    );
     gh.factory<_i560.ForgotPasswordUseCase>(
       () => _i560.ForgotPasswordUseCase(gh<_i787.AuthRepository>()),
     );
     gh.factory<_i188.LoginUseCase>(
       () => _i188.LoginUseCase(gh<_i787.AuthRepository>()),
     );
+    gh.factory<_i209.RefreshTokenUseCase>(
+      () => _i209.RefreshTokenUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.factory<_i941.RegisterUseCase>(
       () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
     );
     gh.factory<_i821.ResendVerifyEmailUseCase>(
       () => _i821.ResendVerifyEmailUseCase(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i212.SplashCubit>(
+      () => _i212.SplashCubit(
+        gh<_i209.RefreshTokenUseCase>(),
+        gh<_i992.AuthLocalDataSource>(),
+      ),
     );
     gh.factory<_i911.LoginCubit>(
       () => _i911.LoginCubit(gh<_i188.LoginUseCase>()),

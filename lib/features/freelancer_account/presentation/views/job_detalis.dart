@@ -14,11 +14,13 @@ class JobDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<JobsCubit>()..fetchJobDetails('1'),
+      create: (context) => getIt<JobsCubit>()..loadJobs(search: '1'),
       child: BlocBuilder<JobsCubit, JobsState>(
         builder: (context, state) {
           if (state is JobsLoading) {
-            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
           }
           return Scaffold(
             backgroundColor: context.colorScheme.surface,
@@ -47,7 +49,10 @@ class JobDetailsView extends StatelessWidget {
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 24.h,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -122,7 +127,9 @@ class JobDetailsView extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SubmitProposalView()),
+                        MaterialPageRoute(
+                          builder: (context) => const SubmitProposalView(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(

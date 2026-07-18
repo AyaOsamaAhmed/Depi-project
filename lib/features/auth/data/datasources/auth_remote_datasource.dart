@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dipe_freelance/core/network/end_points.dart';
 import 'package:injectable/injectable.dart';
 import '../models/auth_model.dart';
 
@@ -24,14 +25,12 @@ abstract class AuthRemoteDataSource {
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Dio dio;
-  static const baseUrl = 'https://depiplatform.runasp.net/api';
-
   AuthRemoteDataSourceImpl(this.dio);
 
   @override
   Future<AuthModel> login(String email, String password) async {
     final response = await dio.post(
-      '$baseUrl/auth/login',
+      EndPoints.apiLogin,
       data: {'email': email, 'password': password},
     );
     print(response.data);
@@ -51,7 +50,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required int countryId,
   }) async {
     await dio.post(
-      '$baseUrl/auth/register',
+      EndPoints.apiRegister,
       data: {
         'email': email,
         'password': password,
@@ -68,23 +67,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<void> logout() async {
-    await dio.post('$baseUrl/auth/logout');
+    await dio.post(EndPoints.apiLogout);
   }
 
   @override
   Future<void> forgotPassword(String email) async {
-    await dio.post('$baseUrl/auth/forgot-password', data: {'email': email});
+    await dio.post(EndPoints.apiForgotPassword, data: {'email': email});
   }
 
   @override
   Future<void> resendVerifyEmail(String email) async {
-    await dio.post('$baseUrl/auth/resend-verification', data: {'email': email});
+    await dio.post(EndPoints.apiResendVerification, data: {'email': email});
   }
 
   @override
   Future<AuthModel> refreshToken(String refreshToken) async {
     final response = await dio.post(
-      '$baseUrl/auth/refresh',
+      EndPoints.apiRefreshToken,
       data: {'refreshToken': refreshToken},
     );
     print(response.data);

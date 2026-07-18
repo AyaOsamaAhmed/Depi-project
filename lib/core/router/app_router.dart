@@ -1,4 +1,5 @@
 import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/on_boarding/presentation/state/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_cubit.dart';
@@ -54,7 +55,12 @@ class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.splash,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (_) => getIt<SplashCubit>(),
+            child: const SplashScreen(),
+          );
+        },
       ),
       GoRoute(
         path: AppRoutes.userDashboard,

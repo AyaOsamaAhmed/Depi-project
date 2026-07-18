@@ -1,15 +1,23 @@
 class EndPoints {
-  static const String baseUrl = 'https://depiplatform.runasp.net/api/';
+  static const String baseUrl = 'https://depiplatform.runasp.net/api';
 
   // Auth
-  static const String login = 'auth/login';
-  static const String register = 'auth/register';
-  static const String logout = 'auth/logout';
-  static const String refreshToken = 'auth/refresh';
-  static const String forgotPassword = 'auth/forgot-password';
-  static const String resetPassword = 'auth/reset-password';
-  static const String changePassword = 'auth/change-password';
-  static const String me = 'auth/me';
+  static const String apiLogin = '$baseUrl/auth/login';
+  static const String apiRegister = '$baseUrl/auth/register';
+  static const String apiLogout = '$baseUrl/auth/logout';
+  static const String apiRefreshToken = '$baseUrl/auth/refresh';
+  static const String apiForgotPassword = '$baseUrl/auth/forgot-password';
+  static const String apiResetPassword = '$baseUrl/auth/reset-password';
+  static const String apiChangePassword = '$baseUrl/auth/change-password';
+  static const String apiMe = '$baseUrl/auth/me';
+  static const String apiResendVerification =
+      '$baseUrl/auth/resend-verification';
+
+  // ****************   freelancer    ****************
+
+  // jobs
+  static const String apiJobsMatches = '$baseUrl/ai/jobs/matches';
+  static const String apiCategories = '$baseUrl/categories';
 }
 
 class ApiKey {
