@@ -38,5 +38,15 @@ class JobsCubit extends Cubit<JobsState> {
 
   Future<void> fetchJobDetails(String jobId) async {}
 
-  Future<void> submitProposal() async {}
+
+  Future<void> submitProposal() async {
+    emit(ProposalSubmitting());
+    try {
+      // Simulate network request delay
+      await Future.delayed(const Duration(seconds: 1));
+      emit(ProposalSubmitSuccess());
+    } catch (e) {
+      emit(ProposalSubmitFailure(e.toString()));
+    }
+  }
 }

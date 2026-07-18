@@ -42,4 +42,8 @@ class AppRoutes {
   static const String listProjects = '/listProjects';
   static const String roomChat = '/roomChat';
   static const String listChat = '/listChat';
+  static const String candidatesMatching = '/candidatesMatching';
+  static const String withdrawFunds = '/withdrawFunds';
+  static const String clientProfile = '/clientProfile';
 }
+

@@ -1,11 +1,4 @@
 import 'package:dipe_freelance/core/di/injection.dart';
-<<<<<<< HEAD
-import 'package:dipe_freelance/features/on_boarding/presentation/state/splash_cubit.dart';
-=======
-import 'package:dipe_freelance/features/client/present/screen/List_chats_view.dart';
-import 'package:dipe_freelance/features/client/present/screen/list_projects_view.dart';
-import 'package:dipe_freelance/features/client/present/screen/room_chat_view.dart';
->>>>>>> origin/screens
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:dipe_freelance/features/auth/presentation/states/signup/signup_cubit.dart';
@@ -24,9 +17,14 @@ import 'package:dipe_freelance/features/client/present/screen/release_payment_sc
 import 'package:dipe_freelance/features/client/present/screen/project_live_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/user_dashboard_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/create_new_project_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/client_profile_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/list_projects_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/List_chats_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/room_chat_view.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/splash_screen.dart';
+import 'package:dipe_freelance/features/on_boarding/presentation/state/splash_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/finish_project_view.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/views/funds_view.dart';
@@ -262,6 +260,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.roomChat,
         builder: (context, state) => const RoomChatView(),
+      ),
+      GoRoute(
+        path: AppRoutes.clientProfile,
+        builder: (context, state) => const ClientProfileView(),
       ),
     ],
   );
