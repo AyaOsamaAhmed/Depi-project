@@ -10,9 +10,7 @@ class SplashCubit extends Cubit<SplashState> {
   final AuthLocalDataSource _authLocalDataSource;
 
   SplashCubit(this._refreshTokenUseCase, this._authLocalDataSource)
-    : super(SplashInitial()) {
-    refreshToken();
-  }
+    : super(SplashInitial());
 
   Future<void> _getlocalData() async {
     String? token = await _authLocalDataSource.getAccessToken();
@@ -20,12 +18,21 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   Future<void> refreshToken() async {
+    // Clear previous login credentials to force: Splash -> Onboarding -> Sign In
+    await _authLocalDataSource.clearAuthData();
+    
+    if (isClosed) return;
+    emit(SplashChecking(false, null));
+
+    /* 
+    // To restore auto-login redirection, uncomment this:
     String? refreshToken = await _authLocalDataSource.getRefreshToken();
     print('refresh token  :  $refreshToken');
 
     final result = await _refreshTokenUseCase(refreshToken ?? '');
 
     print(result);
+    if (isClosed) return;
     result.fold(
       (failure) => {
         print("fauilure ${failure}"),
@@ -36,5 +43,13 @@ class SplashCubit extends Cubit<SplashState> {
         emit(SplashChecking(true, auth.user.userType.toString())),
       },
     );
+    */
+  }
+
+  @override
+  void emit(SplashState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
   }
 }

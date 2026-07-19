@@ -49,4 +49,11 @@ class ListChatsCubit extends Cubit<ListChatsState> {
     ];
     emit(ListChatsSuccess(mockChats));
   }
+
+  @override
+  void emit(ListChatsState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

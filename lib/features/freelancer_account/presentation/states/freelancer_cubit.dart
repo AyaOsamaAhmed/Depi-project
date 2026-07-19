@@ -30,4 +30,11 @@ class FreelancerCubit extends Cubit<FreelancerState> {
     await Future.delayed(const Duration(seconds: 1));
     emit(FreelancerSuccess());
   }
+
+  @override
+  void emit(FreelancerState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

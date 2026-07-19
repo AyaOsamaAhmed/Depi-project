@@ -26,4 +26,11 @@ class ProjectCubit extends Cubit<ProjectState> {
     await Future.delayed(const Duration(seconds: 1));
     emit(RatingSuccess());
   }
+
+  @override
+  void emit(ProjectState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

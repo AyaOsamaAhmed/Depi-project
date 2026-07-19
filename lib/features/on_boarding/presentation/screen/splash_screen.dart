@@ -17,13 +17,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 3), () async {
-      context.read<SplashCubit>().refreshToken();
+    _timer = Timer(const Duration(seconds: 3), () async {
+      if (mounted) {
+        context.read<SplashCubit>().refreshToken();
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -51,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
 
-            children: [Image.asset('assets/images/logo.png')],
+            children: [Image.asset('assets/images/logo.jpeg')],
           ),
         ),
       ),

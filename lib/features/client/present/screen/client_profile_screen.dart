@@ -4,15 +4,31 @@ import 'package:dipe_freelance/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/client/present/states/client_profile_cubit.dart';
+import 'package:dipe_freelance/features/client/present/states/client_profile_state.dart';
 
-class ClientProfileView extends StatefulWidget {
+class ClientProfileView extends StatelessWidget {
   const ClientProfileView({super.key});
 
   @override
-  State<ClientProfileView> createState() => _ClientProfileViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<ClientProfileCubit>()..loadProfile(),
+      child: const _ClientProfileBody(),
+    );
+  }
 }
 
-class _ClientProfileViewState extends State<ClientProfileView> {
+class _ClientProfileBody extends StatefulWidget {
+  const _ClientProfileBody();
+
+  @override
+  State<_ClientProfileBody> createState() => _ClientProfileBodyState();
+}
+
+class _ClientProfileBodyState extends State<_ClientProfileBody> {
   final _nameController = TextEditingController();
   final _companyController = TextEditingController();
   final _emailController = TextEditingController();
@@ -31,143 +47,149 @@ class _ClientProfileViewState extends State<ClientProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: context.colorScheme.surface,
-        elevation: 0,
-        title: Text(
-          'Complete Your Profile',
-          style: context.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: context.colorScheme.onSurface,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 16.h),
-            // Profile Image
-            Center(
-              child: Stack(
+    return BlocConsumer<ClientProfileCubit, ClientProfileState>(
+      listener: (context, state) {
+        if (state is ClientProfileSuccess) {
+          if (_nameController.text.isEmpty && state.name.isNotEmpty) {
+            _nameController.text = state.name;
+            _companyController.text = state.company;
+            _emailController.text = state.email;
+            _locationController.text = state.location;
+            _phoneController.text = state.phone;
+          }
+        }
+      },
+      builder: (context, state) {
+        if (state is ClientProfileLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is ClientProfileSuccess) {
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              title: Text(
+                'Complete Your Profile',
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: context.colorScheme.onSurface,
+                ),
+              ),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 56.r,
-                    backgroundColor: Colors.grey[300],
-                    child: Icon(Icons.person, size: 56.sp, color: Colors.white),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 32.w,
-                      height: 32.h,
-                      decoration: BoxDecoration(
-                        color: context.colorScheme.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.add, color: Colors.white, size: 20.sp),
+                  SizedBox(height: 16.h),
+                  // Profile Image
+                  Center(
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 56.r,
+                          backgroundColor: Colors.grey[300],
+                          child: Icon(Icons.person, size: 56.sp, color: Colors.white),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            width: 32.w,
+                            height: 32.h,
+                            decoration: BoxDecoration(
+                              color: context.colorScheme.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.add, color: Colors.white, size: 20.sp),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  SizedBox(height: 32.h),
+                  // Full Name
+                  _buildLabel(context, 'Full Name'),
+                  SizedBox(height: 8.h),
+                  _buildTextField(controller: _nameController, hint: 'Full Name'),
+                  SizedBox(height: 20.h),
+                  // Company
+                  _buildLabel(context, 'Company'),
+                  SizedBox(height: 8.h),
+                  _buildTextField(controller: _companyController, hint: 'Company'),
+                  SizedBox(height: 20.h),
+                  // Email
+                  _buildLabel(context, 'Email'),
+                  SizedBox(height: 8.h),
+                  _buildTextField(
+                    controller: _emailController,
+                    hint: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 20.h),
+                  // Location
+                  _buildLabel(context, 'Location'),
+                  SizedBox(height: 8.h),
+                  _buildTextField(controller: _locationController, hint: 'Location'),
+                  SizedBox(height: 20.h),
+                  // Phone Number
+                  _buildLabel(context, 'Phone Number'),
+                  SizedBox(height: 8.h),
+                  _buildTextField(
+                    controller: _phoneController,
+                    hint: 'Phone Number',
+                    keyboardType: TextInputType.phone,
+                  ),
+                  SizedBox(height: 24.h),
+                  // Wallet Card
+                  _WalletCard(balance: state.balance),
+                  SizedBox(height: 32.h),
+                  // Save Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colorScheme.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<ClientProfileCubit>().updateProfile(
+                          name: _nameController.text,
+                          company: _companyController.text,
+                          email: _emailController.text,
+                          location: _locationController.text,
+                          phone: _phoneController.text,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Changes saved successfully!')),
+                        );
+                      },
+                      child: Text(
+                        'Save Changes',
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: context.colorScheme.onPrimary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32.h),
                 ],
               ),
             ),
-            SizedBox(height: 32.h),
-            // Full Name
-            _buildLabel(context, 'Full Name'),
-            SizedBox(height: 8.h),
-            _buildTextField(controller: _nameController, hint: 'Full Name'),
-            SizedBox(height: 20.h),
-            // Company
-            _buildLabel(context, 'Company'),
-            SizedBox(height: 8.h),
-            _buildTextField(controller: _companyController, hint: 'Company'),
-            SizedBox(height: 20.h),
-            // Email
-            _buildLabel(context, 'Email'),
-            SizedBox(height: 8.h),
-            _buildTextField(
-              controller: _emailController,
-              hint: 'Email',
-              keyboardType: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 20.h),
-            // Location
-            _buildLabel(context, 'Location'),
-            SizedBox(height: 8.h),
-            _buildTextField(controller: _locationController, hint: 'Location'),
-            SizedBox(height: 20.h),
-            // Phone Number
-            _buildLabel(context, 'Phone Number'),
-            SizedBox(height: 8.h),
-            _buildTextField(
-              controller: _phoneController,
-              hint: 'Phone Number',
-              keyboardType: TextInputType.phone,
-            ),
-            SizedBox(height: 24.h),
-            // Wallet Card
-            const _WalletCard(),
-            SizedBox(height: 32.h),
-            // Save Button
-            SizedBox(
-              width: double.infinity,
-              height: 56.h,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: context.colorScheme.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-                onPressed: () {},
-                child: Text(
-                  'Save Changes',
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: context.colorScheme.onPrimary,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 32.h),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: context.colorScheme.surface,
-        selectedItemColor: context.colorScheme.primary,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        currentIndex: 4,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work_outline),
-            label: 'Projects',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message_outlined),
-            label: 'Message',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),
+          );
+        }
+        return const Scaffold(
+          body: Center(child: Text('Error loading profile')),
+        );
+      },
     );
   }
 
@@ -221,14 +243,10 @@ class _ClientProfileViewState extends State<ClientProfileView> {
   }
 }
 
-class _WalletCard extends StatefulWidget {
-  const _WalletCard();
+class _WalletCard extends StatelessWidget {
+  final double balance;
+  const _WalletCard({required this.balance});
 
-  @override
-  State<_WalletCard> createState() => _WalletCardState();
-}
-
-class _WalletCardState extends State<_WalletCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -268,7 +286,7 @@ class _WalletCardState extends State<_WalletCard> {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      '\$4250',
+                      '\$${balance.toStringAsFixed(0)}',
                       style: context.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: context.colorScheme.primary,

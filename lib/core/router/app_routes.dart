@@ -39,6 +39,8 @@ class AppRoutes {
   static const String messages = '/messages';
   static const String notifications = '/notifications';
   static const String projectHistory = '/projectHistory';
+  static const String clientHistory = '/clientHistory';
+  static const String clientPayment = '/clientPayment';
   static const String listProjects = '/listProjects';
   static const String roomChat = '/roomChat';
   static const String listChat = '/listChat';

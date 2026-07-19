@@ -7,6 +7,7 @@ import 'package:dipe_freelance/features/freelancer_account/presentation/states/p
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_state.dart';
 import 'package:dipe_freelance/core/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dipe_freelance/features/client/present/widgets/shared_blue_button.dart';
 
 import 'package:dipe_freelance/core/di/injection.dart';
 import 'package:dipe_freelance/features/freelancer_account/presentation/states/project_history_cubit.dart';
@@ -129,7 +130,10 @@ class _ProjectsViewState extends State<ListProjectsView> {
                     SizedBox(height: 32.h),
                     _ProjectsList(projects: _filteredProjects),
                     SizedBox(height: 32.h),
-                    const _WalletCard(),
+                    SharedBlueButton(
+                      text: context.local.history,
+                      onPressed: () => context.push(AppRoutes.clientHistory),
+                    ),
                   ],
                 ),
               ),
@@ -372,138 +376,3 @@ class _ProjectItem extends StatelessWidget {
   }
 }
 
-class _WalletCard extends StatelessWidget {
-  const _WalletCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(20.r),
-      decoration: BoxDecoration(
-        color: context.colorScheme.primary.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            context.local.walletTab,
-            style: context.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            context.local.manageEverything,
-            style: context.textTheme.bodySmall?.copyWith(
-              color: context.colorScheme.onSurface.withOpacity(0.6),
-            ),
-          ),
-          SizedBox(height: 20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.local.currentBalance,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.colorScheme.onSurface.withOpacity(0.6),
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    '\$3000',
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                decoration: BoxDecoration(
-                  color: AppColors.secondary200,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.add, color: AppColors.secondary700, size: 20.sp),
-                    SizedBox(width: 4.w),
-                    Text(
-                      context.local.addFunds,
-                      style: context.textTheme.labelMedium?.copyWith(
-                        color: AppColors.secondary700,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _WalletInfoItem(
-                  icon: Icons.verified_user_outlined,
-                  label: context.local.safeSecure,
-                ),
-                SizedBox(width: 12.w),
-                _WalletInfoItem(
-                  icon: Icons.credit_card_outlined,
-                  label: context.local.multiplePaymentMethods,
-                  isShort: true,
-                ),
-                SizedBox(width: 12.w),
-                _WalletInfoItem(
-                  icon: Icons.lock_outline,
-                  label: context.local.securePayments,
-                  isShort: true,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WalletInfoItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isShort;
-
-  const _WalletInfoItem({
-    required this.icon,
-    required this.label,
-    this.isShort = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: 14.sp,
-          color: context.colorScheme.onSurface.withOpacity(0.6),
-        ),
-        SizedBox(width: 4.w),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 8.sp,
-            color: context.colorScheme.onSurface.withOpacity(0.6),
-          ),
-        ),
-      ],
-    );
-  }
-}

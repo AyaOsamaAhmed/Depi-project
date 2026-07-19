@@ -86,4 +86,11 @@ class ProjectHistoryCubit extends Cubit<ProjectHistoryState> {
       emit(ProjectHistoryLoaded(_projects));
     }
   }
+
+  @override
+  void emit(ProjectHistoryState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

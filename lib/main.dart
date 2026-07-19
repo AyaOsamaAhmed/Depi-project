@@ -1,5 +1,3 @@
-import 'package:dipe_freelance/features/client/present/screen/list_projects_view.dart';
-import 'package:dipe_freelance/features/freelancer_account/presentation/views/message_view.dart';
 import 'package:flutter/material.dart';
 import 'package:dipe_freelance/core/router/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,16 +22,13 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'Dipe Freelance',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          // Start App Using GoRouter
-          // routerConfig: AppRouter.router,
-          home:
-              const ListProjectsView(), // اكتب اسم الصفحة اللي عايز تجربها هنا
+          routerConfig: AppRouter.router,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

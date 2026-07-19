@@ -44,4 +44,11 @@ class MessagesCubit extends Cubit<MessagesState> {
     ];
     emit(MessagesSuccess(mockChats));
   }
+
+  @override
+  void emit(MessagesState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

@@ -22,4 +22,11 @@ class LoginCubit extends Cubit<LoginState> {
       (auth) => emit(LoginSuccess(auth)),
     );
   }
+
+  @override
+  void emit(LoginState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

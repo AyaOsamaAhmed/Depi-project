@@ -20,10 +20,12 @@ import 'package:dipe_freelance/features/client/present/screen/release_payment_sc
 import 'package:dipe_freelance/features/client/present/screen/project_live_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/user_dashboard_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/create_new_project_screen.dart';
-import 'package:dipe_freelance/features/client/present/screen/client_profile_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/list_projects_view.dart';
 import 'package:dipe_freelance/features/client/present/screen/List_chats_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/history_screen.dart';
 import 'package:dipe_freelance/features/client/present/screen/room_chat_view.dart';
+import 'package:dipe_freelance/features/client/present/screen/payment_screen.dart';
+import 'package:dipe_freelance/features/client/present/screen/client_navbar.dart';
 import 'package:dipe_freelance/features/client/present/states/contract_cubit.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/on_boarding_screen.dart';
 import 'package:dipe_freelance/features/on_boarding/presentation/screen/splash_screen.dart';
@@ -68,10 +70,6 @@ class AppRouter {
             child: const SplashScreen(),
           );
         },
-      ),
-      GoRoute(
-        path: AppRoutes.userDashboard,
-        builder: (context, state) => const UserDashboardScreen(),
       ),
       GoRoute(
         path: AppRoutes.createNewProject,
@@ -146,6 +144,53 @@ class AppRouter {
               GoRoute(
                 path: AppRoutes.profile,
                 builder: (context, state) => const FreelancerProfileView(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ClientNavbar(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.userDashboard,
+                builder: (context, state) => const UserDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.listProjects,
+                builder: (context, state) => const ListProjectsView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.clientPayment,
+                builder: (context, state) => const PaymentScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.listChat,
+                builder: (context, state) => const ListChatsView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.clientProfile,
+                builder: (context, state) => const ClientProfileView(),
               ),
             ],
           ),
@@ -250,6 +295,18 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.workApproved,
         builder: (context, state) => const WorkApprovedView(),
+      ),
+      GoRoute(
+        path: AppRoutes.candidatesMatching,
+        builder: (context, state) => const CandidatesMatchingView(),
+      ),
+      GoRoute(
+        path: AppRoutes.clientHistory,
+        builder: (context, state) => const HistoryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.withdrawFunds,
+        builder: (context, state) => const WithdrawFundsScreen(),
       ),
     ],
   );

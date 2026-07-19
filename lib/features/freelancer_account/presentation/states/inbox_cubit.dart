@@ -19,4 +19,11 @@ class InboxCubit extends Cubit<InboxState> {
     await Future.delayed(const Duration(milliseconds: 500));
     emit(MessageSent());
   }
+
+  @override
+  void emit(InboxState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

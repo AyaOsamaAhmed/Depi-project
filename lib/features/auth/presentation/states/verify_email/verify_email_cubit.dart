@@ -20,4 +20,11 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
       (_) => emit(VerifyEmailResendSuccess('تم إرسال رابط التحقق مرة أخرى')),
     );
   }
+
+  @override
+  void emit(VerifyEmailState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

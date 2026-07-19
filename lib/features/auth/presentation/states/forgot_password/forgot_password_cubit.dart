@@ -24,4 +24,11 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       ),
     );
   }
+
+  @override
+  void emit(ForgotPasswordState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

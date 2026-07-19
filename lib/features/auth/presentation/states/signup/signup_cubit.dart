@@ -55,4 +55,11 @@ class SignupCubit extends Cubit<SignupState> {
       (auth) => emit(SignupSuccess()),
     );
   }
+
+  @override
+  void emit(SignupState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

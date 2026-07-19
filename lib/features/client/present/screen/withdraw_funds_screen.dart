@@ -2,33 +2,32 @@ import 'package:dipe_freelance/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dipe_freelance/core/di/injection.dart';
+import 'package:dipe_freelance/features/client/present/states/withdraw_funds_cubit.dart';
+import 'package:dipe_freelance/features/client/present/states/withdraw_funds_state.dart';
 
-class WithdrawFundsScreen extends StatefulWidget {
+class WithdrawFundsScreen extends StatelessWidget {
   const WithdrawFundsScreen({super.key});
 
   @override
-  State<WithdrawFundsScreen> createState() => _WithdrawFundsViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<WithdrawFundsCubit>()..loadWithdrawFunds(),
+      child: const _WithdrawFundsBody(),
+    );
+  }
 }
 
-class _WithdrawFundsViewState extends State<WithdrawFundsScreen> {
-  int _selectedMethod = 0;
-  final TextEditingController _amountController = TextEditingController(
-    text: '1,500.00',
-  );
+class _WithdrawFundsBody extends StatefulWidget {
+  const _WithdrawFundsBody();
 
-  final List<Map<String, dynamic>> _paymentMethods = [
-    {
-      'name': 'InstaPay',
-      'detail': 'sarahahmed18@instapay',
-      'icon': Icons.payment,
-    },
-    {'name': 'Bank transfer', 'detail': '****4568', 'icon': Icons.credit_card},
-    {
-      'name': 'PayPal',
-      'detail': 'sarahahmed18@paypall',
-      'icon': Icons.account_balance_wallet,
-    },
-  ];
+  @override
+  State<_WithdrawFundsBody> createState() => _WithdrawFundsBodyState();
+}
+
+class _WithdrawFundsBodyState extends State<_WithdrawFundsBody> {
+  final TextEditingController _amountController = TextEditingController();
 
   @override
   void dispose() {
@@ -38,275 +37,318 @@ class _WithdrawFundsViewState extends State<WithdrawFundsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: context.colorScheme.surface,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          'Withdraw Funds',
-          style: context.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: context.colorScheme.onSurface,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Balance Card
-            Container(
-              width: double.infinity,
-              height: 130.h,
-              decoration: BoxDecoration(
-                color: context.colorScheme.primary,
-                borderRadius: BorderRadius.circular(16.r),
+    return BlocConsumer<WithdrawFundsCubit, WithdrawFundsState>(
+      listener: (context, state) {
+        if (state is WithdrawFundsSubmitSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else if (state is WithdrawFundsError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is WithdrawFundsLoading || state is WithdrawFundsSubmitting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is WithdrawFundsSuccess) {
+          if (_amountController.text.isEmpty) {
+            _amountController.text = '1,500.00';
+          }
+          final paymentMethods = state.paymentMethods;
+          final selectedMethod = state.selectedMethodIndex;
+
+          return Scaffold(
+            backgroundColor: context.colorScheme.surface,
+            appBar: AppBar(
+              backgroundColor: context.colorScheme.surface,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
+                onPressed: () => context.pop(),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16.r),
-                child: Stack(
-                  children: [
-                    CustomPaint(
-                      size: Size(double.infinity, 130.h),
-                      painter: _NetworkPatternPainter(),
+              title: Text(
+                'Withdraw Funds',
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: context.colorScheme.onSurface,
+                ),
+              ),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Balance Card
+                  Container(
+                    width: double.infinity,
+                    height: 130.h,
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary,
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: Stack(
                         children: [
-                          Text(
-                            'Amount',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: context.colorScheme.onPrimary.withOpacity(
-                                0.7,
-                              ),
-                            ),
+                          CustomPaint(
+                            size: Size(double.infinity, 130.h),
+                            painter: _NetworkPatternPainter(),
                           ),
-                          SizedBox(height: 4.h),
-                          Text(
-                            '\$4,250.00',
-                            style: context.textTheme.headlineMedium?.copyWith(
-                              color: context.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4.h),
-                          Text(
-                            'Available Balance',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: context.colorScheme.onPrimary.withOpacity(
-                                0.7,
-                              ),
+                          Padding(
+                            padding: EdgeInsets.all(20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Amount',
+                                  style: context.textTheme.bodySmall?.copyWith(
+                                    color: context.colorScheme.onPrimary.withOpacity(
+                                      0.7,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 4.h),
+                                Text(
+                                  '\$${state.balance.toStringAsFixed(2)}',
+                                  style: context.textTheme.headlineMedium?.copyWith(
+                                    color: context.colorScheme.onPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4.h),
+                                Text(
+                                  'Available Balance',
+                                  style: context.textTheme.bodySmall?.copyWith(
+                                    color: context.colorScheme.onPrimary.withOpacity(
+                                      0.7,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 24.h),
-            // Amount Input
-            Text(
-              'Payment Methods',
-              style: context.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: context.colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 12.h),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-              decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: context.colorScheme.onSurface.withOpacity(0.2),
-                ),
-              ),
-              child: Row(
-                children: [
+                  ),
+                  SizedBox(height: 24.h),
+                  // Amount Input
                   Text(
-                    '\$',
-                    style: context.textTheme.titleLarge?.copyWith(
+                    'Payment Methods',
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                       color: context.colorScheme.onSurface,
                     ),
                   ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      style: context.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
+                  SizedBox(height: 12.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(
+                        color: context.colorScheme.onSurface.withOpacity(0.2),
                       ),
                     ),
+                    child: Row(
+                      children: [
+                        Text(
+                          '\$',
+                          style: context.textTheme.titleLarge?.copyWith(
+                            color: context.colorScheme.onSurface,
+                          ),
+                        ),
+                        SizedBox(width: 8.w),
+                        Expanded(
+                          child: TextField(
+                            controller: _amountController,
+                            keyboardType: TextInputType.number,
+                            style: context.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.edit_outlined,
+                          color: context.colorScheme.onSurface.withOpacity(0.5),
+                          size: 20.sp,
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.edit_outlined,
-                    color: context.colorScheme.onSurface.withOpacity(0.5),
-                    size: 20.sp,
+                  SizedBox(height: 12.h),
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.credit_card_outlined,
+                          color: Colors.grey,
+                          size: 20.sp,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'Payment Methods: \$7,250.00',
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-            SizedBox(height: 12.h),
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: context.colorScheme.primary.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.credit_card_outlined,
-                    color: Colors.grey,
-                    size: 20.sp,
-                  ),
-                  SizedBox(width: 8.w),
+                  SizedBox(height: 24.h),
                   Text(
-                    'Payment Methods: \$7,250.00',
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey,
+                    'Payment Methods',
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.onSurface,
                     ),
                   ),
-                ],
-              ),
-            ),
-            SizedBox(height: 24.h),
-            Text(
-              'Payment Methods',
-              style: context.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: context.colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 12.h),
-            // Payment Methods List
-            ...List.generate(_paymentMethods.length, (index) {
-              final method = _paymentMethods[index];
-              return GestureDetector(
-                onTap: () => setState(() => _selectedMethod = index),
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 12.h),
-                  padding: EdgeInsets.all(16.w),
-                  decoration: BoxDecoration(
-                    color: context.colorScheme.surface,
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: _selectedMethod == index
-                          ? context.colorScheme.primary
-                          : context.colorScheme.onSurface.withOpacity(0.1),
-                      width: _selectedMethod == index ? 1.5 : 1,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48.w,
-                        height: 48.h,
+                  SizedBox(height: 12.h),
+                  // Payment Methods List
+                  ...List.generate(paymentMethods.length, (index) {
+                    final method = paymentMethods[index];
+                    return GestureDetector(
+                      onTap: () => context.read<WithdrawFundsCubit>().selectMethod(index),
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 12.h),
+                        padding: EdgeInsets.all(16.w),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(8.r),
+                          color: context.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: selectedMethod == index
+                                ? context.colorScheme.primary
+                                : context.colorScheme.onSurface.withOpacity(0.1),
+                            width: selectedMethod == index ? 1.5 : 1,
+                          ),
                         ),
-                        child: Icon(
-                          method['icon'] as IconData,
-                          color: context.colorScheme.primary,
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(
-                              method['name'],
-                              style: context.textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              width: 48.w,
+                              height: 48.h,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Icon(
+                                method['icon'] as IconData,
+                                color: context.colorScheme.primary,
                               ),
                             ),
-                            Text(
-                              method['detail'],
-                              style: context.textTheme.bodySmall?.copyWith(
-                                color: Colors.grey,
+                            SizedBox(width: 12.w),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    method['name'],
+                                    style: context.textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    method['detail'],
+                                    style: context.textTheme.bodySmall?.copyWith(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            selectedMethod == index
+                                ? CircleAvatar(
+                                    radius: 12.r,
+                                    backgroundColor: context.colorScheme.primary,
+                                    child: Icon(
+                                      Icons.check,
+                                      color: Colors.white,
+                                      size: 14.sp,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: 12.r,
+                                    backgroundColor: Colors.transparent,
+                                    child: CircleAvatar(
+                                      radius: 11.r,
+                                      backgroundColor: Colors.transparent,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
-                      _selectedMethod == index
-                          ? CircleAvatar(
-                              radius: 12.r,
-                              backgroundColor: context.colorScheme.primary,
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: 14.sp,
-                              ),
-                            )
-                          : CircleAvatar(
-                              radius: 12.r,
-                              backgroundColor: Colors.transparent,
-                              child: CircleAvatar(
-                                radius: 11.r,
-                                backgroundColor: Colors.transparent,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Colors.grey,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                    ],
+                    );
+                  }),
+                  SizedBox(height: 24.h),
+                ],
+              ),
+            ),
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 32.h),
+              child: SizedBox(
+                width: double.infinity,
+                height: 56.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: context.colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                  ),
+                  onPressed: () {
+                    final cleanAmountText = _amountController.text.replaceAll(',', '');
+                    final amount = double.tryParse(cleanAmountText) ?? 0.0;
+                    if (amount > 0) {
+                      context.read<WithdrawFundsCubit>().withdraw(amount);
+                    }
+                  },
+                  child: Text(
+                    'Withdraw Now',
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: context.colorScheme.onPrimary,
+                      fontSize: 16.sp,
+                    ),
                   ),
                 ),
-              );
-            }),
-            SizedBox(height: 24.h),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 32.h),
-        child: SizedBox(
-          width: double.infinity,
-          height: 56.h,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: context.colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
               ),
             ),
-            onPressed: () {},
-            child: Text(
-              'Withdraw Now',
-              style: context.textTheme.labelLarge?.copyWith(
-                color: context.colorScheme.onPrimary,
-                fontSize: 16.sp,
-              ),
-            ),
-          ),
-        ),
-      ),
+          );
+        }
+        return const Scaffold(
+          body: Center(child: Text('Error loading withdraw page')),
+        );
+      },
     );
   }
 }

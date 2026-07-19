@@ -19,4 +19,11 @@ class FinanceCubit extends Cubit<FinanceState> {
     await Future.delayed(const Duration(seconds: 1));
     emit(WithdrawalSuccess());
   }
+
+  @override
+  void emit(FinanceState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

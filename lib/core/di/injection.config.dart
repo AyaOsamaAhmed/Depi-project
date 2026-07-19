@@ -36,14 +36,19 @@ import '../../features/auth/presentation/states/signup/signup_cubit.dart'
     as _i748;
 import '../../features/auth/presentation/states/verify_email/verify_email_cubit.dart'
     as _i1036;
+import '../../features/client/present/states/client_profile_cubit.dart'
+    as _i713;
 import '../../features/client/present/states/freelance_dashboard_cubit.dart'
     as _i249;
+import '../../features/client/present/states/history_cubit.dart' as _i106;
 import '../../features/client/present/states/list_chats_cubit.dart' as _i1073;
 import '../../features/client/present/states/project_live_cubit.dart' as _i213;
 import '../../features/client/present/states/project_publish_cubit.dart'
     as _i466;
 import '../../features/client/present/states/user_dashboard_cubit.dart'
     as _i360;
+import '../../features/client/present/states/withdraw_funds_cubit.dart'
+    as _i905;
 import '../../features/freelancer_account/data/datasources/jobs_remote_datasource.dart'
     as _i711;
 import '../../features/freelancer_account/domain/repositories/jobs_repository.dart'
@@ -86,13 +91,16 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
     final networkModule = _$NetworkModule();
+    gh.factory<_i713.ClientProfileCubit>(() => _i713.ClientProfileCubit());
     gh.factory<_i249.FreelanceDashboardCubit>(
       () => _i249.FreelanceDashboardCubit(),
     );
+    gh.factory<_i106.ClientHistoryCubit>(() => _i106.ClientHistoryCubit());
     gh.factory<_i1073.ListChatsCubit>(() => _i1073.ListChatsCubit());
     gh.factory<_i213.ProjectLiveCubit>(() => _i213.ProjectLiveCubit());
     gh.factory<_i466.ProjectPublishCubit>(() => _i466.ProjectPublishCubit());
     gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
+    gh.factory<_i905.WithdrawFundsCubit>(() => _i905.WithdrawFundsCubit());
     gh.factory<_i245.FreelancerCubit>(() => _i245.FreelancerCubit());
     gh.factory<_i512.InboxCubit>(() => _i512.InboxCubit());
     gh.factory<_i866.MessagesCubit>(() => _i866.MessagesCubit());

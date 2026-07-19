@@ -30,4 +30,11 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     ];
     emit(NotificationsSuccess(mockNotifications));
   }
+
+  @override
+  void emit(NotificationsState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

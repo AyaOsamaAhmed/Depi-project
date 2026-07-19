@@ -24,7 +24,6 @@ class UserDashboardScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: context.colorScheme.surface,
         body: const _UserDashboardBody(),
-        bottomNavigationBar: const _UserDashboardBottomNav(),
       ),
     );
   }
@@ -152,45 +151,3 @@ class _UserDashboardBody extends StatelessWidget {
   }
 }
 
-class _UserDashboardBottomNav extends StatelessWidget {
-  const _UserDashboardBottomNav();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.colorScheme.surface,
-        border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.2))),
-      ),
-      child: BottomNavigationBar(
-        backgroundColor: context.colorScheme.surface,
-        selectedItemColor: context.colorScheme.primary,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work_outline),
-            label: 'Projects',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment_outlined),
-            label: 'Payment',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message_outlined),
-            label: 'Message',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
-  }
-}
