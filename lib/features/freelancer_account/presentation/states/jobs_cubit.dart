@@ -49,4 +49,12 @@ class JobsCubit extends Cubit<JobsState> {
       emit(ProposalSubmitFailure(e.toString()));
     }
   }
+
+  @override
+  void emit(JobsState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }
+
