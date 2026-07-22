@@ -12,34 +12,39 @@ class MessagesCubit extends Cubit<MessagesState> {
     await Future.delayed(const Duration(milliseconds: 800));
     final mockChats = [
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Aya Ahmed',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
-        'imageUrl': 'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
+        'imageUrl':
+            'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Rania Saleh',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
-        'imageUrl': 'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
+        'imageUrl':
+            'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Aya Mohammed',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
-        'imageUrl': 'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
+        'imageUrl':
+            'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Khaled Ragab',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
-        'imageUrl': 'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
+        'imageUrl':
+            'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Ahmed Emad',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
-        'imageUrl': 'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
+        'imageUrl':
+            'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
     ];
     emit(MessagesSuccess(mockChats));

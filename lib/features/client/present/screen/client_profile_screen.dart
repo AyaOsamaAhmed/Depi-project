@@ -93,7 +93,11 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                         CircleAvatar(
                           radius: 56.r,
                           backgroundColor: Colors.grey[300],
-                          child: Icon(Icons.person, size: 56.sp, color: Colors.white),
+                          child: Icon(
+                            Icons.person,
+                            size: 56.sp,
+                            color: Colors.white,
+                          ),
                         ),
                         Positioned(
                           bottom: 0,
@@ -105,7 +109,11 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                               color: context.colorScheme.primary,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.add, color: Colors.white, size: 20.sp),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 20.sp,
+                            ),
                           ),
                         ),
                       ],
@@ -115,12 +123,18 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                   // Full Name
                   _buildLabel(context, 'Full Name'),
                   SizedBox(height: 8.h),
-                  _buildTextField(controller: _nameController, hint: 'Full Name'),
+                  _buildTextField(
+                    controller: _nameController,
+                    hint: 'Full Name',
+                  ),
                   SizedBox(height: 20.h),
                   // Company
                   _buildLabel(context, 'Company'),
                   SizedBox(height: 8.h),
-                  _buildTextField(controller: _companyController, hint: 'Company'),
+                  _buildTextField(
+                    controller: _companyController,
+                    hint: 'Company',
+                  ),
                   SizedBox(height: 20.h),
                   // Email
                   _buildLabel(context, 'Email'),
@@ -134,7 +148,10 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                   // Location
                   _buildLabel(context, 'Location'),
                   SizedBox(height: 8.h),
-                  _buildTextField(controller: _locationController, hint: 'Location'),
+                  _buildTextField(
+                    controller: _locationController,
+                    hint: 'Location',
+                  ),
                   SizedBox(height: 20.h),
                   // Phone Number
                   _buildLabel(context, 'Phone Number'),
@@ -146,7 +163,7 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                   ),
                   SizedBox(height: 24.h),
                   // Wallet Card
-                  _WalletCard(balance: state.balance),
+                  //  _WalletCard(balance: state.balance),
                   SizedBox(height: 32.h),
                   // Save Button
                   SizedBox(
@@ -168,7 +185,9 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                           phone: _phoneController.text,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Changes saved successfully!')),
+                          const SnackBar(
+                            content: Text('Changes saved successfully!'),
+                          ),
                         );
                       },
                       child: Text(
@@ -181,6 +200,30 @@ class _ClientProfileBodyState extends State<_ClientProfileBody> {
                     ),
                   ),
                   SizedBox(height: 32.h),
+                  // logout Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colorScheme.error,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<ClientProfileCubit>().logout();
+                        context.go(AppRoutes.login);
+                      },
+                      child: Text(
+                        'logout',
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: context.colorScheme.onPrimary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

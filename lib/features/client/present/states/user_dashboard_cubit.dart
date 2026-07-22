@@ -11,7 +11,7 @@ class UserDashboardCubit extends Cubit<UserDashboardState> {
     emit(UserDashboardLoading());
     emit(
       UserDashboardSuccess(
-        userName: 'Sarah',
+        userName: 'Aya',
         totalSpent: 4250.00,
         monthlyChange: 12,
         inProgress: 3,

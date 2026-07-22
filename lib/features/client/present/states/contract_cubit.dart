@@ -16,7 +16,7 @@ class ContractCubit extends Cubit<ContractState> {
       budget: 3000,
       durationDays: 30,
       overallProgress: 0.65,
-      freelancerName: 'Sarah Ahmed',
+      freelancerName: 'Aya Ahmed',
       milestones: [
         MilestoneEntity(
           id: '1',

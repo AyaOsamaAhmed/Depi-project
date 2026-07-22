@@ -12,35 +12,35 @@ class ListChatsCubit extends Cubit<ListChatsState> {
     await Future.delayed(const Duration(milliseconds: 800));
     final mockChats = [
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Mohammed Ahmed',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
         'imageUrl':
             'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Sarah Saleh',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
         'imageUrl':
             'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Sara Ahmed',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
         'imageUrl':
             'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Ragab mohammed',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
         'imageUrl':
             'https://img.freepik.com/free-photo/portrait-young-businesswoman-standing-modern-office-holding-digital-tablet_231208-10651.jpg',
       },
       {
-        'name': 'Sarah Ahmed',
+        'name': 'Ali emad',
         'lastMessage': 'Can i help you?',
         'time': '11.30 pm',
         'imageUrl':

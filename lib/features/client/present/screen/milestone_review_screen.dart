@@ -181,7 +181,7 @@ class MilestoneReviewScreen extends StatelessWidget {
                     text: 'Approve Work',
                     onPressed: () {
                       context.read<ContractCubit>().releasePayment(
-                        freelancerName: 'Sarah Ahmed',
+                        freelancerName: 'Aya Ahmed',
                         amount: 500,
                         milestoneTitle:
                             milestone?.title ?? 'Frontend Development',

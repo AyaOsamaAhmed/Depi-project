@@ -3,7 +3,7 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
-  "onboardingWelcomeTitle": "Welcome to NEXT HIRE",
+  "onboardingWelcomeTitle": "Welcome to DEPI ",
   "onboardingWelcomeDesc": "Start building your freelance future today.",
   "onboardingStartBtn": "Start",
   "onboardingSkipBtn": "Skip",
@@ -275,6 +275,8 @@
   "youCanReviewAndHireTheBestFit":"You can review and hire the best fit",
   "freelanceCanSendProposals":"Freelance can send proposals",
   "createContract":"create Contract",
-  "goToProject":"Go to Project"
+  "goToProject":"Go to Project",
+  "logout":"Logout"
+  
 }
 

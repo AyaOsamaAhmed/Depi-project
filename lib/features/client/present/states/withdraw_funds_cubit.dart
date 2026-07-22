@@ -18,7 +18,7 @@ class WithdrawFundsCubit extends Cubit<WithdrawFundsState> {
         paymentMethods: [
           {
             'name': 'InstaPay',
-            'detail': 'sarahahmed18@instapay',
+            'detail': 'ayaahmed18@instapay',
             'icon': Icons.payment,
           },
           {
@@ -28,7 +28,7 @@ class WithdrawFundsCubit extends Cubit<WithdrawFundsState> {
           },
           {
             'name': 'PayPal',
-            'detail': 'sarahahmed18@paypall',
+            'detail': 'ayaahmed18@paypall',
             'icon': Icons.account_balance_wallet,
           },
         ],
@@ -56,10 +56,14 @@ class WithdrawFundsCubit extends Cubit<WithdrawFundsState> {
       emit(WithdrawFundsSubmitting());
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final newBalance = current.balance - amount;
-      emit(WithdrawFundsSubmitSuccess('Successfully withdrew \$${amount.toStringAsFixed(2)}'));
-      
+      emit(
+        WithdrawFundsSubmitSuccess(
+          'Successfully withdrew \$${amount.toStringAsFixed(2)}',
+        ),
+      );
+
       // Update local state with new balance
       emit(
         WithdrawFundsSuccess(

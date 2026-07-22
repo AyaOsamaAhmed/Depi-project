@@ -18,7 +18,9 @@ class HomeView extends StatelessWidget {
       child: BlocBuilder<FreelancerCubit, FreelancerState>(
         builder: (context, state) {
           if (state is FreelancerLoading) {
-            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
           }
           return Scaffold(
             backgroundColor: context.colorScheme.surface,
@@ -85,7 +87,7 @@ class _HomeHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${context.local.hello}, Sarah',
+                    '${context.local.hello}, Aya',
                     style: context.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
@@ -123,8 +125,10 @@ class _HomeHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(Icons.notifications_none_outlined,
-                    color: context.colorScheme.onSurface),
+                child: Icon(
+                  Icons.notifications_none_outlined,
+                  color: context.colorScheme.onSurface,
+                ),
               ),
               Positioned(
                 right: -2.w,
@@ -166,10 +170,7 @@ class _AIScoreCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF030D31),
-            Color(0xFF0D2C54),
-          ],
+          colors: [Color(0xFF030D31), Color(0xFF0D2C54)],
         ),
       ),
       child: Stack(
@@ -195,7 +196,9 @@ class _AIScoreCard extends StatelessWidget {
                       value: 0.85,
                       strokeWidth: 6.r,
                       backgroundColor: Colors.white.withOpacity(0.1),
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.white,
+                      ),
                     ),
                   ),
                   Column(
@@ -254,7 +257,10 @@ class _AIScoreCard extends StatelessWidget {
                     InkWell(
                       onTap: () => context.push(AppRoutes.analytics),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 6.h,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100.r),
@@ -271,8 +277,11 @@ class _AIScoreCard extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 4.w),
-                            Icon(Icons.chevron_right,
-                                size: 14.r, color: const Color(0xFF0D2C54)),
+                            Icon(
+                              Icons.chevron_right,
+                              size: 14.r,
+                              color: const Color(0xFF0D2C54),
+                            ),
                           ],
                         ),
                       ),
@@ -399,7 +408,9 @@ class _SectionHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          titleKey == 'recommendedForYou' ? context.local.recommendedForYou : context.local.recentActivity,
+          titleKey == 'recommendedForYou'
+              ? context.local.recommendedForYou
+              : context.local.recentActivity,
           style: context.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -513,7 +524,10 @@ class _JobCard extends StatelessWidget {
                           if (isFeatured) ...[
                             SizedBox(width: 8.w),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 2.h,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFE8F5E9),
                                 borderRadius: BorderRadius.circular(4.r),
@@ -533,7 +547,11 @@ class _JobCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.bookmark_border, color: const Color(0xFF1B1B1B), size: 24.r),
+                Icon(
+                  Icons.bookmark_border,
+                  color: const Color(0xFF1B1B1B),
+                  size: 24.r,
+                ),
               ],
             ),
             SizedBox(height: 12.h),
@@ -584,7 +602,9 @@ class _JobCard extends StatelessWidget {
                     child: LinearProgressIndicator(
                       value: double.parse(matchPercent) / 100,
                       backgroundColor: const Color(0xFFE0E0E0),
-                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF0D2C54)),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Color(0xFF0D2C54),
+                      ),
                     ),
                   ),
                 ),
@@ -609,25 +629,19 @@ class _JobCard extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             // Simplified Figma-like visual
-             Column(
-               mainAxisSize: MainAxisSize.min,
-               children: [
-                 Row(
-                   mainAxisSize: MainAxisSize.min,
-                   children: [
-                    _figmaDot(Colors.red),
-                    _figmaDot(Colors.purple),
-                   ],
-                 ),
-                 Row(
-                   mainAxisSize: MainAxisSize.min,
-                   children: [
-                    _figmaDot(Colors.blue),
-                    _figmaDot(Colors.green),
-                   ],
-                 ),
-               ],
-             ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [_figmaDot(Colors.red), _figmaDot(Colors.purple)],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [_figmaDot(Colors.blue), _figmaDot(Colors.green)],
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -639,10 +653,7 @@ class _JobCard extends StatelessWidget {
       width: 8.r,
       height: 8.r,
       margin: EdgeInsets.all(1.r),
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
 }
@@ -689,7 +700,9 @@ class _RecentActivitySection extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 24.r,
-              backgroundImage: const NetworkImage('https://i.pravatar.cc/150?u=a042581f4e29026704d'),
+              backgroundImage: const NetworkImage(
+                'https://i.pravatar.cc/150?u=a042581f4e29026704d',
+              ),
             ),
             SizedBox(width: 12.w),
             Expanded(
@@ -761,7 +774,11 @@ class _UpgradeCard extends StatelessWidget {
                 color: const Color(0xFF0D2C54).withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12.r),
               ),
-              child: Icon(Icons.workspace_premium, color: const Color(0xFF0D2C54), size: 30.r),
+              child: Icon(
+                Icons.workspace_premium,
+                color: const Color(0xFF0D2C54),
+                size: 30.r,
+              ),
             ),
             SizedBox(width: 16.w),
             Expanded(

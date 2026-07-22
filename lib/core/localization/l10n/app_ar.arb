@@ -1,6 +1,6 @@
 {
   "helloWorld": "مرحباً بالعالم",
-  "onboardingWelcomeTitle": "مرحباً بك في نيكست هاير",
+  "onboardingWelcomeTitle": "مرحباً بك في DEPI ",
   "onboardingWelcomeDesc": "ابدأ بناء مستقبلك في العمل الحر اليوم.",
   "onboardingStartBtn": "ابدأ",
   "onboardingSkipBtn": "تخطى",
@@ -272,5 +272,6 @@
   "youCanReviewAndHireTheBestFit":"يمكنك مراجعة وتوظيف الأنسب",
   "freelanceCanSendProposals":"يمكن للمستقلين إرسال المقترحات",
   "createContract":"إنشاء عقد",
-  "goToProject":"الذهاب إلى المشروع"
+  "goToProject":"الذهاب إلى المشروع",
+  "logout":"تسجيل الخروج"
 }

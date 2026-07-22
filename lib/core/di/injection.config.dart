@@ -91,7 +91,6 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
     final networkModule = _$NetworkModule();
-    gh.factory<_i713.ClientProfileCubit>(() => _i713.ClientProfileCubit());
     gh.factory<_i249.FreelanceDashboardCubit>(
       () => _i249.FreelanceDashboardCubit(),
     );
@@ -101,7 +100,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i466.ProjectPublishCubit>(() => _i466.ProjectPublishCubit());
     gh.factory<_i360.UserDashboardCubit>(() => _i360.UserDashboardCubit());
     gh.factory<_i905.WithdrawFundsCubit>(() => _i905.WithdrawFundsCubit());
-    gh.factory<_i245.FreelancerCubit>(() => _i245.FreelancerCubit());
     gh.factory<_i512.InboxCubit>(() => _i512.InboxCubit());
     gh.factory<_i866.MessagesCubit>(() => _i866.MessagesCubit());
     gh.factory<_i493.NotificationsCubit>(() => _i493.NotificationsCubit());
@@ -113,6 +111,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i992.AuthLocalDataSource>(
       () => _i992.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
+    );
+    gh.factory<_i713.ClientProfileCubit>(
+      () => _i713.ClientProfileCubit(gh<_i992.AuthLocalDataSource>()),
+    );
+    gh.factory<_i245.FreelancerCubit>(
+      () => _i245.FreelancerCubit(gh<_i992.AuthLocalDataSource>()),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(gh<_i992.AuthLocalDataSource>()),

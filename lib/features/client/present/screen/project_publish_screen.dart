@@ -52,7 +52,7 @@ class _ProjectLiveBody extends StatelessWidget {
 
           // Titles
           Text(
-            context.local.nameHiredForYourProject("Sarah Ahmed"),
+            context.local.nameHiredForYourProject("Aya Ahmed"),
             textAlign: TextAlign.center,
             style: context.textTheme.headlineMedium?.copyWith(
               color: context.colorScheme.onSurface,

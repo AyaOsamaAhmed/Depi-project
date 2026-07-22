@@ -32,7 +32,8 @@ class _FundsViewState extends State<FundsView> {
           builder: (context, state) {
             if (state is FinanceLoading) {
               return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()));
+                body: Center(child: CircularProgressIndicator()),
+              );
             }
             return Scaffold(
               backgroundColor: const Color(0xFFF8F9FD),
@@ -98,9 +99,7 @@ class _FundsViewState extends State<FundsView> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.1,
-              child: CustomPaint(
-                painter: _NetworkPainter(),
-              ),
+              child: CustomPaint(painter: _NetworkPainter()),
             ),
           ),
           Padding(
@@ -186,8 +185,11 @@ class _FundsViewState extends State<FundsView> {
       ),
       child: Row(
         children: [
-          Icon(Icons.account_balance_wallet_outlined,
-              size: 20.r, color: const Color(0xFF061B3B).withOpacity(0.6)),
+          Icon(
+            Icons.account_balance_wallet_outlined,
+            size: 20.r,
+            color: const Color(0xFF061B3B).withOpacity(0.6),
+          ),
           SizedBox(width: 12.w),
           Text(
             'Payment Methods: \$ 7,250.00',
@@ -208,7 +210,7 @@ class _FundsViewState extends State<FundsView> {
         _buildPaymentMethodItem(
           index: 0,
           title: 'InstaPay',
-          subtitle: 'sarahahmed18@instapay',
+          subtitle: 'ayaahmed18@instapay',
           icon: Icons.bolt,
           iconColor: Colors.deepPurple,
         ),
@@ -224,7 +226,7 @@ class _FundsViewState extends State<FundsView> {
         _buildPaymentMethodItem(
           index: 2,
           title: 'PayPal',
-          subtitle: 'sarahahmed18@paypal.com',
+          subtitle: 'ayaahmed18@paypal.com',
           icon: Icons.payment_rounded,
           iconColor: Colors.blue.shade800,
         ),
@@ -293,10 +295,7 @@ class _FundsViewState extends State<FundsView> {
               height: 24.r,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF061B3B),
-                  width: 2,
-                ),
+                border: Border.all(color: const Color(0xFF061B3B), width: 2),
                 color: isSelected ? const Color(0xFF061B3B) : Colors.white,
               ),
               child: isSelected
@@ -363,14 +362,26 @@ class _NetworkPainter extends CustomPainter {
       ..strokeWidth = 1.0;
 
     // Draw some random lines to simulate a network
-    canvas.drawLine(Offset(0, size.height * 0.2),
-        Offset(size.width * 0.3, size.height * 0.8), paint);
-    canvas.drawLine(Offset(size.width * 0.1, size.height * 0.5),
-        Offset(size.width * 0.6, size.height * 0.2), paint);
-    canvas.drawLine(Offset(size.width * 0.4, size.height * 0.7),
-        Offset(size.width * 0.9, size.height * 0.4), paint);
-    canvas.drawLine(Offset(size.width, size.height * 0.1),
-        Offset(size.width * 0.7, size.height * 0.9), paint);
+    canvas.drawLine(
+      Offset(0, size.height * 0.2),
+      Offset(size.width * 0.3, size.height * 0.8),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.1, size.height * 0.5),
+      Offset(size.width * 0.6, size.height * 0.2),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width * 0.4, size.height * 0.7),
+      Offset(size.width * 0.9, size.height * 0.4),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width, size.height * 0.1),
+      Offset(size.width * 0.7, size.height * 0.9),
+      paint,
+    );
   }
 
   @override

@@ -1,10 +1,16 @@
+import 'package:dipe_freelance/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'client_profile_state.dart';
 
 @injectable
 class ClientProfileCubit extends Cubit<ClientProfileState> {
-  ClientProfileCubit() : super(ClientProfileInitial());
+  final AuthLocalDataSource _authLocalDataSource;
+  ClientProfileCubit(this._authLocalDataSource) : super(ClientProfileInitial());
+
+  Future<void> logout() async {
+    await _authLocalDataSource.clearAuthData();
+  }
 
   Future<void> loadProfile() async {
     emit(ClientProfileLoading());
@@ -12,9 +18,9 @@ class ClientProfileCubit extends Cubit<ClientProfileState> {
     await Future.delayed(const Duration(milliseconds: 400));
     emit(
       ClientProfileSuccess(
-        name: 'Sarah Ahmed',
+        name: 'Aya Ahmed',
         company: 'Startup Hub Ltd.',
-        email: 'sarah.ahmed@startuphub.com',
+        email: 'ayaClient@gmail.com',
         location: 'Cairo, Egypt',
         phone: '+20 123 456 7890',
         balance: 4250.00,

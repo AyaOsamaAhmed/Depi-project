@@ -8,7 +8,13 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class FreelancerCubit extends Cubit<FreelancerState> {
-  FreelancerCubit() : super(FreelancerInitial());
+  final AuthLocalDataSource _authLocalDataSource;
+
+  FreelancerCubit(this._authLocalDataSource) : super(FreelancerInitial());
+
+  Future<void> logout() async {
+    await _authLocalDataSource.clearAuthData();
+  }
 
   Future<void> fetchDashboardData() async {
     emit(FreelancerLoading());

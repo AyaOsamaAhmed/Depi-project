@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             if (state.userType == '1') {
               context.go(AppRoutes.freelanceDashboard);
-            } else {
+            } else if (state.userType == '2') {
               context.go(AppRoutes.userDashboard);
             }
           } else {

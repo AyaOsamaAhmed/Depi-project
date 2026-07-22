@@ -12,7 +12,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helloWorld => 'مرحباً بالعالم';
 
   @override
-  String get onboardingWelcomeTitle => 'مرحباً بك في نيكست هاير';
+  String get onboardingWelcomeTitle => 'مرحباً بك في DEPI ';
 
   @override
   String get onboardingWelcomeDesc => 'ابدأ بناء مستقبلك في العمل الحر اليوم.';
@@ -650,4 +650,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goToProject => 'الذهاب إلى المشروع';
+
+  @override
+  String get logout => 'تسجيل الخروج';
 }

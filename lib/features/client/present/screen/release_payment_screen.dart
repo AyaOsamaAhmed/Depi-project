@@ -40,7 +40,7 @@ class ReleasePaymentScreen extends StatelessWidget {
           return _buildContent(
             context,
             PaymentReleased(
-              freelancerName: 'Sarah Ahmed',
+              freelancerName: 'Aya Ahmed',
               amount: 500,
               milestoneTitle: 'Frontend Development',
               date: 'May 16, 2026',

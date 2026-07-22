@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Center(
                       child: Icon(
                         Icons.person_outline,
-                        size: 100.w,
+                        size: 100,
                         color: context.colorScheme.onPrimary,
                       ),
                     ),
@@ -74,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: SingleChildScrollView(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 32.w,
-                            vertical: 40.h,
+                            horizontal: 32,
+                            vertical: 40,
                           ),
                           child: Form(
                             key: _formKey,
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context.local.forgetPassword,
                                       style: context.textTheme.bodyMedium
                                           ?.copyWith(
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.bold,
                                             color:
                                                 context.colorScheme.onSurface,
                                           ),

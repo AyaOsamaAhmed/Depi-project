@@ -130,7 +130,36 @@ class _FreelancerProfileViewState extends State<FreelancerProfileView> {
                     ),
                   ),
                   SizedBox(height: 32.h),
-                  const _WalletCard(),
+
+                  // logout Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56.h,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<FreelancerCubit>().logout();
+                        context.go(AppRoutes.login);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colorScheme.error,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
+                      child: state is FreelancerLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              context.local.logout,
+                              style: context.textTheme.labelLarge?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                    ),
+                  ),
+
+                  //    const _WalletCard(),
                 ],
               ),
             ),

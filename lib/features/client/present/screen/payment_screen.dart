@@ -11,7 +11,7 @@ class PaymentScreen extends StatelessWidget {
     // Local list of mockup transactions based on the screenshot
     final List<_TransactionItemData> transactions = [
       _TransactionItemData(
-        title: 'Payment to Sarah Ahmed',
+        title: 'Payment to Aya Ahmed',
         subtitle: 'Project E-commerce website',
         amount: '\$1,202',
         date:
@@ -26,7 +26,7 @@ class PaymentScreen extends StatelessWidget {
         isCredit: true,
       ),
       _TransactionItemData(
-        title: 'Payment to Sarah Ahmed',
+        title: 'Payment to Aya Ahmed',
         subtitle: 'Project E-commerce website',
         amount: '\$1,202',
         date: 'May 10, 2024',

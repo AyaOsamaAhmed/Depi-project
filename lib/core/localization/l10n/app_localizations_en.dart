@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World';
 
   @override
-  String get onboardingWelcomeTitle => 'Welcome to NEXT HIRE';
+  String get onboardingWelcomeTitle => 'Welcome to DEPI ';
 
   @override
   String get onboardingWelcomeDesc =>
@@ -651,4 +651,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goToProject => 'Go to Project';
+
+  @override
+  String get logout => 'Logout';
 }

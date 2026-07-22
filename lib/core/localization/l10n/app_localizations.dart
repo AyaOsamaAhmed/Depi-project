@@ -107,7 +107,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to NEXT HIRE'**
+  /// **'Welcome to DEPI '**
   String get onboardingWelcomeTitle;
 
   /// No description provided for @onboardingWelcomeDesc.
@@ -1315,6 +1315,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Project'**
   String get goToProject;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

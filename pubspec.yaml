@@ -104,21 +104,21 @@ flutter_native_splash:
 
   color: "#160B33"
 
-  image: assets/images/logo.png
-  branding: assets/images/logo.png
+  image: assets/images/logo.jpeg
+  branding: assets/images/logo.jpeg
 
   android: true
   ios: true
   fullscreen: true
 
   android_12:
-    image: assets/images/logo.png
+    image: assets/images/logo.jpeg
     color: "#160B33"
     fullscreen: true
 
 flutter_launcher_icons:
     android: true
     adaptive_icon_background: "#FFFFFF"
-    adaptive_icon_foreground: "assets/images/logo.png"
+    adaptive_icon_foreground: "assets/images/logo.jpeg"
     ios: true
-    image_path: "assets/images/logo.png"
+    image_path: "assets/images/logo.jpeg"

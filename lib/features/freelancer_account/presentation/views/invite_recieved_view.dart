@@ -56,7 +56,7 @@ class InviteRecievedView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Text(
-                        context.local.invitedBy('Sarah Ahmed'),
+                        context.local.invitedBy('Aya Ahmed'),
                         textAlign: TextAlign.center,
                         style: context.textTheme.bodyLarge?.copyWith(
                           color: context.colorScheme.onSurface.withOpacity(0.5),
